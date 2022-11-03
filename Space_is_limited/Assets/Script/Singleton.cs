@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Erzeugt eine Instanz, welche von Überall aus Zugreifbar ist
+/// </summary>
+/// <typeparam name="T">Singleton Skript</typeparam>
 public class Singleton<T> : MonoBehaviour where T : Component
 {
+    #region Objekten
+    /// <summary>
+    /// Zugreifbare Instanz
+    /// </summary>
     private static T instance;
     public static T Instance
     {
@@ -22,7 +30,12 @@ public class Singleton<T> : MonoBehaviour where T : Component
             return instance;
         }
     }
+    #endregion
 
+    #region unityFunktionen
+    /// <summary>
+    /// Erzeugt eine Instanz bei Start des Spiels und löscht Überflüssige
+    /// </summary>
     public virtual void Awake()
     {
         if (instance == null)
@@ -35,4 +48,5 @@ public class Singleton<T> : MonoBehaviour where T : Component
             Destroy(gameObject);
         }
     }
+    #endregion
 }
