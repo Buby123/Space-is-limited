@@ -17,6 +17,8 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float jumpSpeed = 0f;
     [SerializeField] float playerHeight = 1f;
     [SerializeField] float maxVelocity = 100f;
+    [SerializeField] float maxJumpVelocity = 100f;
+    [SerializeField] float downVelocity = -10f;
     #endregion
 
     #region UnityFunctions
@@ -35,45 +37,21 @@ public class PlayerController : Singleton<PlayerController>
     {
         Vector2 velocity = Controller.velocity;
         float inputVector = Input.GetAxis("Horizontal");
+        float jumpVector = Input.GetAxis("Vertical");
         bool jump = false;
 
         //Sprunggeschwindigkeit
-        if (Input.GetKey(KeyCode.W))
+        if (jumpVector > 0)
         {
-            Debug.Log("TryJump");
-            if (IsGrounded())
+            if (GroundChecker.Instance.onGround)
             {
                 jump = true;
-                Debug.Log("Jump");
             }
         }
 
-        //Bewegung Rechts Links
-        Controller.AddForce(new Vector2(inputVector * speed, jump ? jumpSpeed : 0f) * Time.deltaTime);
-
         //Geschwindigkeit cappen nach links rechts
-        Controller.velocity = new Vector2(Mathf.Clamp(Controller.velocity.x, -maxVelocity, maxVelocity),
-                              Controller.velocity.y);
-    }
-    #endregion
-
-    #region testFunctions
-    /// <summary>
-    /// Gibt aus ob der Spieler playerHeight vom Boden entfernt ist
-    /// </summary>
-    /// <returns>Ist playerHeight vom Boden entfernt oder weniger</returns>
-    bool IsGrounded()
-    {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, playerHeight, GroundLayer);
-        if (hit.collider != null)
-        {
-            return true;
-        }
-
-        return false;
+        Controller.velocity = new Vector2(speed * inputVector,
+                             jump ? jumpSpeed : Mathf.Min(Controller.velocity.y, Mathf.Max(maxJumpVelocity * (jumpVector + 0.5f), downVelocity)));
     }
     #endregion
 }
