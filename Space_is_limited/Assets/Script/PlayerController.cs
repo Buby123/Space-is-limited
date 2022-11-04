@@ -9,17 +9,13 @@ public class PlayerController : Singleton<PlayerController>
 {
     #region objects
     private Rigidbody2D Controller;
-    [SerializeField] LayerMask GroundLayer;
     #endregion
 
     #region variables
     [SerializeField] float speed = 0f;
+    [SerializeField] float maxJumpSpeed = 0f;
     [SerializeField] float jumpSpeed = 0f;
-    [SerializeField] float playerHeight = 1f;
-    [SerializeField] float maxVelocity = 100f;
-    [SerializeField] float maxJumpVelocity = 100f;
-    [SerializeField] float downVelocity = -10f;
-    [SerializeField] float jumpDontPushed = 2f;
+
     #endregion
 
     #region UnityFunctions
@@ -36,40 +32,28 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void FixedUpdate()
     {
-        Vector2 velocity = Controller.velocity;
         float inputVector = Input.GetAxis("Horizontal");
         float jumpVector = Input.GetAxis("Vertical");
-        bool jump = false;
+        bool isOnGround = GroundChecker.Instance.onGround;
 
-
-        if (GroundChecker.Instance.onGround)
-        {
-            //Sprunggeschwindigkeit
-            if (jumpVector > 0)
-            {
-                jump = true;
-            }
-        } 
-
-        float yVelocity = Controller.velocity.y;
-
-        //Speed nach oben durch den Inputvektor begrenzen
-        /*if (yVelocity > 0)
-        {
-            yVelocity = Mathf.Min(yVelocity, Mathf.Max(maxJumpVelocity * (jumpVector + 0.5f), 0));
-        }*/
-
-        if (!Input.GetKey(KeyCode.W) && !GroundChecker.Instance.onGround)
-        {
-            if (yVelocity > 0)
-            {
-                yVelocity -= Time.deltaTime * jumpDontPushed;
-            }
+        if(Input.GetKey(KeyCode.W) && isOnGround) {
+            Controller.velocity = new Vector2(Controller.velocity.x, 0);
+            jumpSpeed =  maxJumpSpeed;
+            Debug.Log("maxSpeed");
+        }
+        else if(!Input.GetKey(KeyCode.W)) {
+            jumpSpeed = 0;
+            Debug.Log("reset Speed");
+        }
+        else if(!isOnGround) {
+            jumpSpeed = 0.8f * jumpSpeed;
+            Debug.Log("jump halfed");
         }
 
-        //Geschwindigkeit cappen nach links rechts
-        Controller.velocity = new Vector2(speed * inputVector,
-                             jump ? jumpSpeed : yVelocity);
+        float yVelocity = Controller.velocity.y + jumpSpeed;
+
+        Controller.velocity = new Vector2(speed * inputVector, yVelocity);
+
     }
     #endregion
 }

@@ -8,14 +8,23 @@ using UnityEngine;
 public class GroundChecker : Singleton<GroundChecker>
 {
     public bool onGround { get; set; } = true;
+    
+    [SerializeField] private float delayTime = 0.05f;
+    private bool newGroundState = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         onGround = true;
+        newGroundState = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        onGround = false;
+        newGroundState = false;
+        Invoke("ChangeGroundState", delayTime);
+    }
+
+    private void ChangeGroundState(){
+        onGround = newGroundState;
     }
 }
