@@ -19,6 +19,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float maxVelocity = 100f;
     [SerializeField] float maxJumpVelocity = 100f;
     [SerializeField] float downVelocity = -10f;
+    [SerializeField] float jumpDontPushed = 2f;
     #endregion
 
     #region UnityFunctions
@@ -40,18 +41,35 @@ public class PlayerController : Singleton<PlayerController>
         float jumpVector = Input.GetAxis("Vertical");
         bool jump = false;
 
-        //Sprunggeschwindigkeit
-        if (jumpVector > 0)
+
+        if (GroundChecker.Instance.onGround)
         {
-            if (GroundChecker.Instance.onGround)
+            //Sprunggeschwindigkeit
+            if (jumpVector > 0)
             {
                 jump = true;
+            }
+        } 
+
+        float yVelocity = Controller.velocity.y;
+
+        //Speed nach oben durch den Inputvektor begrenzen
+        /*if (yVelocity > 0)
+        {
+            yVelocity = Mathf.Min(yVelocity, Mathf.Max(maxJumpVelocity * (jumpVector + 0.5f), 0));
+        }*/
+
+        if (!Input.GetKey(KeyCode.W) && !GroundChecker.Instance.onGround)
+        {
+            if (yVelocity > 0)
+            {
+                yVelocity -= Time.deltaTime * jumpDontPushed;
             }
         }
 
         //Geschwindigkeit cappen nach links rechts
         Controller.velocity = new Vector2(speed * inputVector,
-                             jump ? jumpSpeed : Mathf.Min(Controller.velocity.y, Mathf.Max(maxJumpVelocity * (jumpVector + 0.5f), downVelocity)));
+                             jump ? jumpSpeed : yVelocity);
     }
     #endregion
 }
