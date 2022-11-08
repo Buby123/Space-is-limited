@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Steuert die Bewegung des Spielers
+/// controles the Movement of the player
 /// </summary>
 public class PlayerController : Singleton<PlayerController>
 {
@@ -20,7 +20,7 @@ public class PlayerController : Singleton<PlayerController>
 
     #region UnityFunctions
     /// <summary>
-    /// Initialisieren des Rigidbodys
+    /// initializes the Rigidbodys
     /// </summary>
     private void Awake()
     {
@@ -28,29 +28,26 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     /// <summary>
-    /// Bewegungsupdates
+    /// movement-update
     /// </summary>
     private void FixedUpdate()
     {
+        
         float inputVector = Input.GetAxis("Horizontal");
         float jumpVector = Input.GetAxis("Vertical");
         bool isOnGround = GroundChecker.Instance.onGround;
+        
+        float yVelocity;
 
         if(Input.GetKey(KeyCode.W) && isOnGround) {
-            Controller.velocity = new Vector2(Controller.velocity.x, 0);
-            jumpSpeed =  maxJumpSpeed;
-            Debug.Log("maxSpeed");
+            yVelocity =  maxJumpSpeed;
         }
-        else if(!Input.GetKey(KeyCode.W)) {
-            jumpSpeed = 0;
-            Debug.Log("reset Speed");
+        else if(!Input.GetKey(KeyCode.W) && Controller.velocity.y > 0) {
+            yVelocity = Controller.velocity.y*0.8f;
         }
-        else if(!isOnGround) {
-            jumpSpeed = 0.8f * jumpSpeed;
-            Debug.Log("jump halfed");
+        else {
+            yVelocity = Controller.velocity.y;
         }
-
-        float yVelocity = Controller.velocity.y + jumpSpeed;
 
         Controller.velocity = new Vector2(speed * inputVector, yVelocity);
 
