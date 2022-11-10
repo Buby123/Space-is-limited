@@ -12,9 +12,10 @@ public class PlayerController : Singleton<PlayerController>
     #endregion
 
     #region variables
+    [Tooltip("Toggles the speed of the player")]
     [SerializeField] float speed = 0f;
+    [Tooltip("Toggles the maximum of the Jump Speed")]
     [SerializeField] float maxJumpSpeed = 0f;
-    [SerializeField] float jumpSpeed = 0f;
 
     #endregion
 
@@ -22,7 +23,7 @@ public class PlayerController : Singleton<PlayerController>
     /// <summary>
     /// initializes the Rigidbodys
     /// </summary>
-    private void Awake()
+    private new void Awake()
     {
         Controller = gameObject.GetComponent<Rigidbody2D>();
     }
@@ -34,7 +35,6 @@ public class PlayerController : Singleton<PlayerController>
     {
         
         float inputVector = Input.GetAxis("Horizontal");
-        float jumpVector = Input.GetAxis("Vertical");
         bool isOnGround = GroundChecker.Instance.onGround;
         
         float yVelocity;
