@@ -2,6 +2,8 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
+/[Uu]serSettings/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -59,5 +61,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 #user Settings
-UserSettings/
 
