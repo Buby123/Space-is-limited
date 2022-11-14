@@ -34,7 +34,7 @@ public class Door : MonoBehaviour
     {
         if (ListenToIDs.Any(id => id == triggerId))
         {
-
+            OpenDoor();
         }
     }
 
@@ -42,7 +42,10 @@ public class Door : MonoBehaviour
     {
         if (ListenToIDs.Any(id => id == triggerId))
         {
-
+            if (direction)
+                OpenDoor();
+            else
+                CloseDoor();
         }
     }
 
@@ -51,6 +54,7 @@ public class Door : MonoBehaviour
         if (!opened)
         {
             opened = true;
+            gameObject.SetActive(false);
         }
     }
 
@@ -59,6 +63,7 @@ public class Door : MonoBehaviour
         if (opened)
         {
             opened = false;
+            gameObject.SetActive(true);
         }
     }
 }
