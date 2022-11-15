@@ -3,37 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// The Lever handles a interaction and send signals to other objects
+/// The button handles interactions to doors and other objects
 /// </summary>
-public class Lever : MonoBehaviour
+public class Button : MonoBehaviour
 {
     #region Objects
-    [Tooltip("Visual Output of the Lever (Renderer)")]
-    [SerializeField] private SpriteRenderer VisualLever;
-    [Tooltip("Color when the Lever is set to active")]
+    [Tooltip("Visual Output of the Button (Renderer)")]
+    [SerializeField] private SpriteRenderer VisualButton;
+    [Tooltip("Color when the Button is set to active")]
     [SerializeField] private Color ActiveColor;
-    [Tooltip("Color when the Lever is set to inactive")]
+    [Tooltip("Color when the Button is set to inactive")]
     [SerializeField] private Color DeactiveColor;
     #endregion
 
     #region Variables
-    private bool active = false;
     private bool canBeChanged = false;
     [Tooltip("ID of the signal")]
     [SerializeField] private int id;
     #endregion
 
-    #region Triggers
     /// <summary>
-    /// Set the startstate
+    /// Sets the output to not pushed
     /// </summary>
     private void Awake()
     {
-        SetState(active);
+        Reset();
     }
 
+    #region Triggers
     /// <summary>
-    /// Activates the possibility to change the lever state
+    /// Activates the possibility to change the button state
     /// </summary>
     /// <param name="collision">Collider of player</param>
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,7 +44,7 @@ public class Lever : MonoBehaviour
     }
 
     /// <summary>
-    /// Deactives the possibility to change the lever state
+    /// Deactives the possibility to change the button state
     /// </summary>
     /// <param name="collision">Collider of player</param>
     private void OnTriggerExit2D(Collider2D collision)
@@ -57,7 +56,7 @@ public class Lever : MonoBehaviour
     }
 
     /// <summary>
-    /// Test if the lever is pulled by the player and changes the state
+    /// Test if the button is pulled by the player and pushes it
     /// </summary>
     private void Update()
     {
@@ -65,7 +64,7 @@ public class Lever : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.S))
             {
-                SetState(!active);
+                Push();
             }
         }
     }
@@ -73,22 +72,20 @@ public class Lever : MonoBehaviour
 
     #region VisualOutput
     /// <summary>
-    /// Sets the visual state of the lever to another one
+    /// Sets the visual state of the button to active
     /// </summary>
-    /// <param name="state">new state of the lever</param>
-    private void SetState(bool state)
+    private void Push()
     {
-        active = state;
+        VisualButton.color = ActiveColor;
+        EventManager.Instance.PushButton(id);
+    }
 
-        if (state)
-        {
-            VisualLever.color = ActiveColor;
-        } else
-        {
-            VisualLever.color = DeactiveColor;
-        }
-
-        EventManager.Instance.PullLever(id, active);
+    /// <summary>
+    /// Sets the visual state of the button to inactive
+    /// </summary>
+    private void Reset()
+    {
+        VisualButton.color = DeactiveColor;
     }
     #endregion
 }
