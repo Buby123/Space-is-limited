@@ -14,6 +14,9 @@ public class Button : MonoBehaviour
     [SerializeField] private Color ActiveColor;
     [Tooltip("Color when the Button is set to inactive")]
     [SerializeField] private Color DeactiveColor;
+    
+    private Vector3 InitialPosition;
+    private Rigidbody2D RB;
     #endregion
 
     #region Variables
@@ -28,6 +31,8 @@ public class Button : MonoBehaviour
     private void Awake()
     {
         Reset();
+        InitialPosition = transform.position;
+        RB = GetComponent<Rigidbody2D>();
     }
 
     #region Triggers
@@ -67,6 +72,8 @@ public class Button : MonoBehaviour
                 Push();
             }
         }
+
+        FloatToPosition();
     }
     #endregion
 
@@ -86,6 +93,11 @@ public class Button : MonoBehaviour
     private void Reset()
     {
         VisualButton.color = DeactiveColor;
+    }
+
+    private void FloatToPosition()
+    {
+        RB.velocity = new Vector2(0, InitialPosition.y - transform.position.y);
     }
     #endregion
 }
