@@ -9,6 +9,7 @@ public class PlayerController : Singleton<PlayerController>
 {
     #region objects
     private Rigidbody2D Controller;
+    private SpriteRenderer PlayerRenderer;
     #endregion
 
     #region variables
@@ -16,6 +17,8 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float speed = 0f;
     [Tooltip("Toggles the maximum of the Jump Speed")]
     [SerializeField] float maxJumpSpeed = 0f;
+    [Tooltip("Toggles the look direction of the player")]
+    [SerializeField] bool flippedLeft = true;
 
     #endregion
 
@@ -25,7 +28,8 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private new void Awake()
     {
-        Controller = gameObject.GetComponent<Rigidbody2D>();
+        Controller = GetComponent<Rigidbody2D>();
+        PlayerRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -51,6 +55,18 @@ public class PlayerController : Singleton<PlayerController>
 
         Controller.velocity = new Vector2(speed * inputVector, yVelocity);
 
+        //Change the look of the player
+        //Change the look direction of player
+        if(inputVector > 0)
+        {
+            PlayerRenderer.flipX = flippedLeft;
+        } else if (inputVector == 0)
+        {
+
+        } else
+        {
+            PlayerRenderer.flipX = !flippedLeft;
+        }
     }
     #endregion
 }
