@@ -20,9 +20,12 @@ public class Button : MonoBehaviour
     #endregion
 
     #region Variables
-    private bool canBeChanged = false;
     [Tooltip("ID of the signal")]
     [SerializeField] private int id;
+    [Tooltip("Speed with which the button flys back in position")]
+    private float floatBackSpeed = 3f;
+    [Tooltip("Position distance at which the button counts as pushed")]
+    private float deltaPos = 0.1f;
     #endregion
 
     /// <summary>
@@ -36,44 +39,19 @@ public class Button : MonoBehaviour
     }
 
     #region Triggers
-    /// <summary>
-    /// Activates the possibility to change the button state
-    /// </summary>
-    /// <param name="collision">Collider of player</param>
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag.Equals("Player"))
-        {
-            canBeChanged = true;
-        }
-    }
-
-    /// <summary>
-    /// Deactives the possibility to change the button state
-    /// </summary>
-    /// <param name="collision">Collider of player</param>
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag.Equals("Player"))
-        {
-            canBeChanged = false;
-        }
-    }
 
     /// <summary>
     /// Test if the button is pulled by the player and pushes it
     /// </summary>
     private void Update()
     {
-        if (canBeChanged)
+        if (FloatToPosition())
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Push();
-            }
+            Push();
+        } else
+        {
+            Reset();
         }
-
-        FloatToPosition();
     }
     #endregion
 
@@ -95,9 +73,18 @@ public class Button : MonoBehaviour
         VisualButton.color = DeactiveColor;
     }
 
-    private void FloatToPosition()
+    /// <summary>
+    /// Floats back to the position, where the button was set
+    /// </summary>
+    /// <returns>Returns true if button is more the deltaPos away from start</returns>
+    private bool FloatToPosition()
     {
-        RB.velocity = new Vector2(0, InitialPosition.y - transform.position.y);
+        var distance = (InitialPosition.y - transform.position.y);
+
+        //Float Back
+        RB.velocity = new Vector2(0, distance * floatBackSpeed);
+
+        return deltaPos < distance;
     }
     #endregion
 }
