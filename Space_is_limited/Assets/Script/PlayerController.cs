@@ -9,7 +9,6 @@ public class PlayerController : Singleton<PlayerController>
 {
     #region objects
     private Rigidbody2D Controller;
-    private SpriteRenderer PlayerRenderer;
     #endregion
 
     #region variables
@@ -29,7 +28,6 @@ public class PlayerController : Singleton<PlayerController>
     private new void Awake()
     {
         Controller = GetComponent<Rigidbody2D>();
-        PlayerRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -55,18 +53,31 @@ public class PlayerController : Singleton<PlayerController>
 
         Controller.velocity = new Vector2(speed * inputVector, yVelocity);
 
-        //Change the look of the player
-        //Change the look direction of player
-        if(inputVector > 0)
+        //Change the look of the player (inclusive colliders)
+        if(inputVector > 0 && flippedLeft)
         {
-            PlayerRenderer.flipX = flippedLeft;
-        } else if (inputVector == 0)
+            flip();
+        } else if (inputVector < 0 && !flippedLeft)
         {
-
+            flip();
         } else
         {
-            PlayerRenderer.flipX = !flippedLeft;
+
         }
+    }
+    #endregion
+
+    #region OurFunctions
+    /// <summary>
+    /// Flips the Player per localScale parameter
+    /// </summary>
+    private void flip()
+    {
+        Vector3 currentScale =  gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        flippedLeft = !flippedLeft;
     }
     #endregion
 }
