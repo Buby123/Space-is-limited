@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: tiles_together_29
+  m_Name: Regal1_2
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1743329504, guid: 5bff7f05e6a783341a83051c75bdfbba, type: 3}
+  m_Sprite: {fileID: 1431212159, guid: 054794aa7bf3c3c489fd1bab08185393, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -15,9 +15,9 @@ TagManager:
   - GroundCheck
   - Interactables
   - Objects
-  - 
-  - 
-  - 
+  - Platform
+  - Player
+  - PlayerOffPlatform
   - 
   - 
   - 

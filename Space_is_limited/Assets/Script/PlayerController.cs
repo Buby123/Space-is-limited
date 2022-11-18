@@ -18,6 +18,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float maxJumpSpeed = 0f;
     [Tooltip("Toggles the look direction of the player")]
     [SerializeField] bool flippedLeft = true;
+    [SerializeField] GameObject Appearance;
 
     #endregion
 
@@ -60,9 +61,14 @@ public class PlayerController : Singleton<PlayerController>
         } else if (inputVector < 0 && !flippedLeft)
         {
             flip();
-        } else
-        {
+        }
 
+        //when the s-key is pressed lets the player fall down through platforms
+        if(Input.GetKey(KeyCode.S)) {
+            Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
+        }
+        else {
+            Appearance.layer = LayerMask.NameToLayer("Player");
         }
     }
     #endregion
