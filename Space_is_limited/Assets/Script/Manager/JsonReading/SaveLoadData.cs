@@ -52,12 +52,21 @@ public class SaveLoadData : Singleton<SaveLoadData>
     /// <returns>Classobject</returns>
     public T Load<T>(string filename, bool local)
     {
-        var usedPath = local ? path : persistantPath;
+        var usedPath = local ? path : persistantPath + filename + ".json";
 
-        using StreamReader reader = new StreamReader(usedPath + filename + ".json");
-        var data = reader.ReadToEnd();
-
-        return JsonUtility.FromJson<T>(data);
+        if (File.Exists(usedPath))
+        {
+            using StreamReader reader = new StreamReader(usedPath);
+            var data = reader.ReadToEnd();
+            return JsonUtility.FromJson<T>(data);
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.LogError("File not found " + filename);
+#endif
+            return default;
+        }        
     }
 
     /// <summary>
