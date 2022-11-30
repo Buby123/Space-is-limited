@@ -10,10 +10,12 @@ public class Lever : MonoBehaviour
     #region Objects
     [Tooltip("Visual Output of the Lever (Renderer)")]
     [SerializeField] private SpriteRenderer VisualLever;
-    [Tooltip("Color when the Lever is set to active")]
-    [SerializeField] private Color ActiveColor;
-    [Tooltip("Color when the Lever is set to inactive")]
-    [SerializeField] private Color DeactiveColor;
+    [Tooltip("Pushed Graphic")]
+    [SerializeField] private Sprite PushedLeverGraphic;
+    [Tooltip("Released Graphic")]
+    [SerializeField] private Sprite ReleasedLeverGraphic;
+    [Tooltip("Help Graphic for the button")]
+    [SerializeField] private GameObject HelpGraphic;
     #endregion
 
     #region Variables
@@ -40,6 +42,7 @@ public class Lever : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
+            HelpGraphic.SetActive(true);
             canBeChanged = true;
         }
     }
@@ -52,6 +55,7 @@ public class Lever : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
+            HelpGraphic.SetActive(false);
             canBeChanged = false;
         }
     }
@@ -63,7 +67,7 @@ public class Lever : MonoBehaviour
     {
         if (canBeChanged)
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 SetState(!active);
             }
@@ -82,10 +86,10 @@ public class Lever : MonoBehaviour
 
         if (state)
         {
-            VisualLever.color = ActiveColor;
+            VisualLever.sprite = PushedLeverGraphic;
         } else
         {
-            VisualLever.color = DeactiveColor;
+            VisualLever.sprite = ReleasedLeverGraphic;
         }
 
         EventManager.Instance.PullLever(id, active);
