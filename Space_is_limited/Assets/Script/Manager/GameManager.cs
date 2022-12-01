@@ -11,14 +11,14 @@ public class GameManager : Singleton<GameManager>
     }
 
     [ContextMenu("Pause")]
-    public void pauseGame()
+    public void PauseGame()
     {
         _gameIsRunning = false;
         Time.timeScale = 0f;
     }
 
     [ContextMenu("Resume")]
-    public void resumeGame()
+    public void ResumeGame()
     {
         _gameIsRunning = true;
         Time.timeScale = 1f;
