@@ -18,10 +18,10 @@ public class MenuChecker : MonoBehaviour
 
             if (Canvas.activeSelf)
             {
-                GameManager.Instance.PauseGame();
+                OutgameManager.Instance.PauseGame();
             }else
             {
-                GameManager.Instance.ResumeGame();
+                OutgameManager.Instance.ResumeGame();
             }
         }
     }

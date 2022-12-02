@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        Application.Quit();
+        OutgameManager.Instance.StopGame();
     }
 
     /// <summary>
@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void ToMenu()
     {
-        SceneManagement.Instance.LoadMenu();
+        OutgameManager.Instance.LoadOtherScene(OutgameManager.MainScenes.MainMenu);
     }
 
     /// <summary>
@@ -25,6 +25,6 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void ToGame()
     {
-        SceneManagement.Instance.LoadCheckpoint();
+        OutgameManager.Instance.LoadOtherScene(OutgameManager.MainScenes.Game);
     }
 }
