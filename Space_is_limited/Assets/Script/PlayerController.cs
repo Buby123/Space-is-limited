@@ -8,6 +8,8 @@ using UnityEngine;
 public class PlayerController : Singleton<PlayerController>
 {
     #region objects
+    [Tooltip("The Sprite and Collider of the player")]
+    [SerializeField] GameObject Appearance;
     private Rigidbody2D Controller;
     #endregion
 
@@ -16,10 +18,7 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float speed = 0f;
     [Tooltip("Toggles the maximum of the Jump Speed")]
     [SerializeField] float maxJumpSpeed = 0f;
-    [Tooltip("Toggles the look direction of the player")]
-    [SerializeField] bool flippedLeft = true;
-    [SerializeField] GameObject Appearance;
-
+    bool flippedLeft = false;
     #endregion
 
     #region UnityFunctions
@@ -64,11 +63,9 @@ public class PlayerController : Singleton<PlayerController>
         }
 
         //when the s-key is pressed lets the player fall down through platforms
-        if(Input.GetKey(KeyCode.S)) {
+        if(Input.GetKey(KeyCode.S) && isOnGround) {
             Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
-        }
-        else {
-            Appearance.layer = LayerMask.NameToLayer("Player");
+            Invoke(nameof(resetLayer), 0.3f);
         }
     }
     #endregion
@@ -84,6 +81,13 @@ public class PlayerController : Singleton<PlayerController>
         gameObject.transform.localScale = currentScale;
 
         flippedLeft = !flippedLeft;
+    }
+    
+    /// <summary>
+    /// Resets the layer of the player so he can't fall through platforms
+    /// </summary>
+    private void resetLayer() {
+        Appearance.layer = LayerMask.NameToLayer("Player");
     }
     #endregion
 }
