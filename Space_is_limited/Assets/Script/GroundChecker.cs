@@ -9,10 +9,11 @@ using UnityEngine.Tilemaps;
 public class GroundChecker : Singleton<GroundChecker>
 {
     #region objects
-    [Tooltip("The Tilemaps which are used to check if the player is on the ground")]
-    [SerializeField] private LayerMask GroundLayers;
+    [SerializeField] private LayerMask GroundLayer;
+    [SerializeField] private LayerMask PlatformLayer;
     [Tooltip("The Collider of the player")]
     [SerializeField] private Collider2D Coll;
+    [SerializeField] private Rigidbody2D Controller;
     #endregion
 
     #region variables
@@ -46,8 +47,24 @@ public class GroundChecker : Singleton<GroundChecker>
     /// </summary>
     private bool isOnGround()
     {
-        return Physics2D.BoxCast(Coll.bounds.center, Coll.bounds.size, 0f, Vector2.down,  0.1f, GroundLayers) &&
-        !Physics2D.BoxCast(Coll.bounds.center, Coll.bounds.size, 0f, Vector2.zero, 0.1f, GroundLayers);
+        if(Controller.velocity.y < 0.01 && standsOnLayer(PlatformLayer)) {
+            return true;
+        }
+        if(standsOnLayer(GroundLayer)) {
+            return true;
+        }
+        return false;
+
+    }
+
+    /// <summary>
+    /// Checks if the player stands on a layer
+    /// </summary>
+    ///<param name="layer"> layer to check button</param>
+    private bool standsOnLayer(LayerMask layer)
+    {
+        return Physics2D.BoxCast(Coll.bounds.center, Coll.bounds.size, 0f, Vector2.down,  0.1f, layer) &&
+        !Physics2D.BoxCast(Coll.bounds.center, Coll.bounds.size, 0f, Vector2.zero, 0.1f, layer);
     }
 
     /// <summary>

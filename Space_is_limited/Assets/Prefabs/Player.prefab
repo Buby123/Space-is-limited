@@ -115,10 +115,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd60d2cbbcff8343849dc121be77890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundLayers:
+  GroundLayer:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 64
+  PlatformLayer:
+    serializedVersion: 2
+    m_Bits: 1024
   Coll: {fileID: 3461092203150733907}
+  Controller: {fileID: 3461092201475176406}
   delayTime: 0.05
 --- !u!1 &3461092203150733914
 GameObject:

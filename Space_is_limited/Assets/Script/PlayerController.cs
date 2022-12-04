@@ -65,7 +65,7 @@ public class PlayerController : Singleton<PlayerController>
         //when the s-key is pressed lets the player fall down through platforms
         if(Input.GetKey(KeyCode.S) && isOnGround) {
             Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
-            Invoke(nameof(resetLayer), 0.3f);
+            Invoke(nameof(resetLayer), 0.2f);
         }
     }
     #endregion
