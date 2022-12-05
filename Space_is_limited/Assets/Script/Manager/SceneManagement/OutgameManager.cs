@@ -29,6 +29,15 @@ public class OutgameManager : Singleton<OutgameManager>
     {
         //LoadCheckpointData();
         DontDestroyOnLoad(gameObject);
+
+#if UNITY_EDITOR
+        //Test game for purpose of testing
+        if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
+        {
+            PauseGame();
+            IngameManager.Instance.StartGame();
+        }
+#endif
     }
 
     #region Pausing
@@ -67,7 +76,9 @@ public class OutgameManager : Singleton<OutgameManager>
         switch (loadScene)
         {
             case MainScenes.Game:
+                PauseGame();
                 SceneManager.LoadScene(gameSceneName);
+                IngameManager.Instance.StartGame();
                 break;
             case MainScenes.MainMenu:
                 SceneManager.LoadScene(menuSceneName);

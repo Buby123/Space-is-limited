@@ -13,13 +13,16 @@ public class IngameManager : Singleton<IngameManager>
     private Dictionary<string, SceneInfo> ActiveScenes = new Dictionary<string, SceneInfo>();
     #endregion
 
+    #region Variables
+    [SerializeField] private string StartScene = "Room1";
+    #endregion
+
     /// <summary>
     /// Loads the first scene
     /// </summary>
-    private void Start()
+    public void StartGame()
     {
-        OutgameManager.Instance.PauseGame();
-        SceneManager.LoadScene("Room1", LoadSceneMode.Additive);
+        SceneManager.LoadScene(StartScene, LoadSceneMode.Additive);
         OutgameManager.Instance.ResumeGame();
     }
 
