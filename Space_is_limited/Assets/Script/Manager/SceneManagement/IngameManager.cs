@@ -11,6 +11,8 @@ public class IngameManager : Singleton<IngameManager>
     #region Objects
     [Tooltip("Loaded Scenes")]
     private Dictionary<string, SceneInfo> ActiveScenes = new Dictionary<string, SceneInfo>();
+
+    public bool gameStarted { get; set; } = false;
     #endregion
 
     #region Variables
@@ -22,6 +24,10 @@ public class IngameManager : Singleton<IngameManager>
     /// </summary>
     public void StartGame()
     {
+        if (gameStarted)
+            return;
+
+        gameStarted = true;
         SceneManager.LoadScene(StartScene, LoadSceneMode.Additive);
         OutgameManager.Instance.ResumeGame();
     }

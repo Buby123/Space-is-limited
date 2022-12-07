@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Gives the Ingame Manager Infos about the position of the player
@@ -16,9 +14,9 @@ public class SceneInfo : MonoBehaviour
     #endregion
 
     #region Variables
-    private bool playerInArea = false;
-    private bool geladen = false;
-    private bool soll_gel_w = false;
+    private bool playerInScene = false;
+    private bool loaded = false;
+    private bool shouldBeLoaded = false;
     #endregion
 
     /// <summary>
@@ -26,7 +24,7 @@ public class SceneInfo : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        GameObject.Find("GameManager").GetComponent<IngameManager>().AddActiveScene(this);
+        GameObject.Find("IngameManager").GetComponent<IngameManager>().AddActiveScene(this);
         ManualCheckCollision();
     }
 
@@ -46,7 +44,7 @@ public class SceneInfo : MonoBehaviour
     /// <returns>Player in Scene?</returns>
     public bool OccupiedByPlayer()
     {
-        return playerInArea;
+        return playerInScene;
     }
     #endregion
 
@@ -58,7 +56,7 @@ public class SceneInfo : MonoBehaviour
     /// <param name="load">Load/Unload</param>
     public void TryLoadNeighbors(bool load)
     {
-        soll_gel_w = load;
+        shouldBeLoaded = load;
         if (load)
         {
             CancelInvoke();
@@ -77,13 +75,13 @@ public class SceneInfo : MonoBehaviour
     /// <param name="load">Load/Unload</param>
     private void InstantTryLoad()
     {
-        if (soll_gel_w != geladen)
+        if (shouldBeLoaded != loaded)
         {
-            geladen = soll_gel_w;
+            loaded = shouldBeLoaded;
 
             foreach(string sceneName in NearbyScenes)
             {
-                if (soll_gel_w)
+                if (shouldBeLoaded)
                 {
                     IngameManager.Instance.LoadRoom(sceneName);
                 } else
@@ -106,12 +104,12 @@ public class SceneInfo : MonoBehaviour
 
         if (gameObject.GetComponent<Collider2D>().IsTouchingLayers())
         {
-            playerInArea = true;
+            playerInScene = true;
             TryLoadNeighbors(true);
         }
         else
         {
-            playerInArea = false;
+            playerInScene = false;
             TryLoadNeighbors(false);
         }
     }
@@ -124,7 +122,7 @@ public class SceneInfo : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            playerInArea = true;
+            playerInScene = true;
             TryLoadNeighbors(true);
         }
     }
@@ -137,7 +135,7 @@ public class SceneInfo : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            playerInArea = false;
+            playerInScene = false;
             TryLoadNeighbors(false);
         }
     }
