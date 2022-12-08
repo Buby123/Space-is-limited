@@ -612,7 +612,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartScene: Room1
-  gameStarted: 0
 --- !u!4 &532412777
 Transform:
   m_ObjectHideFlags: 0
@@ -1598,8 +1597,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3461092201475176407, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3461092201475176407, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: maxJumpSpeed
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3461092201475176407, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: jumpReduction
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3461092202426484851, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: m_LocalScale.x
