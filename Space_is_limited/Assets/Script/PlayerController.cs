@@ -18,7 +18,14 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float speed = 0f;
     [Tooltip("Toggles the maximum of the Jump Speed")]
     [SerializeField] float maxJumpSpeed = 0f;
+    [Tooltip("Defines the speed reduction while not pressing w and jumping")]
+    [SerializeField] float jumpReduction = 1f;
+
     bool flippedLeft = false;
+    bool inJump = false;
+    float timeSinceJump = 0f;
+    float reductionJumpTime = 0f;
+
     #endregion
 
     #region UnityFunctions
@@ -30,40 +37,54 @@ public class PlayerController : Singleton<PlayerController>
         Controller = GetComponent<Rigidbody2D>();
     }
 
-    /// <summary>
-    /// movement-update
-    /// </summary>
-    private void FixedUpdate()
+    private void Update()
     {
-        
         float inputVector = Input.GetAxis("Horizontal");
         bool isOnGround = GroundChecker.Instance.onGround;
-        
-        float yVelocity;
 
-        if(Input.GetKey(KeyCode.W) && isOnGround) {
-            yVelocity =  maxJumpSpeed;
+        float ySpeed = Controller.velocity.y;
+
+        //Tests if the player is jumping or if it is no longer jumping
+        if (Input.GetKey(KeyCode.W) && isOnGround)
+        {
+            //Player beginns jump
+            timeSinceJump = 0f;
+            reductionJumpTime = 0f;
+            inJump = true;
         }
-        else if(!Input.GetKey(KeyCode.W) && Controller.velocity.y > 0) {
-            yVelocity = Controller.velocity.y*0.8f;
-        }
-        else {
-            yVelocity = Controller.velocity.y;
+        else if (inJump && isOnGround)
+        {
+            //Player is back on ground
+            inJump = false;
         }
 
-        Controller.velocity = new Vector2(speed * inputVector, yVelocity);
+        //Calculates the actual jump speed
+        if (inJump)
+        {
+            if (!Input.GetKey(KeyCode.W))
+            {
+                reductionJumpTime += Time.deltaTime;
+            }
+
+            timeSinceJump += Time.deltaTime;
+            ySpeed = maxJumpSpeed * Mathf.Exp(-jumpReduction * reductionJumpTime) - 9.81f * 4 * timeSinceJump;
+        }
+
+        Controller.velocity = new Vector2(inputVector * speed, ySpeed);
 
         //Change the look of the player (inclusive colliders)
-        if(inputVector > 0 && flippedLeft)
+        if (inputVector > 0 && flippedLeft)
         {
             flip();
-        } else if (inputVector < 0 && !flippedLeft)
+        }
+        else if (inputVector < 0 && !flippedLeft)
         {
             flip();
         }
 
         //when the s-key is pressed lets the player fall down through platforms
-        if(Input.GetKey(KeyCode.S) && isOnGround) {
+        if (Input.GetKey(KeyCode.S) && isOnGround)
+        {
             Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
             Invoke(nameof(resetLayer), 0.2f);
         }
@@ -76,17 +97,18 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     private void flip()
     {
-        Vector3 currentScale =  gameObject.transform.localScale;
+        Vector3 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
 
         flippedLeft = !flippedLeft;
     }
-    
+
     /// <summary>
     /// Resets the layer of the player so he can't fall through platforms
     /// </summary>
-    private void resetLayer() {
+    private void resetLayer()
+    {
         Appearance.layer = LayerMask.NameToLayer("Player");
     }
     #endregion
