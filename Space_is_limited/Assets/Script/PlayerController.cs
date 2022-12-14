@@ -23,8 +23,6 @@ public class PlayerController : Singleton<PlayerController>
 
     bool flippedLeft = false;
     bool inJump = false;
-    float timeSinceJump = 0f;
-    float reductionJumpTime = 0f;
 
     #endregion
 
@@ -37,6 +35,15 @@ public class PlayerController : Singleton<PlayerController>
         Controller = GetComponent<Rigidbody2D>();
     }
 
+    private float GetJumpVelocityDiff(float actualSpeed)
+    {
+        float dt = Time.deltaTime;
+        //float newSpeed = actualSpeed * Mathf.Exp(-jumpReduction * dt);
+        var newSpeed = 0f;//actualSpeed * Mathf.Clamp((1f - dt / jumpReduction), 0f, 1f);
+
+        return newSpeed;
+    }
+
     private void Update()
     {
         float inputVector = Input.GetAxis("Horizontal");
@@ -45,12 +52,11 @@ public class PlayerController : Singleton<PlayerController>
         float ySpeed = Controller.velocity.y;
 
         //Tests if the player is jumping or if it is no longer jumping
-        if (Input.GetKey(KeyCode.W) && isOnGround)
+        if (Input.GetKey(KeyCode.W) && isOnGround && !inJump)
         {
             //Player beginns jump
-            timeSinceJump = 0f;
-            reductionJumpTime = 0f;
             inJump = true;
+            ySpeed = maxJumpSpeed;
         } else if (inJump && isOnGround)
         {
             //Player is back on ground
@@ -60,13 +66,10 @@ public class PlayerController : Singleton<PlayerController>
         //Calculates the actual jump speed
         if (inJump)
         {
-            if (!Input.GetKey(KeyCode.W))
+            if (!Input.GetKey(KeyCode.W) && Controller.velocity.y >= 0)
             {
-                reductionJumpTime += Time.deltaTime;
+                ySpeed = GetJumpVelocityDiff(ySpeed);
             }
-
-            timeSinceJump += Time.deltaTime;
-            ySpeed = maxJumpSpeed * Mathf.Exp(-jumpReduction * reductionJumpTime) - 9.81f * 4 * timeSinceJump;   
         }
 
         Controller.velocity = new Vector2(inputVector * speed, ySpeed);
