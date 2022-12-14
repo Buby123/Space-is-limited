@@ -1602,11 +1602,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3461092201475176407, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: maxJumpSpeed
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3461092201475176407, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: jumpReduction
-      value: 7
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3461092202426484851, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: m_LocalScale.x
