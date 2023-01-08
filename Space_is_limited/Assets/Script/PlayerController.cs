@@ -20,9 +20,15 @@ public class PlayerController : Singleton<PlayerController>
     [SerializeField] float maxJumpSpeed = 0f;
     [Tooltip("Defines the speed reduction while not pressing w and jumping")]
     [SerializeField] float jumpReduction = 1f;
+    [Tooltip("Difenes the time at the highest piek of the jump")]
+    [SerializeField] float piekTime = 0.1f;
+    [Tooltip("Is the range which counted as piek of the jump in velocity")]
+    [SerializeField] float piekRange = 0.5f;
 
     bool flippedLeft = false;
     bool inJump = false;
+    float gravityScale;
+    bool inMomentZero = false;
     #endregion
 
     #region UnityFunctions
@@ -49,7 +55,7 @@ public class PlayerController : Singleton<PlayerController>
         
         Controller.velocity = new Vector2(inputVector * speed, ySpeed);
 
-        flipLikeMovement(inputVector);
+        FlipLikeMovement(inputVector);
 
         FallTroughPlatform(isOnGround);
     }
@@ -97,22 +103,22 @@ public class PlayerController : Singleton<PlayerController>
     /// Changes the look of the player to the direction he is moving
     /// </summary>
     /// <param name="inputVector">The input of the player in x direction</param>
-    private void flipLikeMovement(float inputVector)
+    private void FlipLikeMovement(float inputVector)
     {
         if (inputVector > 0 && flippedLeft)
         {
-            flip();
+            Flip();
         }
         else if (inputVector < 0 && !flippedLeft)
         {
-            flip();
+            Flip();
         }
     }
 
     /// <summary>
     /// Flips the player to other side
     /// </summary>
-    private void flip()
+    private void Flip()
     {
         Vector3 currentScale =  gameObject.transform.localScale;
         currentScale.x *= -1;
@@ -135,14 +141,38 @@ public class PlayerController : Singleton<PlayerController>
     /// <returns>The new jump speed</returns>
     private float GetCurrentJumpVelocity(float oldSpeed)
     {
-        if (!inJump || Input.GetKey(KeyCode.W) || Controller.velocity.y < 0)
+        if (!inJump)
         {
             return oldSpeed;
         }
-        else
+
+        if (!Input.GetKey(KeyCode.W) && oldSpeed > 0)
         {
             return Mathf.Max(oldSpeed - jumpReduction / Time.deltaTime, 0f);
         }
+        if (Mathf.Abs(oldSpeed) < piekRange)
+        {
+            if (inMomentZero != true)
+            {
+                Debug.Log("Moment zero");
+                Invoke(nameof(EndMomentOfZeroVelocity), piekTime);
+                gravityScale = Controller.gravityScale;
+                Controller.gravityScale = 0;
+                inMomentZero = true;
+            }
+
+            return 0f;
+        }
+        else
+        {
+            inMomentZero = false;
+            return oldSpeed;
+        } 
+    }
+
+    private void EndMomentOfZeroVelocity()
+    {
+        Controller.gravityScale = gravityScale;
     }
     #endregion
 }
