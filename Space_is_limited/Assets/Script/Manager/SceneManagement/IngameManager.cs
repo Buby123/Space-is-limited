@@ -32,6 +32,31 @@ public class IngameManager : Singleton<IngameManager>
         OutgameManager.Instance.ResumeGame();
     }
 
+    #region SceneFunctions
+    /// <summary>
+    /// Close every enviroment scene and loads a new one
+    /// </summary>
+    /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
+    public void OpenSingleScene(string SceneName)
+    {
+        CloseScenes();
+        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+    }
+
+    /// <summary>
+    /// Close every scene that is loaded
+    /// </summary>
+    private void CloseScenes()
+    {
+        foreach (var entry in ActiveScenes)
+        {
+            SceneManager.UnloadSceneAsync(entry.Key);
+        }
+
+        ActiveScenes.Clear();
+    }
+    #endregion
+
     #region DynamicSceneLoading
     /// <summary>
     /// Adds a scene info to the stack
