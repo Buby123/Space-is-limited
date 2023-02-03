@@ -611,7 +611,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25a7c0b34ea414408a673450fb17360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartScene: Room1
+  <CurrentCheckPoint>k__BackingField:
+    <sceneName>k__BackingField: Room1
+    <Position>k__BackingField: {x: -10.75, y: -4.38, z: -0.04553845}
 --- !u!4 &532412777
 Transform:
   m_ObjectHideFlags: 0

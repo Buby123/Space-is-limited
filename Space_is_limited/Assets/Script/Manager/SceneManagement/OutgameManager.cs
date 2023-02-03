@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Checkpoint;
 
 /// <summary>
 /// Controller for SceneManagement and State of the Game
@@ -18,6 +19,7 @@ public class OutgameManager : Singleton<OutgameManager>
     #endregion
 
     #region Propertys
+
     private bool _gameIsRunning = true;
     public bool gameIsRunning
     {
@@ -110,6 +112,11 @@ public class OutgameManager : Singleton<OutgameManager>
         }
 
         Application.Quit();
+    }
+
+    public void LoadCheckpoint()
+    {
+        var checkpointName = SaveLoadData.Instance.Load<string>("currentCheckpoint", false);
     }
     #endregion
 

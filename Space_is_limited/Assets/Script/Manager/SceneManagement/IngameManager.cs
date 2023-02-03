@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Checkpoint;
 
 /// <summary>
 /// Manages the dynamic loading of the scenes ingame
@@ -15,8 +16,8 @@ public class IngameManager : Singleton<IngameManager>
     public bool gameStarted { get; set; } = false;
     #endregion
 
-    #region Variables
-    [SerializeField] private string StartScene = "Room1";
+    #region Propertys
+    [field: SerializeField] public CheckPointData CurrentCheckPoint { get; set; }
     #endregion
 
     /// <summary>
@@ -28,7 +29,7 @@ public class IngameManager : Singleton<IngameManager>
             return;
 
         gameStarted = true;
-        SceneManager.LoadScene(StartScene, LoadSceneMode.Additive);
+        ResetToCheckpoint();
         OutgameManager.Instance.ResumeGame();
     }
 
@@ -54,6 +55,12 @@ public class IngameManager : Singleton<IngameManager>
         }
 
         ActiveScenes.Clear();
+    }
+
+    [ContextMenu("Reset")]
+    public void ResetToCheckpoint()
+    {
+        CurrentCheckPoint.LoadCheckpoint();
     }
     #endregion
 
