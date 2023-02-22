@@ -14,7 +14,7 @@ public class OutgameManager : Singleton<OutgameManager>
 
     #region Variables
     [SerializeField] private string menuSceneName = "MainMenu";
-    [SerializeField] private string optionsSceneName = "";
+    [SerializeField] private string optionsSceneName = "OptionsMenu";
     [SerializeField] private string gameSceneName = "Game";
     #endregion
 
@@ -92,13 +92,19 @@ public class OutgameManager : Singleton<OutgameManager>
             case MainScenes.MainMenu:
                 SceneManager.LoadScene(menuSceneName);
                 break;
-            case MainScenes.OptionMenu:
-                SceneManager.LoadScene(optionsSceneName);
-                break;
         }
 
         ResumeGame();
     }
+
+    /// <summary>
+    /// Loads our OptionsMenu (another scene) additively. This way there is only one Menu which is accessible from everywhere.
+    /// </summary>
+    public void LoadOptionsMenu()
+    {
+        SceneManager.LoadSceneAsync(optionsSceneName, LoadSceneMode.Additive);
+    }
+
 
     /// <summary>
     /// Stops and Saves the game
@@ -162,7 +168,6 @@ public class OutgameManager : Singleton<OutgameManager>
     public enum MainScenes
     {
         MainMenu,
-        OptionMenu,
         Game
     }
 }
