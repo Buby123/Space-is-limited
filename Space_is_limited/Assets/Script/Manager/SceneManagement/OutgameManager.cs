@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Checkpoint;
 
 /// <summary>
 /// Controller for SceneManagement and State of the Game
@@ -18,26 +19,29 @@ public class OutgameManager : Singleton<OutgameManager>
     #endregion
 
     #region Propertys
+
     private bool _gameIsRunning = true;
     public bool gameIsRunning
     {
         get { return _gameIsRunning; }
     }
     #endregion
-
+    /// <summary>
+    /// Starts the game if it is not already loaded
+    /// </summary>
     private void Start()
     {
         //LoadCheckpointData();
         DontDestroyOnLoad(gameObject);
 
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         //Test game for purpose of testing
-        if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
+        if (SceneManager.GetActiveScene().name.Equals(gameSceneName) && !IngameManager.Instance.gameStarted)
         {
             PauseGame();
             IngameManager.Instance.StartGame();
         }
-#endif
+        #endif
     }
 
     #region Pausing
@@ -64,12 +68,17 @@ public class OutgameManager : Singleton<OutgameManager>
     #endregion
 
     #region SceneManagement
+    /// <summary>
+    /// Load another Scene out of the game, instead of the current scene
+    /// </summary>
+    /// <param name="loadScene">new scene, that should be active</param>
     public void LoadOtherScene(MainScenes loadScene)
     {
         //Save the data of the scene
         if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
         {
             Debug.Log("Save Current Scene");
+            GameObject.Destroy(IngameManager.Instance.gameObject);
         }
 
         //Load the menu
@@ -103,6 +112,11 @@ public class OutgameManager : Singleton<OutgameManager>
         }
 
         Application.Quit();
+    }
+
+    public void LoadCheckpoint()
+    {
+        var checkpointName = SaveLoadData.Instance.Load<string>("currentCheckpoint", false);
     }
     #endregion
 

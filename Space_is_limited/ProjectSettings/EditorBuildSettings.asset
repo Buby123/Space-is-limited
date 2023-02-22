@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestingArea/TestScenes/Room2.unity
     guid: 2c4d1b3139c99d94db762b7580d884b8
+  - enabled: 1
+    path: Assets/Scenes/TestingArea/TestScenes/Backroom.unity
+    guid: a089bba660a4e404893ab318d94193a3
   m_configObjects: {}

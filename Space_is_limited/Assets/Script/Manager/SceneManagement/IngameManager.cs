@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Checkpoint;
 
 /// <summary>
 /// Manages the dynamic loading of the scenes ingame
@@ -11,10 +12,12 @@ public class IngameManager : Singleton<IngameManager>
     #region Objects
     [Tooltip("Loaded Scenes")]
     private Dictionary<string, SceneInfo> ActiveScenes = new Dictionary<string, SceneInfo>();
+
+    public bool gameStarted { get; set; } = false;
     #endregion
 
-    #region Variables
-    [SerializeField] private string StartScene = "Room1";
+    #region Propertys
+    [field: SerializeField] public CheckPointData CurrentCheckPoint { get; set; }
     #endregion
 
     /// <summary>
@@ -22,9 +25,44 @@ public class IngameManager : Singleton<IngameManager>
     /// </summary>
     public void StartGame()
     {
-        SceneManager.LoadScene(StartScene, LoadSceneMode.Additive);
+        if (gameStarted)
+            return;
+
+        gameStarted = true;
+        ResetToCheckpoint();
         OutgameManager.Instance.ResumeGame();
     }
+
+    #region SceneFunctions
+    /// <summary>
+    /// Close every enviroment scene and loads a new one
+    /// </summary>
+    /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
+    public void OpenSingleScene(string SceneName)
+    {
+        CloseScenes();
+        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+    }
+
+    /// <summary>
+    /// Close every scene that is loaded
+    /// </summary>
+    private void CloseScenes()
+    {
+        foreach (var entry in ActiveScenes)
+        {
+            SceneManager.UnloadSceneAsync(entry.Key);
+        }
+
+        ActiveScenes.Clear();
+    }
+
+    [ContextMenu("Reset")]
+    public void ResetToCheckpoint()
+    {
+        CurrentCheckPoint.LoadCheckpoint();
+    }
+    #endregion
 
     #region DynamicSceneLoading
     /// <summary>

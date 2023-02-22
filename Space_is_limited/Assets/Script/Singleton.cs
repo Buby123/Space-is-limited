@@ -3,29 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Erzeugt eine Instanz, welche von Überall aus Zugreifbar ist
+/// Creates an instance, which is accessible from everywhere
 /// </summary>
 /// <typeparam name="T">Singleton Skript</typeparam>
 public class Singleton<T> : MonoBehaviour where T : Component
 {
     #region Objekten
     /// <summary>
-    /// Zugreifbare Instanz
+    /// Accessible instance
     /// </summary>
     private static T instance;
     public static T Instance
     {
         get
         {
+            if (instance != null)
+            {
+                return instance;
+            }
+
+            instance = FindObjectOfType<T>();
+
             if (instance == null)
             {
-                instance = FindObjectOfType<T>();
-                if (instance == null)
-                {
-                    GameObject obj = new GameObject();
-                    obj.name = typeof(T).Name;
-                    instance = obj.AddComponent<T>();
-                }
+                GameObject obj = new GameObject();
+                obj.name = typeof(T).Name;
+                instance = obj.AddComponent<T>();
             }
             return instance;
         }
@@ -34,14 +37,14 @@ public class Singleton<T> : MonoBehaviour where T : Component
 
     #region unityFunktionen
     /// <summary>
-    /// Erzeugt eine Instanz bei Start des Spiels und löscht Überflüssige
+    /// Creates an instance at the start of the game and deletes unnecessary ones
     /// </summary>
     public virtual void Awake()
     {
         if (instance == null)
         {
             instance = this as T;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else
         {
