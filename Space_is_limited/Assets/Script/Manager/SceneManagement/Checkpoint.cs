@@ -65,7 +65,7 @@ public class Checkpoint : MonoBehaviour
         public void LoadCheckpoint()
         {
             // Find player
-            var player = GameObject.Find("Player");
+            var player = GameObject.FindGameObjectWithTag("Player");
 
             IngameManager.Instance.OpenSingleScene(sceneName);
             player.transform.position = Position;

@@ -17,7 +17,7 @@ public class IngameManager : Singleton<IngameManager>
     #endregion
 
     #region Propertys
-    [field: SerializeField] public CheckPointData CurrentCheckPoint { get; set; }
+    [field: SerializeField] public CheckPointData CurrentCheckPoint { get; set; } = new CheckPointData("Room1", new Vector3(-10.75f, -4.38f, -0.04553845f));
     #endregion
 
     /// <summary>
