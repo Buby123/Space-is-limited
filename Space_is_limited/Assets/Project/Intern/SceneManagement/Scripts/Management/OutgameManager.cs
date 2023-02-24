@@ -19,13 +19,10 @@ public class OutgameManager : Singleton<OutgameManager>
     #endregion
 
     #region Propertys
-
-    private bool _gameIsRunning = true;
-    public bool gameIsRunning
-    {
-        get { return _gameIsRunning; }
-    }
+    public bool gameIsRunning { get; private set; } = true;
     #endregion
+
+    #region UnityFunctions
     /// <summary>
     /// Starts the game if it is not already loaded
     /// </summary>
@@ -42,15 +39,16 @@ public class OutgameManager : Singleton<OutgameManager>
         }
         #endif
     }
+    #endregion
 
-    #region Pausing
+    #region PausingAndDeath
     /// <summary>
     /// Pauses the game by set its speed to zero
     /// </summary>
     [ContextMenu("Pause")]
     public void PauseGame()
     {
-        _gameIsRunning = false;
+        gameIsRunning = false;
         Time.timeScale = 0f;
     }
 
@@ -60,9 +58,29 @@ public class OutgameManager : Singleton<OutgameManager>
     [ContextMenu("Resume")]
     public void ResumeGame()
     {
-        _gameIsRunning = true;
+        gameIsRunning = true;
         Time.timeScale = 1f;
 
+    }
+
+    /// <summary>
+    /// When the method is called the player dies
+    /// the death animation will be played
+    /// and the last checkpoint will be loaded
+    /// </summary>
+    public void TriggerDeath()
+    {
+        gameIsRunning = false;
+        DeathHandler.Instance.TriggerDeath(Death);
+    }
+
+    /// <summary>
+    /// When the method is called the player dies
+    /// and the last checkpoint will be loaded
+    /// </summary>
+    private void Death()
+    {
+        LoadOtherScene(MainScenes.Game);
     }
     #endregion
 
@@ -118,7 +136,7 @@ public class OutgameManager : Singleton<OutgameManager>
         Application.Quit();
     }
     #endregion
-
+    
     public enum MainScenes
     {
         MainMenu,

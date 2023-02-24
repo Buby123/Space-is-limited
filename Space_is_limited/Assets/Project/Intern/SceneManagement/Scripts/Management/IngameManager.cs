@@ -21,6 +21,7 @@ public class IngameManager : Singleton<IngameManager>
     [field: SerializeField] public CheckPointData CurrentCheckPoint { get; set; } = new CheckPointData("Room1", new Vector3(-10.75f, -4.38f, -0.04553845f));
     #endregion
 
+    #region Begin
     /// <summary>
     /// Loads the first scene
     /// </summary>
@@ -33,6 +34,7 @@ public class IngameManager : Singleton<IngameManager>
         ResetToCheckpoint();
         OutgameManager.Instance.ResumeGame();
     }
+    #endregion
 
     #region SceneFunctions
     /// <summary>

@@ -1,0 +1,17 @@
+{
+    "name": "Project.Hazards",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a5a986fd9a6d91b4a82099dbbebb49f2",
+        "GUID:9c84657fe480fc64bb78e1b0c0e5a699"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
