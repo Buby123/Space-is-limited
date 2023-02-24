@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +28,7 @@ public class IngameManager : Singleton<IngameManager>
     {
         if (gameStarted)
             return;
-
+        
         gameStarted = true;
         ResetToCheckpoint();
         OutgameManager.Instance.ResumeGame();
@@ -38,10 +39,12 @@ public class IngameManager : Singleton<IngameManager>
     /// Close every enviroment scene and loads a new one
     /// </summary>
     /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
-    public void OpenSingleScene(string SceneName)
+    public void OpenSingleScene(string SceneName, Action<AsyncOperation> OnFinishedOperation = null)
     {
         CloseScenes();
-        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+        var Callback = SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Additive);
+        if (OnFinishedOperation != null)
+            Callback.completed += OnFinishedOperation;
     }
 
     /// <summary>

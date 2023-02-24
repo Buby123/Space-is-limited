@@ -24,7 +24,8 @@ public class SceneInfo : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        GameObject.Find("IngameManager").GetComponent<IngameManager>().AddActiveScene(this);
+        Debug.Log("SceneInfo: " + gameObject.scene.name + " started");
+        IngameManager.Instance.AddActiveScene(this);
         ManualCheckCollision();
     }
 
@@ -98,20 +99,14 @@ public class SceneInfo : MonoBehaviour
     /// Proofs manualy if the player is already in the scene
     /// Is only interisting, if the scene get loaded as first scene
     /// </summary>
-    private void ManualCheckCollision()
+    [ContextMenu("Manual Check Collision")]
+    public void ManualCheckCollision()
     {
-        var PCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
+        var PCollider = GameObject.FindGameObjectWithTag("Player").transform.Find("Appearance").GetComponent<Collider2D>();
+        var SceneCollider = gameObject.GetComponent<Collider2D>();
 
-        if (gameObject.GetComponent<Collider2D>().IsTouchingLayers())
-        {
-            playerInScene = true;
-            TryLoadNeighbors(true);
-        }
-        else
-        {
-            playerInScene = false;
-            TryLoadNeighbors(false);
-        }
+        playerInScene = Physics2D.IsTouching(PCollider, SceneCollider);
+        TryLoadNeighbors(playerInScene);
     }
 
     /// <summary>
@@ -120,7 +115,7 @@ public class SceneInfo : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.CompareTag("Player"))
         {
             playerInScene = true;
             TryLoadNeighbors(true);
@@ -133,7 +128,7 @@ public class SceneInfo : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.CompareTag("Player"))
         {
             playerInScene = false;
             TryLoadNeighbors(false);

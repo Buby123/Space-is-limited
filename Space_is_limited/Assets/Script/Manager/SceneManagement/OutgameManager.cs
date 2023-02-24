@@ -31,7 +31,6 @@ public class OutgameManager : Singleton<OutgameManager>
     /// </summary>
     private void Start()
     {
-        //LoadCheckpointData();
         DontDestroyOnLoad(gameObject);
 
         #if UNITY_EDITOR
@@ -105,7 +104,6 @@ public class OutgameManager : Singleton<OutgameManager>
         SceneManager.LoadSceneAsync(optionsSceneName, LoadSceneMode.Additive);
     }
 
-
     /// <summary>
     /// Stops and Saves the game
     /// </summary>
@@ -119,51 +117,7 @@ public class OutgameManager : Singleton<OutgameManager>
 
         Application.Quit();
     }
-
-    public void LoadCheckpoint()
-    {
-        var checkpointName = SaveLoadData.Instance.Load<string>("currentCheckpoint", false);
-    }
     #endregion
-
-    /*
-    /// <summary>
-    /// Initializes the currentCheckpoint
-    /// </summary>
-    private void LoadCheckpointData()
-    {
-        var loadedCheckpoint = SaveLoadData.Instance.Load<CheckPointData>("currentCheckpoint", false);
-
-        if (loadedCheckpoint != null)
-        {
-            currentCheckpoint = loadedCheckpoint;
-        } else
-        {
-            SaveCheckpoint(new CheckPointData());
-        }
-    }
-
-    /// <summary>
-    /// Sets a new Checkpoint
-    /// </summary>
-    /// <param name="newCheckpoint">Data from Checkpoint</param>
-    public void SaveCheckpoint(CheckPointData newCheckpoint)
-    {
-        currentCheckpoint.activeCheckpoint = newCheckpoint.activeCheckpoint;
-        currentCheckpoint.activeSceneName = newCheckpoint.activeSceneName;
-        SaveLoadData.Instance.Save(currentCheckpoint, "currentCheckpoint", false);
-    }
-
-    /// <summary>
-    /// Loads the scene of the current Checkpoint and inits the Checkpoint
-    /// </summary>
-    [ContextMenu("Load Checkpoint")]
-    public void LoadCheckpoint()
-    {
-        ChangeToScene(currentCheckpoint.activeSceneName);
-    }*/
-
-
 
     public enum MainScenes
     {
@@ -171,10 +125,3 @@ public class OutgameManager : Singleton<OutgameManager>
         Game
     }
 }
-
-/*[System.Serializable]
-public class CheckPointData
-{
-    public string activeSceneName = "LittleJumpAndRunScene";
-    public int activeCheckpoint = 0;
-}*/

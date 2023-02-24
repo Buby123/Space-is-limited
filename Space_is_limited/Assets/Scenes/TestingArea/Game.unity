@@ -1763,7 +1763,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1753698387}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1649831896
 MonoBehaviour:
@@ -1808,7 +1808,6 @@ Transform:
   m_Children:
   - {fileID: 532412777}
   - {fileID: 152747750}
-  - {fileID: 1878412373}
   - {fileID: 1649831895}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1867,6 +1866,10 @@ PrefabInstance:
     - target: {fileID: 3461092201475176405, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3461092201475176405, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3461092201475176405, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: m_TagString
@@ -1928,6 +1931,10 @@ PrefabInstance:
       propertyPath: plattformLayer.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 3461092203150733914, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3461092202426484850, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
@@ -1965,8 +1972,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1753698387}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1878412374
 MonoBehaviour:

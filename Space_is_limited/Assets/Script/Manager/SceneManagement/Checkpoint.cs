@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -64,10 +65,25 @@ public class Checkpoint : MonoBehaviour
         /// </summary>
         public void LoadCheckpoint()
         {
+            // Load Scene
+            void Callback(AsyncOperation AsyOperation) => SetPlayersPosition();
+            IngameManager.Instance.OpenSingleScene(sceneName, Callback);
+        }
+
+        /// <summary>
+        /// Sets the player to the position
+        /// </summary>
+        private void SetPlayersPosition()
+        {
             // Find player
             var player = GameObject.FindGameObjectWithTag("Player");
 
-            IngameManager.Instance.OpenSingleScene(sceneName);
+            if (player == null)
+            {
+                Debug.LogWarning("Failed to find a player");
+                return;
+            }
+
             player.transform.position = Position;
         }
     }
