@@ -77,4 +77,18 @@ public class SaveLoadData : Singleton<SaveLoadData>
         persistantPath = Application.persistentDataPath + Path.AltDirectorySeparatorChar;
         path = Application.dataPath + Path.AltDirectorySeparatorChar + "Data" + Path.AltDirectorySeparatorChar;
     }
+
+    /// <summary>
+    /// Deletes a folder and all its content
+    /// </summary>
+    /// <param name="folder">Name of the folder</param>
+    public void DeleteFolder(string folder)
+    {
+        var usedPath = persistantPath + folder;
+
+        if (Directory.Exists(usedPath))
+        {
+            Directory.Delete(usedPath, true);
+        }
+    }
 }
