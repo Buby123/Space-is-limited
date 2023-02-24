@@ -95,7 +95,6 @@ public class OutgameManager : Singleton<OutgameManager>
         if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
         {
             Debug.Log("Save Current Scene");
-            GameObject.Destroy(IngameManager.Instance.gameObject);
         }
 
         //Load the menu

@@ -22,14 +22,23 @@ public class IngameManager : Singleton<IngameManager>
     #endregion
 
     #region Begin
+    private void Start()
+    {
+        Debug.Log("Hello World");
+    }
+
     /// <summary>
     /// Loads the first scene
     /// </summary>
     public void StartGame()
     {
+        Debug.Log("Try to start game");
+
         if (gameStarted)
             return;
-        
+
+        Debug.Log("Start game");
+
         gameStarted = true;
         ResetToCheckpoint();
         OutgameManager.Instance.ResumeGame();
