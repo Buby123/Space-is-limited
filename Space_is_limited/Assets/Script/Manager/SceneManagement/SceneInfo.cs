@@ -102,7 +102,7 @@ public class SceneInfo : MonoBehaviour
     [ContextMenu("Manual Check Collision")]
     public void ManualCheckCollision()
     {
-        var PCollider = GameObject.FindGameObjectWithTag("Player").transform.Find("Appearance").GetComponent<Collider2D>();
+        var PCollider = PlayerController.Instance.transform.Find("Appearance").GetComponent<Collider2D>();
         var SceneCollider = gameObject.GetComponent<Collider2D>();
 
         playerInScene = Physics2D.IsTouching(PCollider, SceneCollider);

@@ -22,6 +22,10 @@ public class PlayerController : Singleton<PlayerController>
 
     #endregion
 
+    #region Propertys
+    [field: SerializeField] public Collider2D PlayerCollider { get; private set; }
+    #endregion
+
     #region UnityFunctions
     /// <summary>
     /// initializes the Rigidbodys
