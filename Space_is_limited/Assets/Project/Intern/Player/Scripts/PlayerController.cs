@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.InputSystem;
+
 
 /// <summary>
 /// controles the Movement of the player
 /// </summary>
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : Singleton<PlayerController>
 {
     #region objects
@@ -26,7 +30,6 @@ public class PlayerController : Singleton<PlayerController>
     [field: SerializeField] public Collider2D PlayerCollider { get; private set; }
     #endregion
 
-    #region UnityFunctions
     /// <summary>
     /// initializes the Rigidbodys
     /// </summary>
@@ -35,44 +38,31 @@ public class PlayerController : Singleton<PlayerController>
         Controller = GetComponent<Rigidbody2D>();
     }
 
-    /// <summary>
-    /// movement-update
-    /// </summary>
-    private void FixedUpdate()
+    #region Input Functions
+    public void OnMove(InputAction.CallbackContext context)
     {
+        var horizontalMovement = context.ReadValue<float>();
 
-        float inputVector = Input.GetAxis("Horizontal");
-        bool isOnGround = GroundChecker.Instance.onGround;
-
-        float yVelocity;
-
-        if (Input.GetKey(KeyCode.W) && isOnGround)
-        {
-            yVelocity = maxJumpSpeed;
-        }
-        else if (!Input.GetKey(KeyCode.W) && Controller.velocity.y > 0)
-        {
-            yVelocity = Controller.velocity.y * 0.8f;
-        }
-        else
-        {
-            yVelocity = Controller.velocity.y;
-        }
-
-        Controller.velocity = new Vector2(speed * inputVector, yVelocity);
-
+        //Set player velocity in x direction
+        Controller.velocity = new Vector2(speed * horizontalMovement, Controller.velocity.y);
+        
         //Change the look of the player (inclusive colliders)
-        if (inputVector > 0 && flippedLeft)
+        if (horizontalMovement > 0 && flippedLeft)
         {
             flip();
         }
-        else if (inputVector < 0 && !flippedLeft)
+        else if (horizontalMovement < 0 && !flippedLeft)
         {
             flip();
         }
+    }
+
+    public void OnShift(InputAction.CallbackContext context)
+    {
+        var shiftButton = context.performed;
 
         //when the s-key is pressed lets the player fall down through platforms
-        if (Input.GetKey(KeyCode.S))
+        if (shiftButton)
         {
             Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
         }
@@ -81,9 +71,32 @@ public class PlayerController : Singleton<PlayerController>
             Appearance.layer = LayerMask.NameToLayer("Player");
         }
     }
+
+    public void OnJump()
+    {
+        if (!GroundChecker.Instance.onGround)
+            return;
+                
+        Controller.velocity = new Vector2(Controller.velocity.x, maxJumpSpeed);
+    }
+
+    public void OnReduceJumpSpeed(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<float>() > 0.5)
+            return;
+
+        Debug.Log("Reduce jump speed");
+
+        float ySpeed = Controller.velocity.y;
+
+        if (ySpeed <= 0f)
+            return;
+
+        Controller.velocity = new Vector2(Controller.velocity.x, ySpeed * 0.5f);
+    }
     #endregion
 
-    #region OurFunctions
+    #region Other Functions
     /// <summary>
     /// Flips the Player per localScale parameter
     /// </summary>
