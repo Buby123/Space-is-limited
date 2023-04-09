@@ -98,7 +98,6 @@ public class IngameManager : Singleton<IngameManager>
         if (!ActiveScenes.ContainsKey(NewRoom))
         {
             SceneManager.LoadSceneAsync(NewRoom, LoadSceneMode.Additive);
-            return;
         }
     }
 

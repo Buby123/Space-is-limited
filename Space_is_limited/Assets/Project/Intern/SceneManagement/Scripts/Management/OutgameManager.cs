@@ -80,7 +80,7 @@ public class OutgameManager : Singleton<OutgameManager>
     /// </summary>
     private void Death()
     {
-        LoadOtherScene(MainScenes.Game);
+        IngameManager.Instance.ResetToCheckpoint();
     }
     #endregion
 
