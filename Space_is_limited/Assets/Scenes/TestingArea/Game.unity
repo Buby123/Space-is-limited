@@ -1801,6 +1801,7 @@ GameObject:
   - component: {fileID: 1561143920}
   - component: {fileID: 1561143919}
   - component: {fileID: 1561143918}
+  - component: {fileID: 1561143923}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1928,6 +1929,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561143923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561143917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3a8051e7333427647b2908a25fbe1ae5, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1568341317
 GameObject:
   m_ObjectHideFlags: 3
@@ -2102,6 +2133,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
+      value: 1b4f20ab-d11c-461e-aa87-636fbd6240fa
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
+      value: Player/Fall trough[/Keyboard/s]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1805420549}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FallTrough
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Project.Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3248552354677120148, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3461092201475176404, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2157,6 +2228,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3461092201475176404, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
   m_PrefabInstance: {fileID: 1805420545}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1805420549 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3461092201475176407, guid: e071ac0a50e28124c868125d0f29eff0, type: 3}
+  m_PrefabInstance: {fileID: 1805420545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ad835c547c77840a3d24e33d3f8ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1878412372
 GameObject:
   m_ObjectHideFlags: 0
