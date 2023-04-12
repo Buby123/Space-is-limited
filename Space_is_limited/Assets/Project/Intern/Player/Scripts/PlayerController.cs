@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.InputAction;
 
 /// <summary>
 /// controles the Movement of the player
@@ -36,9 +35,12 @@ public class PlayerController : Singleton<PlayerController>
     /// <summary>
     /// initializes the Rigidbodys
     /// </summary>
-    private new void Awake()
+    private void Start()
     {
         Controller = GetComponent<Rigidbody2D>();
+        PlayerInput.Instance.OnJump.AddListener(OnJump);
+        PlayerInput.Instance.OnFalltrough.AddListener(OnFalltrough);
+        PlayerInput.Instance.OnSidewardValue.AddListener(OnSidewardValue);
     }
     #endregion
 
@@ -46,11 +48,10 @@ public class PlayerController : Singleton<PlayerController>
     /// <summary>
     /// Jump or fall faster
     /// </summary>
-    /// <param name="callback"></param>
-    public void JumpOrFall(CallbackContext callback)
+    public void OnJump(bool jump)
     {
-        jump = callback.ReadValue<float>() > 0.5f;
-
+        this.jump = jump;
+        
         if (jump && GroundChecker.Instance.onGround)
         {
             Controller.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -58,13 +59,13 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     /// <summary>
-    /// Moves the player sideways
+    /// Moves the player sideways and flips the image if needed
     /// </summary>
-    /// <param name="callback"></param>
-    public void MoveSidewards(CallbackContext callback)
+    /// <param name="moveSidewardsInput">float from -1 to 1, that characterizes left to right</param>
+    public void OnSidewardValue(float moveSidewardsInput)
     {
-        moveSidewardsInput = callback.ReadValue<float>();
-
+        this.moveSidewardsInput = moveSidewardsInput;
+        
         //Change the look of the player (inclusive colliders)
         if (moveSidewardsInput > 0 && flippedLeft)
         {
@@ -77,12 +78,11 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     /// <summary>
-    /// Lets the player fall through platforms
+    /// Lets the player fall through platforms by changing its 
     /// </summary>
-    /// <param name="callback"></param>
-    public void FallTrough(CallbackContext callback)
+    public void OnFalltrough(bool pushed)
     {
-        if (callback.performed)
+        if (pushed)
         {
             Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
         } else

@@ -13,6 +13,11 @@ public class DoorExample : MonoBehaviour
     #region Detect Player in Area
     bool playerInArea = false;
 
+    private void Start()
+    {
+        PlayerInput.Instance.OnInteract.AddListener(OnInteract);
+    }
+
     /// <summary>
     /// Set the playerInArea bool to true when the player enters the trigger
     /// </summary>
@@ -41,9 +46,9 @@ public class DoorExample : MonoBehaviour
     /// <summary>
     /// Switch to the new scene when the player presses the key
     /// </summary>
-    private void Update()
+    public void OnInteract()
     {
-        if (playerInArea && Input.GetKeyDown(SwapKey))
+        if (playerInArea)
             IngameManager.Instance.OpenSingleScene(SceneName);
     }
 }
