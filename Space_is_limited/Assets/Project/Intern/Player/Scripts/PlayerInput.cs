@@ -18,8 +18,11 @@ public class PlayerInput : Singleton<PlayerInput>
     [SerializeField] private KeyCode fallthroughKey = KeyCode.S;
     public UnityEvent<bool> OnFalltrough { get; private set; }
 
+    [SerializeField] private KeyCode useKey = KeyCode.Space;
+    public UnityEvent<bool> OnUse { get; private set; }
     public UnityEvent<float> OnSidewardValue { get; private set; }
-    
+    public UnityEvent<float> OnUpsideValue { get; private set; }
+
     /// <summary>
     /// Prepares the events
     /// </summary>
@@ -28,7 +31,9 @@ public class PlayerInput : Singleton<PlayerInput>
         OnJump ??= new();
         OnInteract ??= new();
         OnFalltrough ??= new();
+        OnUse ??= new();
         OnSidewardValue ??= new();
+        OnUpsideValue ??= new();
     }
 
     /// <summary>
@@ -38,10 +43,12 @@ public class PlayerInput : Singleton<PlayerInput>
     {
         // Input Values
         OnSidewardValue.Invoke(Input.GetAxis("Horizontal"));
+        OnUpsideValue.Invoke(Input.GetAxis("Vertical"));
 
         // Messages on Key Down
         MessageOnChange(OnJump, jumpKey);
         MessageOnKeyDown(OnInteract, interactKey);
+        MessageOnChange(OnUse, useKey);
         MessageOnChange(OnFalltrough, fallthroughKey);
     }
 

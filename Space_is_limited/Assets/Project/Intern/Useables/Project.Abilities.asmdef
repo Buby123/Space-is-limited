@@ -1,10 +1,11 @@
 {
-    "name": "Project.Editor",
+    "name": "Project.Abilities",
     "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [
-        "Editor"
+    "references": [
+        "GUID:9c84657fe480fc64bb78e1b0c0e5a699",
+        "GUID:612d61a1ce9076745b6962fcf3de999e"
     ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

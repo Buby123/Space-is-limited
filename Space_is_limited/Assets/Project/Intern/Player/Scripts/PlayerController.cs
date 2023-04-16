@@ -15,9 +15,9 @@ public class PlayerController : Singleton<PlayerController>
     [Tooltip("Jumpforce")]
     [SerializeField] float jumpForce = 20f;
     [Tooltip("Toggles the force to move")]
-    [SerializeField] float sideForce = 10f;
+    [SerializeField] float sideSpeed = 10f;
     [Tooltip("Toggles the maximum speed the player can reach")]
-    [SerializeField] float maxSideSpeed = 7f;
+    [SerializeField] float maxSideAcceleration = 7f;
     [Tooltip("Toggles the look direction of the player")]
     [SerializeField] bool flippedLeft = true;
     [SerializeField] GameObject Appearance;
@@ -29,6 +29,7 @@ public class PlayerController : Singleton<PlayerController>
 
     #region Propertys
     [field: SerializeField] public Collider2D PlayerCollider { get; private set; }
+    public bool Active { get; set; } = true;
     #endregion
 
     #region UnityFunctions
@@ -50,6 +51,11 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     public void OnJump(bool jump)
     {
+        if (!Active)
+        {
+            return;
+        }
+
         this.jump = jump;
         
         if (jump && GroundChecker.Instance.onGround)
@@ -64,16 +70,21 @@ public class PlayerController : Singleton<PlayerController>
     /// <param name="moveSidewardsInput">float from -1 to 1, that characterizes left to right</param>
     public void OnSidewardValue(float moveSidewardsInput)
     {
+        if (!Active)
+        {
+            return;
+        }
+
         this.moveSidewardsInput = moveSidewardsInput;
         
         //Change the look of the player (inclusive colliders)
         if (moveSidewardsInput > 0 && flippedLeft)
         {
-            flip();
+            Flip();
         }
         else if (moveSidewardsInput < 0 && !flippedLeft)
         {
-            flip();
+            Flip();
         }
     }
 
@@ -82,6 +93,11 @@ public class PlayerController : Singleton<PlayerController>
     /// </summary>
     public void OnFalltrough(bool pushed)
     {
+        if (!Active)
+        {
+            return;
+        }
+
         if (pushed)
         {
             Appearance.layer = LayerMask.NameToLayer("PlayerOffPlatform");
@@ -93,8 +109,13 @@ public class PlayerController : Singleton<PlayerController>
 
     private void FixedUpdate()
     {
+        if (!Active)
+        {
+            return;
+        }
+
         // Move sidewards
-        AccelerateTo(moveSidewardsInput * sideForce, Controller.velocity.x, Vector2.right);
+        Controller.AddForce(Vector2.right * HelpFunctions.GetAccelerationVelocity(moveSidewardsInput * sideSpeed, Controller.velocity.x, maxSideAcceleration), ForceMode2D.Force);
 
         // Fall fast
         if (!jump && Controller.velocity.y > 0)
@@ -102,33 +123,43 @@ public class PlayerController : Singleton<PlayerController>
             Controller.velocity = new Vector2(Controller.velocity.x, Controller.velocity.y * 0.8f);
         }
     }
-
-    /// <summary>
-    /// Accelerates to a specific speed
-    /// </summary>
-    /// <param name="targetVelocity"></param>
-    /// <param name="currentVelocity"></param>
-    private void AccelerateTo(float targetVelocity, float currentVelocity, Vector3 direction)
-    {
-        var deltaV = targetVelocity - currentVelocity;
-        var accel = deltaV / Time.deltaTime;
-
-        accel = Mathf.Clamp(accel, -maxSideSpeed, maxSideSpeed);
-        Controller.AddForce(direction * accel, ForceMode2D.Force);
-    }
     #endregion
 
     #region OurFunctions
     /// <summary>
     /// Flips the Player per localScale parameter
     /// </summary>
-    private void flip()
+    private void Flip()
     {
         Vector3 currentScale = gameObject.transform.localScale;
         currentScale.x *= -1;
         gameObject.transform.localScale = currentScale;
 
         flippedLeft = !flippedLeft;
+    }
+    #endregion
+
+    #region Getters
+    public GameObject GetObjectInFront(float range, LayerMask _LayerMask)
+    {
+        var forward = flippedLeft ? -transform.right : transform.right;
+
+        var Hit = Physics2D.Raycast(transform.position + new Vector3(0f, 0.5f, 0f), forward, range, _LayerMask);
+
+        if (Hit.collider != null)
+        {
+            return Hit.collider.gameObject;
+        } else
+        {
+            return default;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        var forward = flippedLeft ? -transform.right : transform.right;
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position + new Vector3(0f, 0.5f, 0f), forward * 10);
     }
     #endregion
 }

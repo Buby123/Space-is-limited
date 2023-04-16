@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 110
-  sideForce: 100
-  maxSideSpeed: 80
+  sideSpeed: 100
+  maxSideAcceleration: 80
   flippedLeft: 0
   Appearance: {fileID: 3461092203150733914}
   <PlayerCollider>k__BackingField: {fileID: 3461092203150733907}
