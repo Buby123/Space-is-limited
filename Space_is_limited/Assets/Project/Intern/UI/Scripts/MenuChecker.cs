@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuChecker : MonoBehaviour
 {
-    [SerializeField] GameObject Canvas;
+    [SerializeField] private GameObject Canvas;
 
     /// <summary>
     /// Update is called once per frame
