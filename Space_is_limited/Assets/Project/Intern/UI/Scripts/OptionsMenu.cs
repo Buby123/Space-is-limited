@@ -12,7 +12,7 @@ public class OptionsMenu : MonoBehaviour
     /// </summary>
     public void ChangeDisplaySettings()
     {
-        int optionIndex = 1; //Implementation for reading the actual value is missing!
+        int optionIndex = 2; //Implementation for reading the actual value is missing!
 
         switch (optionIndex)
         {
