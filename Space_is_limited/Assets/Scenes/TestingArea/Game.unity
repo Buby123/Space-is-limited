@@ -642,9 +642,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1878412374}
-        m_TargetAssemblyTypeName: OutgameManager, Assembly-CSharp
-        m_MethodName: LoadOptionsMenu
+      - m_Target: {fileID: 1281656395}
+        m_TargetAssemblyTypeName: MainMenu, Project.UI
+        m_MethodName: ToOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
