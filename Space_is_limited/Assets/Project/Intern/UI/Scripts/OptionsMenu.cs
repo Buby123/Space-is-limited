@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class OptionsMenu : MonoBehaviour
 {
     #region Variables
     //[SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string[] actionTranslator;
+    [SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private GameObject fadeOutImage;
     [SerializeField] private GameObject infoBox;
 
@@ -66,18 +68,18 @@ public class OptionsMenu : MonoBehaviour
     {
         Debug.Log("Window mode is changed by user!");
 
-        int optionIndex = 2; //Implementation for reading the actual value is missing!
+        int optionIndex = dropdown.value; //Implementation for reading the actual value is missing!
 
         switch (optionIndex)
         {
             case 0: // Fullscreen
                 Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
                 break;
-            case 1: // Windowed
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-            case 2: // Borderless window
+            case 1: // Borderless window
                 Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
+                break;
+            case 2: // Windowed
+                Screen.fullScreenMode = FullScreenMode.Windowed;
                 break;
             default:
                 Debug.LogError("Invalid display option index: " + optionIndex);
