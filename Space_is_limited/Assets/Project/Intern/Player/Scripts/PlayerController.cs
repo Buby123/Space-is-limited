@@ -40,7 +40,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         Controller = GetComponent<Rigidbody2D>();
         PlayerInput.Instance.OnJump.AddListener(OnJump);
-        PlayerInput.Instance.OnFalltrough.AddListener(OnFalltrough);
+        PlayerInput.Instance.OnDown.AddListener(OnFalltrough);
         PlayerInput.Instance.OnSidewardValue.AddListener(OnSidewardValue);
     }
     #endregion

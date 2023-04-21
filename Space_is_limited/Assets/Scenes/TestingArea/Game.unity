@@ -167,10 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e5712dff64c7d47a8b57a2e1448782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightKey: 100
+  leftKey: 97
+  downKey: 115
   jumpKey: 119
-  interactKey: 101
-  fallthroughKey: 115
-  useKey: 32
+  interactionKey: 101
+  specialAbilityKey: 32
+  menuKey: 27
 --- !u!1 &42273921
 GameObject:
   m_ObjectHideFlags: 0

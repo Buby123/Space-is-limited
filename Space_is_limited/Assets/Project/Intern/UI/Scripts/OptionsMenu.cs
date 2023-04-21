@@ -6,20 +6,71 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 
+/// <summary>
+/// Performs the settings changes the user selects in the Options Menu.
+/// Also does some utility for providing the Options menu in the first place.
+/// </summary>
 public class OptionsMenu : MonoBehaviour
 {
     #region Variables
     //[SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string[] actionTranslator;
+    [SerializeField] private TMP_Text[] usedKeysTextFields;
     [SerializeField] private TMP_Dropdown dropdown;
+    [SerializeField] private Slider volumeSlider;
+    [SerializeField] private Toggle vSyncToggle;
     [SerializeField] private GameObject fadeOutImage;
     [SerializeField] private GameObject infoBox;
+    [SerializeField] private TMP_Text infoBoxText;
 
     private KeyCode lastKeyPressed;
     private bool lastKeyValid = false;
     private string keyToChange = "";
+    private int actionNumber = -1;
     private bool isWaitingForKey = false;
     #endregion
+
+    /// <summary>
+    /// Every time the user loads the Options-Menu, we need to load the current setting at the beginning.
+    /// 
+    /// This is done for Graphics, selected keys and the sound settings.
+    /// </summary>
+    void Start()
+    {
+        // Update the Graphics
+        switch (Screen.fullScreenMode)
+        {
+            case FullScreenMode.FullScreenWindow:
+                dropdown.value = 0;
+                break;
+            case FullScreenMode.MaximizedWindow:
+                dropdown.value = 1;
+                break;
+            case FullScreenMode.Windowed:
+                dropdown.value = 2;
+                break;
+            default:
+                Debug.LogError("Current Window Mode is not recognized!");
+                break;
+        }
+
+        if(QualitySettings.vSyncCount == 0)
+        {
+            vSyncToggle.isOn = false;
+        } else
+        {
+            vSyncToggle.isOn = true;
+        }
+
+        // Update the selected keys
+        for (int i = 0; i < usedKeysTextFields.Length; i++)
+        {
+            usedKeysTextFields[i].text = "" + PlayerInput.Instance.GetKeyCodeOfAction(actionTranslator[i]);
+        }
+
+        // Update the sound
+        volumeSlider.value = AudioListener.volume;
+    }
 
     /// <summary>
     /// The Update of this script checks after any Keys pressed.
@@ -27,16 +78,16 @@ public class OptionsMenu : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (isWaitingForKey)
+        if (!isWaitingForKey)
         {
-            UpdateLastPressedKey();
-            if(lastKeyValid)
-            {
-                ChangeToThisKey(keyToChange, lastKeyPressed);
-                lastKeyValid = false;
-                keyToChange = "";
-                isWaitingForKey = false;
-            }
+            return;
+        }
+
+        UpdateLastPressedKey();
+        if (lastKeyValid)
+        {
+            lastKeyValid = false;
+            ChangeToThisKey(keyToChange, lastKeyPressed);
         }
     }
 
@@ -46,16 +97,18 @@ public class OptionsMenu : MonoBehaviour
     /// </summary>
     private void UpdateLastPressedKey()
     {
-        if (Input.anyKeyDown)
+        if (!Input.anyKeyDown)
         {
-            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            return;
+        }
+
+        foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(keyCode))
             {
-                if (Input.GetKeyDown(keyCode))
-                {
-                    lastKeyPressed = keyCode;
-                    lastKeyValid = true;
-                    break;
-                }
+                lastKeyPressed = keyCode;
+                lastKeyValid = true;
+                break;
             }
         }
     }
@@ -82,8 +135,22 @@ public class OptionsMenu : MonoBehaviour
                 Screen.fullScreenMode = FullScreenMode.Windowed;
                 break;
             default:
-                Debug.LogError("Invalid display option index: " + optionIndex);
+                Debug.LogError("Invalid display option index: " + optionIndex + "[OptionsMenu.cs.ChangeDisplaySettings()]");
                 break;
+        }
+    }
+
+    /// <summary>
+    /// Is called if the user changes the vSync settings. Sets the new value.
+    /// </summary>
+    public void ChangeVSyncSettings()
+    {
+        if (vSyncToggle.isOn)
+        {
+            QualitySettings.vSyncCount = 1;
+        } else
+        {
+            QualitySettings.vSyncCount = 0;
         }
     }
 
@@ -96,6 +163,7 @@ public class OptionsMenu : MonoBehaviour
     {
         Debug.Log("User changes a Key! This one: " + actionTranslator[whichAction]);
 
+        actionNumber = whichAction;
         fadeOutImage.SetActive(true);
         keyToChange = actionTranslator[whichAction];
         isWaitingForKey = true;
@@ -109,6 +177,31 @@ public class OptionsMenu : MonoBehaviour
     private void ChangeToThisKey(string action, KeyCode newKey)
     {
         Debug.Log("This Key was now selected: " + newKey);
+
+        if(newKey == PlayerInput.Instance.GetKeyCodeOfAction(action))
+        {
+            infoBox.SetActive(false);
+            fadeOutImage.SetActive(false);
+            keyToChange = "";
+            isWaitingForKey = false;
+            return;
+        }
+
+        if (!PlayerInput.Instance.IsKeyCodeAvailable(newKey))
+        {
+            infoBox.SetActive(true);
+            infoBoxText.text = "\"" + newKey + "\" is already in use!";
+            return;
+        }
+
+        keyToChange = "";
+        isWaitingForKey = false;
+
+        PlayerInput.Instance.SetKeyCodeOfAction(action, newKey);
+
+        usedKeysTextFields[actionNumber].text = "" + newKey;
+
+        infoBox.SetActive(false);
         fadeOutImage.SetActive(false);
     }
 
@@ -119,7 +212,8 @@ public class OptionsMenu : MonoBehaviour
     public void ChangeVolumeSettings()
     {
         Debug.Log("User changes the Sound Volume!");
-        // Implementation missing
+
+        AudioListener.volume = volumeSlider.value;
     }
 
     /// <summary>
