@@ -13,7 +13,7 @@ public class PlayerAbility
     /// </summary>
     public void OnEnable()
     {
-        PlayerInput.Instance.OnUse.AddListener(ToggleAbility);
+        PlayerInput.Instance.OnSpecialAbility.AddListener(ToggleAbility);
         Debug.Log("Ability enabled");
     }
 
@@ -22,7 +22,7 @@ public class PlayerAbility
     /// </summary>
     public void OnDisable()
     {
-        PlayerInput.Instance.OnUse.RemoveListener(ToggleAbility);
+        PlayerInput.Instance.OnSpecialAbility.RemoveListener(ToggleAbility);
     }
 
     /// <summary>

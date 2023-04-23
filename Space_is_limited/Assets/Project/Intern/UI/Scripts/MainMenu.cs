@@ -21,10 +21,18 @@ public class MainMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// TTis Function calls the Scene Mangers LoadCheckpoint() function
+    /// This Function calls the Scene Mangers LoadCheckpoint() function
     /// </summary>
     public void ToGame()
     {
         OutgameManager.Instance.LoadOtherScene(OutgameManager.MainScenes.Game);
+    }
+
+    /// <summary>
+    /// This Function tells the Outgame Manager to additively load the OptionsMenu
+    /// </summary>
+    public void ToOptions()
+    {
+        OutgameManager.Instance.LoadOptionsMenu();
     }
 }

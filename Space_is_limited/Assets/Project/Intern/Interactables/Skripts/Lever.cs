@@ -32,6 +32,7 @@ public class Lever : MonoBehaviour
     private void Awake()
     {
         SetState(active);
+        // PlayerInput.Instance.OnInteraction.AddListener(OnInteractionKey);                   <------------------------- Fix this failure if you want to use the Lever!!
     }
 
     /// <summary>
@@ -61,18 +62,17 @@ public class Lever : MonoBehaviour
     }
 
     /// <summary>
-    /// Test if the lever is pulled by the player and changes the state
+    /// Test if the lever is pulled by the player and changes the state after an interacton.
+    /// Is invoked by an event listener.
     /// </summary>
-    private void Update()
+    private void OnInteractionKey()
     {
         if (canBeChanged)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SetState(!active);
-            }
+            SetState(!active);
         }
     }
+    
     #endregion
 
     #region VisualOutput

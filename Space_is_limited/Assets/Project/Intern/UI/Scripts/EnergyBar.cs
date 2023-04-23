@@ -27,9 +27,23 @@ namespace Intern.UI
         /// Sets the energy of the slider
         /// </summary>
         /// <param name="energy">Energy to be set</param>
+        /// <returns>True, if the energy was set, false if the energy was not set</returns>
         public void setEnergy(int energy)
         {
             slider.value = Mathf.Clamp(energy, 0, slider.maxValue);
+        }
+
+        public bool reduceEnergy(int energy)
+        {
+            if (slider.value - energy < 0)
+            {
+                return false;
+            }
+            else
+            {
+                slider.value -= energy;
+                return true;
+            }
         }
     }
 }

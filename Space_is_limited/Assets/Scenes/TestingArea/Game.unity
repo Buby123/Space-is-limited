@@ -167,10 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e5712dff64c7d47a8b57a2e1448782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightKey: 100
+  leftKey: 97
+  downKey: 115
   jumpKey: 119
-  interactKey: 101
-  fallthroughKey: 115
-  useKey: 32
+  interactionKey: 101
+  specialAbilityKey: 32
+  menuKey: 27
 --- !u!1 &42273921
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,8 +267,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 88427707}
-  - {fileID: 1046350557}
   - {fileID: 459251778}
+  - {fileID: 1046350557}
   - {fileID: 1297955229}
   m_Father: {fileID: 160040046}
   m_RootOrder: 0
@@ -642,9 +645,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1878412374}
-        m_TargetAssemblyTypeName: OutgameManager, Assembly-CSharp
-        m_MethodName: LoadOptionsMenu
+      - m_Target: {fileID: 1281656395}
+        m_TargetAssemblyTypeName: MainMenu, Project.UI
+        m_MethodName: ToOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -929,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1166739763528070020, guid: 8617e242de046f545a5fbf8bbc8865a7, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1166739763528070020, guid: 8617e242de046f545a5fbf8bbc8865a7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1678,7 +1681,7 @@ RectTransform:
   - {fileID: 1280578972}
   - {fileID: 1281656394}
   m_Father: {fileID: 42273925}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

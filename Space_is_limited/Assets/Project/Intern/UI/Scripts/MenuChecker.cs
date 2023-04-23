@@ -1,28 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This class is responsible for showing or hiding the ingame menu.
+/// It also has to stop or resume the game.
+/// </summary>
 public class MenuChecker : MonoBehaviour
 {
-    [SerializeField] GameObject Canvas;
+    [SerializeField] private GameObject Canvas;
 
     /// <summary>
-    /// Update is called once per frame
+    /// Add Event-Listener for key presses
     /// </summary>
-    void Update()
+    void Start()
     {
-        //Open the ingame menu and stop the game Time
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Canvas.SetActive(!Canvas.activeSelf);
+        PlayerInput.Instance.OnMenu.AddListener(SwitchMenu);
+    }
 
-            if (Canvas.activeSelf)
-            {
-                OutgameManager.Instance.PauseGame();
-            }else
-            {
-                OutgameManager.Instance.ResumeGame();
-            }
+    /// <summary>
+    /// Opens or closes the Ingame Menu UI if the Options Menu is not displayed currently.
+    /// This also stops or resumes the Game.
+    /// </summary>
+    private void SwitchMenu()
+    {
+        if (CheckOptionsLoaded())
+        {
+            return;
         }
+
+        if (Canvas.activeSelf)
+        {
+            Canvas.SetActive(false);
+            OutgameManager.Instance.ResumeGame();
+        }
+        else
+        {
+            Canvas.SetActive(true);
+            OutgameManager.Instance.PauseGame();
+        }
+
+    }
+
+    /// <summary>
+    /// Check if the Options/Settings menu is loaded
+    /// </summary>
+    private bool CheckOptionsLoaded()
+    {
+        Scene optionsScene = SceneManager.GetSceneByName("OptionsMenu");
+        return optionsScene.isLoaded;
     }
 }
