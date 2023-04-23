@@ -66,8 +66,8 @@ public class Checkpoint : MonoBehaviour
         public void LoadCheckpoint()
         {
             // Load Scene
-            void Callback(AsyncOperation AsyOperation) => SetPlayersPosition();
-            IngameManager.Instance.OpenSingleScene(sceneName, Callback);
+            IngameManager.Instance.OpenSingleScene(sceneName);
+            SetPlayersPosition();
         }
 
         /// <summary>

@@ -1730,5 +1730,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 7294395922044163753, guid: 06522716d689d8c41898171e7f364454, type: 3}
+      propertyPath: NearbyScenes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06522716d689d8c41898171e7f364454, type: 3}
