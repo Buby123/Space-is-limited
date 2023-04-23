@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// controles the Movement of the player
 /// </summary>
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : Singleton<PlayerController>
 {
     #region objects
@@ -24,12 +25,12 @@ public class PlayerController : Singleton<PlayerController>
 
     private bool jump;
     private float moveSidewardsInput;
-
     #endregion
 
     #region Propertys
     [field: SerializeField] public Collider2D PlayerCollider { get; private set; }
     public bool Active { get; set; } = true;
+    public bool FlippedLeft => flippedLeft;
     #endregion
 
     #region UnityFunctions
@@ -136,30 +137,6 @@ public class PlayerController : Singleton<PlayerController>
         gameObject.transform.localScale = currentScale;
 
         flippedLeft = !flippedLeft;
-    }
-    #endregion
-
-    #region Getters
-    public GameObject GetObjectInFront(float range, LayerMask _LayerMask)
-    {
-        var forward = flippedLeft ? -transform.right : transform.right;
-
-        var Hit = Physics2D.Raycast(transform.position + new Vector3(0f, 0.5f, 0f), forward, range, _LayerMask);
-
-        if (Hit.collider != null)
-        {
-            return Hit.collider.gameObject;
-        } else
-        {
-            return default;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        var forward = flippedLeft ? -transform.right : transform.right;
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + new Vector3(0f, 0.5f, 0f), forward * 10);
     }
     #endregion
 }
