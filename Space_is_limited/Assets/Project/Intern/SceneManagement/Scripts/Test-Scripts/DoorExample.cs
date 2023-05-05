@@ -15,7 +15,7 @@ public class DoorExample : MonoBehaviour
 
     private void Start()
     {
-        PlayerInput.Instance.OnInteract.AddListener(OnInteract);
+        PlayerInput.Instance.OnInteraction.AddListener(OnInteraction);
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public class DoorExample : MonoBehaviour
     /// <summary>
     /// Switch to the new scene when the player presses the key
     /// </summary>
-    public void OnInteract()
+    public void OnInteraction()
     {
         if (playerInArea)
             IngameManager.Instance.OpenSingleScene(SceneName);

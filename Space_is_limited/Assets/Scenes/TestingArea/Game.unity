@@ -167,10 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e5712dff64c7d47a8b57a2e1448782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpKey: 119
-  interactKey: 101
-  fallthroughKey: 115
-  useKey: 32
 --- !u!1 &42273921
 GameObject:
   m_ObjectHideFlags: 0
@@ -932,8 +928,16 @@ PrefabInstance:
       propertyPath: OnDeathAnimationFinished.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1166739763528070017, guid: 8617e242de046f545a5fbf8bbc8865a7, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1166739763528070018, guid: 8617e242de046f545a5fbf8bbc8865a7, type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1166739763528070018, guid: 8617e242de046f545a5fbf8bbc8865a7, type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1166739763528070020, guid: 8617e242de046f545a5fbf8bbc8865a7, type: 3}
@@ -1393,7 +1397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 576
 --- !u!1 &1021811428
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class Hoverer : PlayerAbility
     [SerializeField] private LayerMask _LayerMask;
     
     private HoverControl target;
+    private float range = 10f;
 
     public Hoverer(LayerMask Layer)
     {
@@ -43,7 +44,7 @@ public class Hoverer : PlayerAbility
     /// </summary>
     private void ShootLaser()
     {
-        var Hit = PlayerController.Instance.GetObjectInFront(10, _LayerMask);
+        var Hit = LaserSelector.Instance.GetObjectInFront(range, _LayerMask);
 
         if (Hit == null)
         {
@@ -54,6 +55,7 @@ public class Hoverer : PlayerAbility
 
         if (Target != null)
         {
+            LaserSelector.Instance.BeginConnection(Target.transform, _LayerMask, range, DeactivateHover);
             PlayerController.Instance.Active = false;
             target = Target;
             target.enabled = true;
@@ -67,7 +69,8 @@ public class Hoverer : PlayerAbility
     {
         if (target == null)
             return;
-        
+
+        LaserSelector.Instance.EndConnection();
         target.enabled = false;
         target = null;
     }
