@@ -21,6 +21,7 @@ public class PlayerController : Singleton<PlayerController>
     [Tooltip("Toggles the look direction of the player")]
     [SerializeField] bool flippedLeft = true;
     [SerializeField] GameObject Appearance;
+    [SerializeField] Animator Animator;
 
     private bool jump;
     private float moveSidewardsInput;
@@ -122,6 +123,13 @@ public class PlayerController : Singleton<PlayerController>
         {
             Controller.velocity = new Vector2(Controller.velocity.x, Controller.velocity.y * 0.8f);
         }
+    }
+
+    private void Update()
+    {
+        Animator.SetFloat("XVelocity", Mathf.Abs(Controller.velocity.x));
+        Animator.SetFloat("YVelocity", Controller.velocity.y);
+        Animator.SetBool("OnGround", GroundChecker.Instance.onGround);
     }
     #endregion
 
