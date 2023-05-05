@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1357663636}
     m_Modifications:
+    - target: {fileID: 1606321149995881774, guid: 061aad1bd1e91db4b8971f6b6ad0e6fa, type: 3}
+      propertyPath: movement_force
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5050123612925421792, guid: 061aad1bd1e91db4b8971f6b6ad0e6fa, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5050123612925421794, guid: 061aad1bd1e91db4b8971f6b6ad0e6fa, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -323,8 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88491853d03aa44bb8d083de3e873f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxSpeed: 30
-  _MaxAcceleration: 80
+  _MaxSpeed: 5
+  _MaxAcceleration: 10
 --- !u!1001 &1357663635
 PrefabInstance:
   m_ObjectHideFlags: 0
