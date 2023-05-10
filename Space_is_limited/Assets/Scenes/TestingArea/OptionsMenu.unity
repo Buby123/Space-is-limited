@@ -856,7 +856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: L
+  m_text: A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -1101,7 +1101,7 @@ RectTransform:
   - {fileID: 116532163}
   - {fileID: 1853884638}
   m_Father: {fileID: 919877567}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4195,7 +4195,7 @@ RectTransform:
   - {fileID: 1219008758}
   - {fileID: 1269327264}
   m_Father: {fileID: 919877567}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5269,10 +5269,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 109921620}
   - {fileID: 747430433}
-  - {fileID: 1405321379}
+  - {fileID: 109921620}
   - {fileID: 1429894702}
+  - {fileID: 1405321379}
   - {fileID: 1117348250}
   - {fileID: 1366741005}
   - {fileID: 694781629}
@@ -6403,7 +6403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jump:'
+  m_text: 'Move Up:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -7304,7 +7304,7 @@ RectTransform:
   - {fileID: 428114034}
   - {fileID: 270105761}
   m_Father: {fileID: 919877567}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7361,7 +7361,7 @@ GameObject:
   - component: {fileID: 1429894704}
   - component: {fileID: 1429894703}
   m_Layer: 5
-  m_Name: Jump
+  m_Name: Move Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7382,7 +7382,7 @@ RectTransform:
   - {fileID: 1205705617}
   - {fileID: 416559688}
   m_Father: {fileID: 919877567}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
