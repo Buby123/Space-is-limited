@@ -36,8 +36,6 @@ namespace SaveSystem
         {
             var usedPath = local ? path : persistantPath;
 
-            Debug.Log("Save location is: " + usedPath);
-
             var data = JsonUtility.ToJson(saveObject);
 
             using StreamWriter writer = new StreamWriter(usedPath + filename + ".json");

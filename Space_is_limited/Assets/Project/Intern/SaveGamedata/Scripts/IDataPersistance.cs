@@ -8,9 +8,9 @@ namespace SaveSystem
     public interface IDataPersistence
     {
         // Loads the data from the file
-        void LoadData();
+        public void LoadData();
 
         // Saves the data to the file
-        void SaveData();
+        public void SaveData();
     }
 }

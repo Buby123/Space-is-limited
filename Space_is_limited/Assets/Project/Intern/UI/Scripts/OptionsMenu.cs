@@ -13,7 +13,6 @@ using TMPro;
 public class OptionsMenu : MonoBehaviour
 {
     #region Variables
-    //[SerializeField] private TMP_Dropdown dropdown;
     [SerializeField] private string[] actionTranslator;
     [SerializeField] private TMP_Text[] usedKeysTextFields;
     [SerializeField] private TMP_Dropdown dropdown;
@@ -23,135 +22,132 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private GameObject infoBox;
     [SerializeField] private TMP_Text infoBoxText;
 
-    private KeyCode lastKeyPressed;
-    private bool lastKeyValid = false;
-    private string keyToChange = "";
-    private int actionNumber = -1;
-    private bool isWaitingForKey = false;
+    DataOptions Data = new DataOptions();
     #endregion
 
     /// <summary>
     /// Every time the user loads the Options-Menu, we need to load the current setting at the beginning.
-    /// 
-    /// This is done for Graphics, selected keys and the sound settings.
+    /// And loads them from the storage
     /// </summary>
     void Start()
     {
-        // Update the Graphics
-        switch (Screen.fullScreenMode)
-        {
-            case FullScreenMode.FullScreenWindow:
-                dropdown.value = 0;
-                break;
-            case FullScreenMode.MaximizedWindow:
-                dropdown.value = 1;
-                break;
-            case FullScreenMode.Windowed:
-                dropdown.value = 2;
-                break;
-            default:
-                Debug.LogError("Current Window Mode is not recognized!");
-                break;
-        }
+        Data.LoadData();
+        Data.ApplyOptions();
+        InitGraphics();
+    }
 
-        if(QualitySettings.vSyncCount == 0)
-        {
-            vSyncToggle.isOn = false;
-        } else
-        {
-            vSyncToggle.isOn = true;
-        }
+    /// <summary>
+    /// This is done for Graphics, selected keys and the sound settings.
+    /// </summary>
+    public void InitGraphics()
+    {
+        // Update the Graphics
+        dropdown.value = Data.ScreenModeInt;
+        vSyncToggle.isOn = Data.VSyncCount == 0;
 
         // Update the selected keys
         for (int i = 0; i < usedKeysTextFields.Length; i++)
         {
-            usedKeysTextFields[i].text = "" + PlayerInput.Instance.GetKeyCodeOfAction(actionTranslator[i]);
+            usedKeysTextFields[i].text = "" + PlayerInput.Instance.Data.GetKeyCodeOfAction(actionTranslator[i]);
         }
 
         // Update the sound
-        volumeSlider.value = AudioListener.volume;
+        volumeSlider.value = Data.Volume;
     }
 
+    #region Key Change
     /// <summary>
     /// The Update of this script checks after any Keys pressed.
     /// Only triggered if the user started the process of selecting a new Key.
+    /// It waits until the user selected an valid key and then calls the set key function
     /// </summary>
-    void Update()
-    {
-        if (!isWaitingForKey)
-        {
-            return;
-        }
+    /// <param name="actionNumber">Number of the action field</param>
 
-        UpdateLastPressedKey();
-        if (lastKeyValid)
+    private IEnumerator WaitForKey(int actionNumber)
+    {
+        bool keyValid = false;
+        KeyCode lastKeyPressed = KeyCode.None;
+
+        // Wait for a valid key
+        do
         {
-            lastKeyValid = false;
-            ChangeToThisKey(keyToChange, lastKeyPressed);
-        }
+            // Wait for a key
+            yield return new WaitUntil(() => Input.anyKeyDown);
+
+            if (GetValidKey(out lastKeyPressed, actionNumber))
+            {
+                if (KeyCode.None == lastKeyPressed)
+                {
+                    yield break;
+                }
+
+                keyValid = true;
+            }
+        } while (!keyValid);
+
+        ChangeToThisKey(actionNumber, lastKeyPressed);
     }
 
     /// <summary>
-    /// This function checks if there has been any Key's pressed recently. 
-    /// If so, the Key is set as 'lastKeyPressed'.
+    /// Returns true if the user selected a valid key.
+    /// Returns a Key if the user pressed one and is it not already in use.
+    /// Warning it can return true and None if the user pressed the same key as before.
     /// </summary>
-    private void UpdateLastPressedKey()
+    /// <param name="ValidKey">Key that is Valid, is None when not valid or if it is the same key as before</param>
+    /// <param name="actionNumber">Number of the action field</param>
+    /// <returns></returns>
+    public bool GetValidKey(out KeyCode ValidKey, int actionNumber)
     {
-        if (!Input.anyKeyDown)
+        ValidKey = KeyCode.None;
+
+        // The user selected a non valid key
+        if (!GetPressedKey(out ValidKey))
         {
-            return;
+            return false;
         }
 
+        // The user selected the key from before
+        var action = actionTranslator[actionNumber];
+
+        if (ValidKey == PlayerInput.Instance.Data.GetKeyCodeOfAction(action))
+        {
+            infoBox.SetActive(false);
+            fadeOutImage.SetActive(false);
+            ValidKey = KeyCode.None;
+            return true;
+        }
+
+        // If the user selected a key that is already in use, we need to inform him.
+        if (!PlayerInput.Instance.Data.IsKeyCodeAvailable(ValidKey))
+        {
+            infoBox.SetActive(true);
+            infoBoxText.text = "\"" + ValidKey + "\" is already in use!";
+            return false;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Returns a Key pressed by the user
+    /// If no key was pressed it returns None and false.
+    /// </summary>
+    /// <param name="KeyPressed">Key pressed by the user or none</param>
+    /// <returns></returns>
+    private bool GetPressedKey(out KeyCode KeyPressed)
+    {
+        // Check if the key is valid
         foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
         {
             if (Input.GetKeyDown(keyCode))
             {
-                lastKeyPressed = keyCode;
-                lastKeyValid = true;
-                break;
+                KeyPressed = keyCode;
+                return true;
             }
         }
-    }
 
-    /// <summary>
-    /// This Function changes the display settings to a user selected choice.
-    /// The choice is made in a drop-dowm menu.
-    /// </summary>
-    public void ChangeDisplaySettings()
-    {
-        Debug.Log("Window mode is changed by user!");
-
-        int optionIndex = dropdown.value; //Implementation for reading the actual value is missing!
-
-        switch (optionIndex)
-        {
-            case 0: // Fullscreen
-                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-                break;
-            case 1: // Borderless window
-                Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
-                break;
-            case 2: // Windowed
-                Screen.fullScreenMode = FullScreenMode.Windowed;
-                break;
-            default:
-                Debug.LogError("Invalid display option index: " + optionIndex + "[OptionsMenu.cs.ChangeDisplaySettings()]");
-                break;
-        }
-    }
-
-    /// <summary>
-    /// Is called if the user changes the vSync settings. Sets the new value.
-    /// </summary>
-    public void ChangeVSyncSettings()
-    {
-        if (vSyncToggle.isOn)
-        {
-            QualitySettings.vSyncCount = 1;
-        } else
-        {
-            QualitySettings.vSyncCount = 0;
-        }
+        KeyPressed = KeyCode.None;
+        return false;
     }
 
     /// <summary>
@@ -163,48 +159,31 @@ public class OptionsMenu : MonoBehaviour
     {
         Debug.Log("User changes a Key! This one: " + actionTranslator[whichAction]);
 
-        actionNumber = whichAction;
         fadeOutImage.SetActive(true);
-        keyToChange = actionTranslator[whichAction];
-        isWaitingForKey = true;
+        StartCoroutine(WaitForKey(whichAction));
     }
 
     /// <summary>
     /// When the user has selected a key, this function processes the decision.
     /// </summary>
-    /// <param name="action"></param>
-    /// <param name="newKey"></param>
-    private void ChangeToThisKey(string action, KeyCode newKey)
+    /// <param name="actionNumber">Actionnumber of the key that is replaced</param>
+    /// <param name="newKey">New KeyCode for the place</param>
+    private void ChangeToThisKey(int actionNumber, KeyCode newKey)
     {
         Debug.Log("This Key was now selected: " + newKey);
 
-        if(newKey == PlayerInput.Instance.GetKeyCodeOfAction(action))
-        {
-            infoBox.SetActive(false);
-            fadeOutImage.SetActive(false);
-            keyToChange = "";
-            isWaitingForKey = false;
-            return;
-        }
+        var action = actionTranslator[actionNumber];
 
-        if (!PlayerInput.Instance.IsKeyCodeAvailable(newKey))
-        {
-            infoBox.SetActive(true);
-            infoBoxText.text = "\"" + newKey + "\" is already in use!";
-            return;
-        }
-
-        keyToChange = "";
-        isWaitingForKey = false;
-
-        PlayerInput.Instance.SetKeyCodeOfAction(action, newKey);
-
+        // If the user selected a valid key, we can change it.
+        PlayerInput.Instance.Data.SetKeyCodeOfAction(action, newKey);
         usedKeysTextFields[actionNumber].text = "" + newKey;
 
         infoBox.SetActive(false);
         fadeOutImage.SetActive(false);
     }
+    #endregion
 
+    #region Make Settings
     /// <summary>
     /// This function is called when the user changes the Volume slider.
     /// The new value needs to be read and must then be set as Sound-Volume.
@@ -213,8 +192,35 @@ public class OptionsMenu : MonoBehaviour
     {
         Debug.Log("User changes the Sound Volume!");
 
-        AudioListener.volume = volumeSlider.value;
+        Data.Volume = volumeSlider.value;
     }
+
+    /// <summary>
+    /// Is called if the user changes the vSync settings. Sets the new value.
+    /// </summary>
+    public void ChangeVSyncSettings()
+    {
+        if (vSyncToggle.isOn)
+        {
+            Data.VSyncCount = 1;
+        }
+        else
+        {
+            Data.VSyncCount = 0;
+        }
+    }
+
+    /// <summary>
+    /// This Function changes the display settings to a user selected choice.
+    /// The choice is made in a drop-dowm menu.
+    /// </summary>
+    public void ChangeDisplaySettings()
+    {
+        Debug.Log("Window mode is changed by user!");
+
+        Data.ScreenModeInt = dropdown.value; //Implementation for reading the actual value is missing!
+    }
+    #endregion
 
     /// <summary>
     /// This Functions unloads the additively Loaded OptionsMenu. The player gets back where he was before.

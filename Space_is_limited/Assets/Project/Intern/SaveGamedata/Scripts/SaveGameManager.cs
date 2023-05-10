@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 namespace SaveSystem
 {
-    public class SaveGameManager : Singleton<SaveGameManager>
+    public static class SaveGameManager
     {
         [Tooltip("Folder where the data will be saved and loaded from, only for Data thats not saved when the player dies")]
-        [SerializeField] string SessionDataFolder = "TemporalSceneData";
+        static string SessionDataFolder = "TemporalSceneData";
 
         /// <summary>
         /// Saves the data of the object
@@ -18,7 +18,7 @@ namespace SaveSystem
         /// <param name="obj">Object itself</param>
         /// <param name="filename">Name of the file aka the key</param>
         /// <param name="deleteOnDeath">Wether it should be in the delete folder</param>
-        public void Save<T>(T obj, string filename, bool deleteOnDeath)
+        public static void Save<T>(T obj, string filename, bool deleteOnDeath)
         {
             if (deleteOnDeath)
             {
@@ -35,7 +35,7 @@ namespace SaveSystem
         /// <param name="obj">Object itself</param>
         /// <param name="filename">Name of the file aka the key</param>
         /// <param name="deleteOnDeath">Wether it should be in the delete folder</param>
-        public void Load<T>(T obj, string filename, bool deleteOnDeath)
+        public static void Load<T>(T obj, string filename, bool deleteOnDeath)
         {
             if (deleteOnDeath)
             {
@@ -48,7 +48,7 @@ namespace SaveSystem
         /// <summary>
         /// Deletes all data that should be deleted on death
         /// </summary>
-        public void DeleteOnDeath()
+        public static void DeleteOnDeath()
         {
             // Delete the Data that should be deleted on death
             SaveLoadData.Instance.DeleteFolder(SessionDataFolder);

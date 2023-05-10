@@ -11,25 +11,15 @@ using UnityEngine.Events;
 /// </summary>
 public class PlayerInput : Singleton<PlayerInput>
 {
+    public readonly DataControls Data = new DataControls();
+    
     #region Variables
-    private KeyCode rightKey = KeyCode.D;
-    private KeyCode leftKey = KeyCode.A;
     public UnityEvent<float> OnSidewardValue { get; private set; }
     public UnityEvent<float> OnUpsideValue { get; private set; }
-
-    private KeyCode downKey = KeyCode.S;
     public UnityEvent<bool> OnDown { get; private set; }
-
-    private KeyCode jumpKey = KeyCode.W;
     public UnityEvent<bool> OnJump { get; private set; }
-
-    private KeyCode interactionKey = KeyCode.E;
     public UnityEvent OnInteraction { get; private set; }
-
-    private KeyCode specialAbilityKey = KeyCode.Space;
     public UnityEvent<bool> OnSpecialAbility { get; private set; }
-
-    private KeyCode menuKey = KeyCode.Escape;
     public UnityEvent OnMenu { get; private set; }
     #endregion
 
@@ -47,6 +37,11 @@ public class PlayerInput : Singleton<PlayerInput>
         OnMenu ??= new();
     }
 
+    private void Awake()
+    {
+        Data.LoadData();
+    }
+
     /// <summary>
     /// Handles the Input and invokes the Events
     /// </summary>
@@ -55,11 +50,11 @@ public class PlayerInput : Singleton<PlayerInput>
         OnSidewardValue.Invoke(GetHorizontalInput());
         OnUpsideValue.Invoke(GetVerticalInput());
 
-        MessageOnChange(OnDown, downKey);
-        MessageOnChange(OnJump, jumpKey);
-        MessageOnKeyDown(OnInteraction, interactionKey);
-        MessageOnChange(OnSpecialAbility, specialAbilityKey);
-        MessageOnKeyDown(OnMenu, menuKey);
+        MessageOnChange(OnDown, Data.DownKey);
+        MessageOnChange(OnJump, Data.JumpKey);
+        MessageOnKeyDown(OnInteraction, Data.InteractionKey);
+        MessageOnChange(OnSpecialAbility, Data.SpecialAbilityKey);
+        MessageOnKeyDown(OnMenu, Data.MenuKey);
     }
 
     /// <summary>
@@ -101,10 +96,10 @@ public class PlayerInput : Singleton<PlayerInput>
     {
         float horizontalInput = 0;
 
-        if(Input.GetKeyDown(rightKey) || Input.GetKey(rightKey))
+        if(Input.GetKeyDown(Data.RightKey) || Input.GetKey(Data.RightKey))
         {
             horizontalInput = 1;
-        } else if(Input.GetKeyDown(leftKey) || Input.GetKey(leftKey))
+        } else if(Input.GetKeyDown(Data.LeftKey) || Input.GetKey(Data.LeftKey))
         {
             horizontalInput = -1;
         }
@@ -121,102 +116,14 @@ public class PlayerInput : Singleton<PlayerInput>
     {
         float verticalInput = 0;
 
-        if (Input.GetKeyDown(jumpKey) || Input.GetKey(jumpKey))
+        if (Input.GetKeyDown(Data.JumpKey) || Input.GetKey(Data.JumpKey))
         {
             verticalInput = 1;
         }
-        else if (Input.GetKeyDown(downKey) || Input.GetKey(downKey))
+        else if (Input.GetKeyDown(Data.DownKey) || Input.GetKey(Data.DownKey))
         {
             verticalInput = -1;
         }
         return verticalInput;
-    }
-
-    /// <summary>
-    /// This function can be called to get the KeyCode of a specific action.
-    /// </summary>
-    /// <param name="actionName"> Name of the Action that should be replaced </param>
-    /// <returns> Keycode of a specific Action</returns>
-    public KeyCode GetKeyCodeOfAction(string actionName)
-    {
-        switch(actionName)
-        {
-            case "Move_Right":
-                return rightKey;
-            case "Move_Left":
-                return leftKey;
-            case "Move_Down":
-                return downKey;
-            case "Jump":
-                return jumpKey;
-            case "Interaction":
-                return interactionKey;
-            case "Special_Ability":
-                return specialAbilityKey;
-            case "Open/Close_Menu":
-                return menuKey;
-            default:
-                Debug.LogError("Action Name was not registered!");
-                return KeyCode.None;
-        }
-    }
-
-    /// <summary>
-    /// This function can be called to assign a new KeyCode to a specific action.
-    /// </summary>
-    /// <param name="actionName"> Name of the Action that should be replaced </param>
-    /// <param name="keyCode"> The new KeyCode for that action </param>
-    public void SetKeyCodeOfAction(string actionName, KeyCode keyCode)
-    {
-        if (!IsKeyCodeAvailable(keyCode))
-        {
-            Debug.LogError("Assignement of new KeyCode has failed because the Key is alread assigned otherwise!");
-            return;
-        }
-
-        switch (actionName)
-        {
-            case "Move_Right":
-                rightKey = keyCode;
-                break;
-            case "Move_Left":
-                leftKey = keyCode;
-                break;
-            case "Move_Down":
-                downKey = keyCode;
-                break;
-            case "Jump":
-                jumpKey = keyCode;
-                break;
-            case "Interaction":
-                interactionKey = keyCode;
-                break;
-            case "Special_Ability":
-                specialAbilityKey = keyCode;
-                break;
-            case "Open/Close_Menu":
-                menuKey = keyCode;
-                break;
-            default:
-                Debug.LogError("Action Name was not registered!");
-                break;
-        }
-    }
-
-    /// <summary>
-    /// This function can be used to see if a specific KeyCode is already in use.
-    /// Before assigning a new KeyCode there should always be the security that
-    /// there are no collisions between KeyCode assignments. This can be done using this function.
-    /// </summary>
-    /// <param name="keyCode"> The KeyCode that should be tested </param>
-    /// <returns> Returns if the given KeyCode is not in use currently </returns>
-    public bool IsKeyCodeAvailable(KeyCode keyCode)
-    {
-        if(keyCode == rightKey || keyCode == leftKey || keyCode == downKey || keyCode == jumpKey ||
-           keyCode == interactionKey || keyCode == specialAbilityKey || keyCode == menuKey)
-        {
-            return false;
-        }
-        return true;
     }
 }

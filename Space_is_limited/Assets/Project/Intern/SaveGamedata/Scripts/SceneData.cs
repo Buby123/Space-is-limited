@@ -29,24 +29,24 @@ namespace SaveSystem
         /// <summary>
         /// Load the data of the scene
         /// </summary>
-        void IDataPersistence.LoadData()
+        public void LoadData()
+        {
+            Loaded = true;
+            
+            SaveGameManager.Load(Data, DataKey, DeleteOnDeath);
+        }
+
+        /// <summary>
+        /// Saves the data of the object
+        /// </summary>
+        public void SaveData()
         {
             if (!Loaded)
             {
                 Debug.LogWarning("Data is not set properly");
             }
 
-            SaveGameManager.Instance.Load(Data, DataKey, DeleteOnDeath);
-        }
-
-        /// <summary>
-        /// Saves the data of the object
-        /// </summary>
-        void IDataPersistence.SaveData()
-        {
-            Loaded = true;
-
-            SaveGameManager.Instance.Save(Data, DataKey, DeleteOnDeath);
+            SaveGameManager.Save(Data, DataKey, DeleteOnDeath);
         }
     }
 }
