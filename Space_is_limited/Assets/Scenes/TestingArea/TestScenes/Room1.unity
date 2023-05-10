@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1606321149995881774, guid: 061aad1bd1e91db4b8971f6b6ad0e6fa, type: 3}
       propertyPath: movement_force
-      value: 200
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5050123612925421792, guid: 061aad1bd1e91db4b8971f6b6ad0e6fa, type: 3}
       propertyPath: m_Mass
