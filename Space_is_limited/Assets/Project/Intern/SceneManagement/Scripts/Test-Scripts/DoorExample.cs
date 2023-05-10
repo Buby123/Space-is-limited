@@ -49,6 +49,6 @@ public class DoorExample : MonoBehaviour
     public void OnInteraction()
     {
         if (playerInArea)
-            IngameManager.Instance.OpenSingleScene(SceneName);
+            IngameManager.Instance.OpenSingleSceneAsync(SceneName);
     }
 }

@@ -8,7 +8,7 @@ namespace Intern.UI
     /// <summary>
     /// Controls the EnergyBar
     /// </summary>
-    public class EnergyBar : MonoBehaviour
+    public class EnergyBar : Singleton<EnergyBar>
     {
         [Tooltip("The slider, that is used to display the energy")]
         [SerializeField] Slider slider;

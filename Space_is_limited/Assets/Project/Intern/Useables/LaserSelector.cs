@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
+using Intern.UI;
 
 /// <summary>
 /// Is used for the Hoverer to Select and Connect the player to objects
@@ -45,13 +46,14 @@ public class LaserSelector : Singleton<LaserSelector>
     private void Update()
     {
         var startPos = transform.position + LaserOffset;
-        
+
         if (_ConnectedObject != null)
         {
             var endPos = _ConnectedObject.position;
             DrawConnection(startPos, endPos);
             TestConnectionEnd(startPos, endPos, _ConnectedObject.gameObject);
-        } else
+        }
+        else
         {
             EndConnection();
         }
@@ -68,7 +70,8 @@ public class LaserSelector : Singleton<LaserSelector>
     {
         if (_ConnectedObject != null)
             return;
-        
+
+        InvokeRepeating(nameof(ReduceEnergy), 0f, 1f);
         _ConnectedObject = trackObj;
         _OnEndConnection = onEndConnection;
         _ConnectionLayerMask = connectionLayerMask;
@@ -80,6 +83,7 @@ public class LaserSelector : Singleton<LaserSelector>
     /// </summary>
     public void EndConnection()
     {
+        CancelInvoke();
         _OnEndConnection = null;
         _ConnectedObject = null;
         _LineRenderer.positionCount = 0;
@@ -110,6 +114,17 @@ public class LaserSelector : Singleton<LaserSelector>
         if (Hit.collider.gameObject != ExspectedTarget)
         {
             Debug.Log(ExspectedTarget + " is not " + Hit.collider.gameObject.name);
+            _OnEndConnection.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// Reduce Energy and when no Energy is left the connection ends
+    /// </summary>
+    private void ReduceEnergy()
+    {
+        if (!EnergyBar.Instance.reduceEnergy(1))
+        {
             _OnEndConnection.Invoke();
         }
     }

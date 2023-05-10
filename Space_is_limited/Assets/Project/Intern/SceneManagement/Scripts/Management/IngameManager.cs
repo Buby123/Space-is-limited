@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using static Checkpoint;
 
@@ -34,18 +35,46 @@ public class IngameManager : Singleton<IngameManager>
             return;
 
         gameStarted = true;
-        ResetToCheckpoint();
+        CurrentCheckPoint.LoadCheckpoint();
         OutgameManager.Instance.ResumeGame();
     }
     #endregion
 
     #region SceneFunctions
+    public void OpenSingleSceneAsync(string SceneName)
+    {
+        StartCoroutine(OpenSingleScene(SceneName));
+    }
+
+    public void ResetToCheckpoint()
+    {
+        CurrentCheckPoint.LoadCheckpoint();
+    }
+
     /// <summary>
     /// Close every enviroment scene and loads a new one
+    /// Step 1: Deletes all rooms
+    /// Step 2: Waits for deletion
+    /// Step 3: Loads the room
     /// </summary>
     /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
-    public void OpenSingleScene(string SceneName)
+    private IEnumerator OpenSingleScene(string SceneName)
     {
+        List<AsyncOperation> Operations = new();
+
+        foreach (var Room in ActiveScenes.Select(r => r.Key))
+        {
+            Operations.Add(SceneManager.UnloadSceneAsync(Room));
+        }
+
+        ActiveScenes.Clear();
+
+        foreach (var Room in Operations)
+        {
+            yield return new WaitUntil(() => Room.isDone);
+        }
+
+        Assert.IsFalse(ActiveScenes.ContainsKey(SceneName), "Scene is already loaded");
         SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
         StartCoroutine(SetToMainScene(SceneName));
     }
@@ -60,12 +89,6 @@ public class IngameManager : Singleton<IngameManager>
         yield return new WaitUntil(() => ActiveScenes.ContainsKey(SceneName));
         ActiveScenes[SceneName].SetToMainRoom();
     }
-
-    [ContextMenu("Reset")]
-    public void ResetToCheckpoint()
-    {
-        CurrentCheckPoint.LoadCheckpoint();
-    }
     #endregion
 
     #region DynamicSceneLoading
@@ -73,8 +96,8 @@ public class IngameManager : Singleton<IngameManager>
     /// Loads a room by removing every active scene not in the list or that is the roomname itself
     /// and then adding each on missing
     /// </summary>
-    /// <param name="RoomName"></param>
-    /// <param name="NearbyScenes"></param>
+    /// <param name="RoomName">Name of the room itself, that is calling other rooms</param>
+    /// <param name="NearbyScenes">Rooms to load</param>
     public void LoadRoom(string RoomName, HashSet<string> NearbyScenes)
     {
         // Dont load the same room again

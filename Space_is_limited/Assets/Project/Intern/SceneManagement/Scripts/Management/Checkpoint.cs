@@ -66,7 +66,7 @@ public class Checkpoint : MonoBehaviour
         public void LoadCheckpoint()
         {
             // Load Scene
-            IngameManager.Instance.OpenSingleScene(sceneName);
+            IngameManager.Instance.OpenSingleSceneAsync(sceneName);
             SetPlayersPosition();
         }
 

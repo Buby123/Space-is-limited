@@ -62,6 +62,7 @@ public class SceneInfo : MonoBehaviour
 
     public void SetToMainRoom()
     {
+        Debug.Log("Set to main scene " + GetSceneName());
         IngameManager.Instance.LoadRoom(GetSceneName(), NearbyScenes.ToHashSet());
     }
 }
