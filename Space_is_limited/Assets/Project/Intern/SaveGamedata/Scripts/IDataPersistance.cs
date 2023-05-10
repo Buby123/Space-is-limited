@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public interface IDataPersistence<T>
+namespace SaveSystem
 {
-    public string IDName { get; protected set; }
+    public interface IDataPersistence
+    {
+        // Loads the data from the file
+        void LoadData();
 
-    // Loads the data from the file
-    void LoadData(T data);
-    
-    // Saves the data to the file
-    void SaveData(T data);
+        // Saves the data to the file
+        void SaveData();
+    }
 }

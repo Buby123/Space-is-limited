@@ -1,28 +1,22 @@
+using SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 namespace SaveSystem
 {
-    /// <summary>
-    /// Base class for all saveable data
-    /// </summary>
-    [System.Serializable]
-    public abstract class SceneData<T> : IDataPersistence
+    public class OutgameData<T> : IDataPersistence
     {
         private T Data = default;
         public string DataKey { get; private set; } = "";
-        public bool DeleteOnDeath { get; private set; } = false;
         public bool Loaded { get; private set; } = false;
 
         /// <summary>
         /// Set the default value of the save object and register the save and load function
         /// </summary>
-        protected virtual void Initialize(T ChildClass, string DataKey, bool deleteOnDeath)
+        protected virtual void Initialize(T ChildClass, bool deleteOnDeath)
         {
             this.DataKey = DataKey;
-            this.DeleteOnDeath = deleteOnDeath;
             this.Data = ChildClass;
         }
 
@@ -36,7 +30,7 @@ namespace SaveSystem
                 Debug.LogWarning("Data is not set properly");
             }
 
-            SaveGameManager.Instance.Load(Data, DataKey, DeleteOnDeath);
+            SaveGameManager.Instance.Load(Data, DataKey, false);
         }
 
         /// <summary>
@@ -46,7 +40,7 @@ namespace SaveSystem
         {
             Loaded = true;
 
-            SaveGameManager.Instance.Save(Data, DataKey, DeleteOnDeath);
+            SaveGameManager.Instance.Save(Data, DataKey, false);
         }
     }
 }
