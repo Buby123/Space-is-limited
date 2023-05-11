@@ -74,6 +74,8 @@ public class IngameManager : Singleton<IngameManager>
             yield return new WaitUntil(() => Room.isDone);
         }
 
+        MainScene = "";
+
         Assert.IsFalse(ActiveScenes.ContainsKey(SceneName), "Scene is already loaded");
         SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
         StartCoroutine(SetToMainScene(SceneName));
@@ -141,7 +143,7 @@ public class IngameManager : Singleton<IngameManager>
     /// <summary>
     /// Deletes all scenes not in the list
     /// </summary>
-    /// <param name="NearbyRooms">Name of Scenes that should be active</param>
+    /// <param name="NearbyRooms">Name of Scenes that should not be unloaded</param>
     private void UnloadRooms(HashSet<string> NearbyRooms)
     {
         List<string> RemovedRooms = new();

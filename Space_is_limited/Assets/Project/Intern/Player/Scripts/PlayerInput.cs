@@ -37,7 +37,7 @@ public class PlayerInput : Singleton<PlayerInput>
         OnMenu ??= new();
     }
 
-    private void Awake()
+    private void Start()
     {
         Data.LoadData();
     }
