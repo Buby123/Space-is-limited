@@ -90,20 +90,27 @@ public class PlayerInput : Singleton<PlayerInput>
     /// Calculates the horizontal input of the player.
     /// The function is based on Unity's -GetAxis("Horizontal")-
     /// This is dependend on the user selected 'Right' and 'Left' Keys.
+    /// 
+    /// If the user pressed both left & right keys, 0 is returned.
     /// </summary>
     /// <returns> A Value between x and y, representing the input axis </returns>
     private float GetHorizontalInput()
     {
-        float horizontalInput = 0;
-
-        if(Input.GetKeyDown(Data.RightKey) || Input.GetKey(Data.RightKey))
+        bool rightIsPressed = Input.GetKeyDown(Data.RightKey) || Input.GetKey(Data.RightKey);
+        bool leftIsPressed = Input.GetKeyDown(Data.LeftKey) || Input.GetKey(Data.LeftKey);
+        
+        if(rightIsPressed & leftIsPressed)
         {
-            horizontalInput = 1;
-        } else if(Input.GetKeyDown(Data.LeftKey) || Input.GetKey(Data.LeftKey))
-        {
-            horizontalInput = -1;
+            return 0f;
         }
-        return horizontalInput;
+        else if (rightIsPressed)
+        {
+            return 1f;
+        } else if(leftIsPressed)
+        {
+            return -1f;
+        }
+        return 0f;
     }
 
     /// <summary>
