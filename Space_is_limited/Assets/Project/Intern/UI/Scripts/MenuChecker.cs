@@ -20,6 +20,18 @@ public class MenuChecker : MonoBehaviour
     }
 
     /// <summary>
+    /// only implemented for making debugging easier.
+    /// If the player presses "Backspace", the game is restarted.
+    /// </summary>
+    void Update()
+    {
+        if (Input.GetKeyDown("backspace"))
+        {
+            OutgameManager.Instance.LoadOtherScene(OutgameManager.MainScenes.Game);
+        }
+    }
+
+    /// <summary>
     /// Opens or closes the Ingame Menu UI if the Options Menu is not displayed currently.
     /// This also stops or resumes the Game.
     /// </summary>
