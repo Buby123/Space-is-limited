@@ -32,6 +32,7 @@ public class OptionsMenu : MonoBehaviour
     void Start()
     {
         Data.LoadData();
+        PlayerInput.Instance.Data.LoadData();
         Data.ApplyOptions();
         InitGraphics();
     }
@@ -43,7 +44,7 @@ public class OptionsMenu : MonoBehaviour
     {
         // Update the Graphics
         dropdown.value = Data.ScreenModeInt;
-        vSyncToggle.isOn = Data.VSyncCount == 0;
+        vSyncToggle.isOn = Data.VSyncCount == 1;
 
         // Update the selected keys
         for (int i = 0; i < usedKeysTextFields.Length; i++)
@@ -198,16 +199,9 @@ public class OptionsMenu : MonoBehaviour
     /// <summary>
     /// Is called if the user changes the vSync settings. Sets the new value.
     /// </summary>
-    public void ChangeVSyncSettings()
+    public void ChangeVSyncSettings(bool isOn)
     {
-        if (vSyncToggle.isOn)
-        {
-            Data.VSyncCount = 1;
-        }
-        else
-        {
-            Data.VSyncCount = 0;
-        }
+        Data.VSyncCount = isOn ? 1 : 0;
     }
 
     /// <summary>
