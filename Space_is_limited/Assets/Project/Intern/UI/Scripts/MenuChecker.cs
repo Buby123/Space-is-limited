@@ -44,6 +44,16 @@ public class MenuChecker : MonoBehaviour
     }
 
     /// <summary>
+    /// Closes the Ingame Menu UI if called.
+    /// A call usually happens from a Ingame Menu Button (Resume)
+    /// </summary>
+    public void DisableMenu()
+    {
+        Canvas.SetActive(false);
+        OutgameManager.Instance.ResumeGame();
+    }
+
+    /// <summary>
     /// Check if the Options/Settings menu is loaded
     /// </summary>
     private bool CheckOptionsLoaded()
