@@ -74,10 +74,11 @@ public class Hoverer : PlayerAbility
     /// </summary>
     private void DeactivateHover()
     {
+        LaserSelector.Instance.EndConnection();
+
         if (target == null)
             return;
 
-        LaserSelector.Instance.EndConnection();
         target.enabled = false;
         target = null;
     }

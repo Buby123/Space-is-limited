@@ -53,10 +53,6 @@ public class LaserSelector : Singleton<LaserSelector>
             DrawConnection(startPos, endPos);
             TestConnectionEnd(startPos, endPos, _ConnectedObject.gameObject);
         }
-        else
-        {
-            EndConnection();
-        }
     }
 
     /// <summary>
@@ -93,28 +89,30 @@ public class LaserSelector : Singleton<LaserSelector>
     /// Test if the connection ends by using a raycast with the maximum length
     /// from the player to the target. If the target hits the laser stays
     /// </summary>
-    /// <param name="startPos">Starting Position</param>
-    /// <param name="endPos">Target Position</param>
+    /// <param name="startPos">Starting Position "Player"</param>
+    /// <param name="endPos">Target Position "Box"</param>
+    /// <param name="ExspectedTarget">Verbundene Objekt</param>
     private void TestConnectionEnd(Vector3 startPos, Vector3 endPos, GameObject ExspectedTarget)
     {
-        if (ExspectedTarget == null)
-        {
-            return;
-        }
+        Assert.IsFalse(ExspectedTarget == null);
 
         var direction = endPos - startPos;
         var Hit = Physics2D.Raycast(startPos, direction, _MaxRange, _ConnectionLayerMask);
 
+        // Out of Range
         if (Hit.collider == null)
         {
             _OnEndConnection.Invoke();
+            EndConnection();
             return;
         }
         
+        // Object between objects
         if (Hit.collider.gameObject != ExspectedTarget)
         {
             Debug.Log(ExspectedTarget + " is not " + Hit.collider.gameObject.name);
             _OnEndConnection.Invoke();
+            EndConnection();
         }
     }
 
@@ -155,7 +153,7 @@ public class LaserSelector : Singleton<LaserSelector>
             return default;
 
         var forward = PlayerController.Instance.FlippedLeft ? -transform.right : transform.right;
-        var origin = transform.position + new Vector3(0f, 0.5f, 0f);
+        var origin = transform.position + LaserOffset;
 
         var Hit = Physics2D.Raycast(origin, forward, range, _LayerMask);
 
@@ -183,15 +181,6 @@ public class LaserSelector : Singleton<LaserSelector>
 
         _LineRenderer.positionCount = 2;
         _LineRenderer.SetPositions(new Vector3[] { origin, secondPos });
-        Invoke(nameof(ResetLine), 0.1f);
-    }
-
-    /// <summary>
-    /// Resets the line from line renderer
-    /// </summary>
-    private void ResetLine()
-    {
-        _LineRenderer.positionCount = 0;
     }
     #endregion
 }
