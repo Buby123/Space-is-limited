@@ -47,6 +47,12 @@ public class PlayerInput : Singleton<PlayerInput>
     /// </summary>
     private void Update()
     {
+        // Return while the game is not running
+        if (!OutgameManager.Instance.gameIsRunning)
+        {
+            return;
+        }
+        
         OnSidewardValue.Invoke(GetHorizontalInput());
         OnUpsideValue.Invoke(GetVerticalInput());
 

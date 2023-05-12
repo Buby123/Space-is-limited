@@ -60,6 +60,8 @@ public class IngameManager : Singleton<IngameManager>
     /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
     private IEnumerator OpenSingleScene(string SceneName)
     {
+        OutgameManager.Instance.PauseGame();
+        
         List<AsyncOperation> Operations = new();
 
         foreach (var Room in ActiveScenes.Select(r => r.Key))
@@ -78,6 +80,9 @@ public class IngameManager : Singleton<IngameManager>
 
         Assert.IsFalse(ActiveScenes.ContainsKey(SceneName), "Scene is already loaded");
         SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+
+        OutgameManager.Instance.ResumeGame();
+
         StartCoroutine(SetToMainScene(SceneName));
     }
 
