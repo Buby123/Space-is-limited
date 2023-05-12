@@ -8,6 +8,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerAbility
 {
+    private bool active = false;
+
     /// <summary>
     /// Subscribes to events, to set up the user input
     /// </summary>
@@ -15,6 +17,12 @@ public class PlayerAbility
     {
         PlayerInput.Instance.OnSpecialAbility.AddListener(ToggleAbility);
         Debug.Log("Ability enabled");
+    }
+
+    public void Update()
+    {
+        if (active)
+            OnUpdateAbility();
     }
 
     /// <summary>
@@ -32,6 +40,8 @@ public class PlayerAbility
     /// <param name="active"></param>
     private void ToggleAbility(bool active)
     {
+        this.active = active;
+
         if (active)
         {
             OnActivateAbility();
@@ -50,5 +60,10 @@ public class PlayerAbility
     protected virtual void OnDeactivateAbility()
     {
         // Write code for deactivation
+    }
+
+    protected virtual void OnUpdateAbility()
+    {
+        // Write code for update
     }
 }

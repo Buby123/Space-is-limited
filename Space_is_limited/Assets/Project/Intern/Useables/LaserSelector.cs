@@ -151,6 +151,9 @@ public class LaserSelector : Singleton<LaserSelector>
     /// <returns></returns>
     public GameObject GetObjectInFront(float range, LayerMask _LayerMask)
     {
+        if (_ConnectedObject != null)
+            return default;
+
         var forward = PlayerController.Instance.FlippedLeft ? -transform.right : transform.right;
         var origin = transform.position + new Vector3(0f, 0.5f, 0f);
 

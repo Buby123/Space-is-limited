@@ -22,11 +22,19 @@ public class AbilityStateControl : Singleton<AbilityStateControl>
         SetActive(AbilityType.Hoverer);
     }
 
+    /// <summary>
+    /// Includes every ability the player has
+    /// by first giving an enum type and then giving an ability class
+    /// </summary>
     private void SetupAbilities()
     {
         PlayerAbilities.Add(AbilityType.Hoverer, new Hoverer(ObjectLayer));
     }
 
+    /// <summary>
+    /// Sets an Ability active by giving an enum type
+    /// </summary>
+    /// <param name="Type">Type of the ability</param>
     private void SetActive(AbilityType Type)
     {
         DeactivateAbility();
@@ -40,13 +48,33 @@ public class AbilityStateControl : Singleton<AbilityStateControl>
         PlayerAbilities[activeAbility].OnEnable();
     }
 
+    /// <summary>
+    /// Deactivates the current ability
+    /// By calling on disable
+    /// </summary>
     private void DeactivateAbility()
     {
-        if (activeAbility != AbilityType.None)
+        if (activeAbility == AbilityType.None)
         {
-            PlayerAbilities[activeAbility].OnDisable();
-            activeAbility = AbilityType.None;
+            return;
         }
+
+        PlayerAbilities[activeAbility].OnDisable();
+        activeAbility = AbilityType.None;
+    }
+
+    /// <summary>
+    /// Gives an update to the ability
+    /// for specific abilitys
+    /// </summary>
+    public void Update()
+    {
+        if (activeAbility == AbilityType.None)
+        {
+            return;
+        }
+
+        PlayerAbilities[activeAbility].Update();
     }
 }
 
