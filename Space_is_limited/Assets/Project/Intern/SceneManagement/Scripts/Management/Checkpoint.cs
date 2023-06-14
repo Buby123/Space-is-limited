@@ -76,7 +76,7 @@ public class Checkpoint : MonoBehaviour
         private void SetPlayersPosition()
         {
             // Find player
-            var player = PlayerController.Instance.gameObject;
+            var player = GameObject.FindGameObjectWithTag("Player");
 
             if (player == null)
             {

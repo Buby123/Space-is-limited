@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Checkpoint;
 
 /// <summary>
 /// Controller for SceneManagement and State of the Game
@@ -10,8 +9,6 @@ using static Checkpoint;
 /// </summary>
 public class OutgameManager : Singleton<OutgameManager>
 {
-    //[SerializeField] private CheckPointData currentCheckpoint;
-
     #region Variables
     [SerializeField] private string menuSceneName = "MainMenu";
     [SerializeField] private string optionsSceneName = "OptionsMenu";

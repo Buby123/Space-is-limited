@@ -40,7 +40,7 @@ public class HoverControl : MonoBehaviour
     {
         PlayerInput.Instance.OnSidewardValue.RemoveListener(MoveSideward);
         PlayerInput.Instance.OnUpsideValue.RemoveListener(MoveUpside);
-        RB.gravityScale = 9.81f;
+        RB.gravityScale = 2.8f;
     }
 
     /// <summary>
@@ -69,10 +69,25 @@ public class HoverControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Beschleunigt das Objekt auf die gewünschte Geschwindigkeit mit der gewünschten Beschleunigung
+    /// Beschleunigt das Objekt auf die gewünschte Geschwindigkeit mit der gewünschten Beschleunigung.
+    /// 
+    /// Fällt die Geschwindigkeit unter einen Schwellwert von 0.02, so wird sie genullt.
+    /// Das behebt jegliches Wackeln ohne Input.
     /// </summary>
     private void FixedUpdate()
     {
-        RB.AddForce(HelpFunctions.GetAccelerationVelocity(_Velocity, RB.velocity, _MaxAcceleration), ForceMode2D.Impulse);
+        if (Mathf.Abs(RB.velocity.x) > 0.02 || Mathf.Abs(RB.velocity.y) > 0.02 || _Velocity.y != 0 || _Velocity.x != 0)
+        {
+            RB.AddForce(HelpFunctions.GetAccelerationVelocity(_Velocity, RB.velocity, _MaxAcceleration), ForceMode2D.Impulse);
+        }
+
+        if(Mathf.Abs(RB.velocity.x) <= 0.02)
+        {
+            RB.velocity = new Vector2(0, RB.velocity.y);
+        }
+        if(Mathf.Abs(RB.velocity.y) <= 0.02)
+        {
+            RB.velocity = new Vector2(RB.velocity.x, 0);
+        }
     }
 }

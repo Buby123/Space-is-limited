@@ -25,7 +25,6 @@ public class Hoverer : PlayerAbility
     protected override void OnActivateAbility()
     {
         Debug.Log("Hoverer activated");
-        ShootLaser();
     }
 
     /// <summary>
@@ -36,6 +35,14 @@ public class Hoverer : PlayerAbility
     {
         DeactivateHover();
         PlayerController.Instance.Active = true;
+    }
+
+    /// <summary>
+    /// Search for an object in front of the player and activate it
+    /// </summary>
+    protected override void OnUpdateAbility()
+    {
+        ShootLaser();
     }
 
     /// <summary>
@@ -67,10 +74,11 @@ public class Hoverer : PlayerAbility
     /// </summary>
     private void DeactivateHover()
     {
+        LaserSelector.Instance.EndConnection();
+
         if (target == null)
             return;
 
-        LaserSelector.Instance.EndConnection();
         target.enabled = false;
         target = null;
     }

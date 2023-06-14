@@ -60,6 +60,8 @@ public class IngameManager : Singleton<IngameManager>
     /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
     private IEnumerator OpenSingleScene(string SceneName)
     {
+        OutgameManager.Instance.PauseGame();
+        
         List<AsyncOperation> Operations = new();
 
         foreach (var Room in ActiveScenes.Select(r => r.Key))
@@ -74,8 +76,13 @@ public class IngameManager : Singleton<IngameManager>
             yield return new WaitUntil(() => Room.isDone);
         }
 
+        MainScene = "";
+
         Assert.IsFalse(ActiveScenes.ContainsKey(SceneName), "Scene is already loaded");
         SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+
+        OutgameManager.Instance.ResumeGame();
+
         StartCoroutine(SetToMainScene(SceneName));
     }
 
@@ -141,7 +148,7 @@ public class IngameManager : Singleton<IngameManager>
     /// <summary>
     /// Deletes all scenes not in the list
     /// </summary>
-    /// <param name="NearbyRooms">Name of Scenes that should be active</param>
+    /// <param name="NearbyRooms">Name of Scenes that should not be unloaded</param>
     private void UnloadRooms(HashSet<string> NearbyRooms)
     {
         List<string> RemovedRooms = new();
