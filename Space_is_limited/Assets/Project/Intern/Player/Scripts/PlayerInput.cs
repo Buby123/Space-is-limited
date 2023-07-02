@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// Handles the Keys used for the player, with UnityEvents
 /// When a key is pressed, the event is invoked
 /// 
-/// Also provides utility functions for changing the KeyCode's of the actions
+/// Also provides utility functions for changing the KeyCodes of the actions
 /// </summary>
 public class PlayerInput : Singleton<PlayerInput>
 {
@@ -97,7 +97,7 @@ public class PlayerInput : Singleton<PlayerInput>
     /// The function is based on Unity's -GetAxis("Horizontal")-
     /// This is dependend on the user selected 'Right' and 'Left' Keys.
     /// 
-    /// If the user pressed both left & right keys, 0 is returned.
+    /// If the user pressed the left and right keys, 0 is returned.
     /// </summary>
     /// <returns> A Value between x and y, representing the input axis </returns>
     private float GetHorizontalInput()

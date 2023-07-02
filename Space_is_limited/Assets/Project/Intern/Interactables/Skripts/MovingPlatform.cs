@@ -47,7 +47,7 @@ public class MovingPlatform : MonoBehaviour
 
     #region Move Player
     /// <summary>
-    /// Makes the player to a child to move it with the platform
+    /// Changes the player to a child of the platform so he moves with the platform
     /// </summary>
     /// <param name="collision">Player Collider</param>
     private void OnCollisionEnter2D(Collision2D collision)

@@ -22,8 +22,8 @@ public class State : MonoBehaviour
     }
 
     /// <summary>
-    /// Tests when a event is casted, whether the event is related to this state.
-    /// If so it activetes the gameObject
+    /// Tests when an event is casted, whether the event is related to this state.
+    /// If so it activates the gameObject
     /// </summary>
     /// <param name="targetedState"></param>
     private void TestForInvokeState(int targetedState)
@@ -38,8 +38,8 @@ public class State : MonoBehaviour
     }
 
     /// <summary>
-    /// Tests when a event is casted, whether the event is related to this state.
-    /// If so it deactivetes the gameObject
+    /// Tests when an event is casted, whether the event is related to this state.
+    /// If so it deactivates the gameObject
     /// </summary>
     /// <param name="targetedState"></param>
     private void TestForCloseState(int targetedState)
@@ -62,7 +62,7 @@ public class State : MonoBehaviour
     }
 
     /// <summary>
-    /// Is activated when the state get closed
+    /// Is activated when the state gets closed
     /// </summary>
     protected virtual void CloseState()
     {

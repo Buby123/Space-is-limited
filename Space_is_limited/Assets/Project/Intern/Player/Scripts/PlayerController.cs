@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// controles the Movement of the player
+/// controls the Movement of the player
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : Singleton<PlayerController>
@@ -79,7 +79,6 @@ public class PlayerController : Singleton<PlayerController>
 
         this.moveSidewardsInput = moveSidewardsInput;
         
-        //Change the look of the player (inclusive colliders)
         if (moveSidewardsInput > 0 && flippedLeft)
         {
             Flip();
@@ -91,7 +90,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     /// <summary>
-    /// Lets the player fall through platforms by changing its 
+    /// Lets the player fall through platforms by changing it's LayerMask
     /// </summary>
     public void OnFalltrough(bool pushed)
     {

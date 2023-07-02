@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Switches between states and stack them
-/// The state Handler can give variables to other states to change the interface
+/// Switches between states and stacks them
+/// The StateHandler can give variables to other states to change the interface
 /// </summary>
 public class StateHandler : Singleton<StateHandler>
 {
@@ -111,8 +111,8 @@ public class StateHandler : Singleton<StateHandler>
     /// Adds a variable that will be avaible until called
     /// </summary>
     /// <typeparam name="T">Type of the Value</typeparam>
-    /// <param name="indentifier">Name of Var</param>
-    /// <param name="Value">Value of Var</param>
+    /// <param name="indentifier">Name of variable</param>
+    /// <param name="Value">Value of variable</param>
     public void AddVariable<T>(string indentifier, T Value)
     {
         var NewVar = new OverstateVariable();
@@ -123,8 +123,8 @@ public class StateHandler : Singleton<StateHandler>
     /// <summary>
     /// Gets a variable with the chosen type and indentifier
     /// </summary>
-    /// <typeparam name="T">Type of Var</typeparam>
-    /// <param name="indentifier">Name of Var</param>
+    /// <typeparam name="T">Type of variable</typeparam>
+    /// <param name="indentifier">Name of variable</param>
     /// <returns></returns>
     public T GetVariable<T>(string indentifier)
     {
@@ -141,7 +141,7 @@ public class StateHandler : Singleton<StateHandler>
     }
 
     /// <summary>
-    /// Clears all Variables
+    /// Clears all variables
     /// </summary>
     public void DeleteVariables()
     {
@@ -157,10 +157,10 @@ public class OverstateVariable
     private Type Type;
 
     /// <summary>
-    /// Sets the Value of the Overstate Var
+    /// Sets the value of the Overstate Variable
     /// </summary>
-    /// <typeparam name="T">Type of the Var</typeparam>
-    /// <param name="_Value">Value of the Var</param>
+    /// <typeparam name="T">Type of the variable</typeparam>
+    /// <param name="_Value">Value of the variable</param>
     public void SetValue<T>(T _Value)
     {
         Value = _Value;
@@ -168,10 +168,10 @@ public class OverstateVariable
     }
 
     /// <summary>
-    /// Returns Val of the Var
+    /// Returns value of the variable
     /// </summary>
     /// <typeparam name="T">Type</typeparam>
-    /// <returns>Value of Var</returns>
+    /// <returns>Value of variable</returns>
     public T GetValue<T>()
     {
         if(Type == typeof(T))

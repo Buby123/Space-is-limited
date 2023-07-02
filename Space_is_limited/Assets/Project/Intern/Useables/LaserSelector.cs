@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using Intern.UI;
 
 /// <summary>
-/// Is used for the Hoverer to Select and Connect the player to objects
+/// Is used for the Hoverer to select and connect the player to objects
 /// It uses a LineRenderer to draw a line from the player to the object
 /// And it uses a Raycast to check if the object is still in range
 /// </summary>
@@ -86,8 +86,8 @@ public class LaserSelector : Singleton<LaserSelector>
     }
 
     /// <summary>
-    /// Test if the connection ends by using a raycast with the maximum length
-    /// from the player to the target. If the target hits the laser stays
+    /// Tests if the connection ends by using a raycast with the maximum length
+    /// from the player to the target. If the target hits, the laser stays
     /// </summary>
     /// <param name="startPos">Starting Position "Player"</param>
     /// <param name="endPos">Target Position "Box"</param>
@@ -117,7 +117,7 @@ public class LaserSelector : Singleton<LaserSelector>
     }
 
     /// <summary>
-    /// Reduce Energy and when no Energy is left the connection ends
+    /// Reduce energy and when no energy is left the connection ends
     /// </summary>
     private void ReduceEnergy()
     {
@@ -170,7 +170,7 @@ public class LaserSelector : Singleton<LaserSelector>
     }
 
     /// <summary>
-    /// Draw a line like a raycast
+    /// Draws a line like a raycast
     /// </summary>
     /// <param name="origin">Origin point</param>
     /// <param name="forward">Forward direction of ray</param>

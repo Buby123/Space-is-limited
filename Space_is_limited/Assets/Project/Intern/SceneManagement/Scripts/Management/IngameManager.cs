@@ -52,12 +52,12 @@ public class IngameManager : Singleton<IngameManager>
     }
 
     /// <summary>
-    /// Close every enviroment scene and loads a new one
+    /// Closes every enviroment scene and loads a new one
     /// Step 1: Deletes all rooms
     /// Step 2: Waits for deletion
     /// Step 3: Loads the room
     /// </summary>
-    /// <param name="SceneName">Scene Name the name of the scene which should be opened</param>
+    /// <param name="SceneName">Name of the scene which should be opened</param>
     private IEnumerator OpenSingleScene(string SceneName)
     {
         OutgameManager.Instance.PauseGame();
@@ -107,7 +107,7 @@ public class IngameManager : Singleton<IngameManager>
     /// <param name="NearbyScenes">Rooms to load</param>
     public void LoadRoom(string RoomName, HashSet<string> NearbyScenes)
     {
-        // Dont load the same room again
+        // Don't load the same room again
         if (RoomName.Equals(MainScene))
         {
             return;

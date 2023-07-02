@@ -7,7 +7,7 @@ using System;
 using TMPro;
 
 /// <summary>
-/// Performs the settings changes the user selects in the Options Menu.
+/// Performs the selected setting changes in the Options Menu.
 /// Also does some utility for providing the Options menu in the first place.
 /// </summary>
 public class OptionsMenu : MonoBehaviour
@@ -26,8 +26,7 @@ public class OptionsMenu : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// Every time the user loads the Options-Menu, we need to load the current setting at the beginning.
-    /// And loads them from the storage
+    /// Every time the user loads the Options-Menu, the current settings are loaded at the beginning.
     /// </summary>
     void Start()
     {
@@ -38,7 +37,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// This is done for Graphics, selected keys and the sound settings.
+    /// This is done for graphics, selected keys and the sound settings.
     /// </summary>
     public void InitGraphics()
     {
@@ -58,8 +57,8 @@ public class OptionsMenu : MonoBehaviour
 
     #region Key Change
     /// <summary>
-    /// The Update of this script checks after any Keys pressed.
-    /// Only triggered if the user started the process of selecting a new Key.
+    /// The Update of this script checks after any keys pressed.
+    /// Only triggered if the user started the process of selecting a new key.
     /// It waits until the user selected an valid key and then calls the set key function
     /// </summary>
     /// <param name="actionNumber">Number of the action field</param>
@@ -91,7 +90,7 @@ public class OptionsMenu : MonoBehaviour
 
     /// <summary>
     /// Returns true if the user selected a valid key.
-    /// Returns a Key if the user pressed one and is it not already in use.
+    /// Returns a key if the user pressed one and it'S not already in use.
     /// Warning it can return true and None if the user pressed the same key as before.
     /// </summary>
     /// <param name="ValidKey">Key that is Valid, is None when not valid or if it is the same key as before</param>
@@ -130,7 +129,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Returns a Key pressed by the user
+    /// Returns a key pressed by the user
     /// If no key was pressed it returns None and false.
     /// </summary>
     /// <param name="KeyPressed">Key pressed by the user or none</param>
@@ -153,7 +152,7 @@ public class OptionsMenu : MonoBehaviour
 
     /// <summary>
     /// Changes a previously specified key.
-    /// The Key is translated from an integer with a Array.
+    /// The key is translated from an integer with an Array.
     /// </summary>
     /// <param name="whichAction"></param>
     public void ChangeKeyBinding(int whichAction)
@@ -186,7 +185,7 @@ public class OptionsMenu : MonoBehaviour
 
     #region Make Settings
     /// <summary>
-    /// This function is called when the user changes the Volume slider.
+    /// This function is called when the user changes the volume slider.
     /// The new value needs to be read and must then be set as Sound-Volume.
     /// </summary>
     public void ChangeVolumeSettings()
@@ -217,7 +216,7 @@ public class OptionsMenu : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// This Functions unloads the additively Loaded OptionsMenu. The player gets back where he was before.
+    /// This Function unloads the additively loaded OptionsMenu. The player gets back where he was before.
     /// </summary>
     public void UnloadOptionsMenu()
     {

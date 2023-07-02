@@ -62,7 +62,7 @@ public class Lever : MonoBehaviour
     }
 
     /// <summary>
-    /// Test if the lever is pulled by the player and changes the state after an interacton.
+    /// Test if the lever is pulled by the player and changes the state after an interaction.
     /// Is invoked by an event listener.
     /// </summary>
     private void OnInteractionKey()
@@ -77,7 +77,7 @@ public class Lever : MonoBehaviour
 
     #region VisualOutput
     /// <summary>
-    /// Sets the visual state of the lever to another one
+    /// Sets the visual state of the lever to a different one
     /// </summary>
     /// <param name="state">new state of the lever</param>
     private void SetState(bool state)

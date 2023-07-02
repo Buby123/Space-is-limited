@@ -17,7 +17,7 @@ namespace SaveSystem
         /// <typeparam name="T">Objecttype saved</typeparam>
         /// <param name="obj">Object itself</param>
         /// <param name="filename">Name of the file aka the key</param>
-        /// <param name="deleteOnDeath">Wether it should be in the delete folder</param>
+        /// <param name="deleteOnDeath">Whether it should be in the delete folder</param>
         public static void Save<T>(T obj, string filename, bool deleteOnDeath)
         {
             if (deleteOnDeath)
@@ -34,7 +34,7 @@ namespace SaveSystem
         /// <typeparam name="T">Objecttype loaded</typeparam>
         /// <param name="obj">Object itself</param>
         /// <param name="filename">Name of the file aka the key</param>
-        /// <param name="deleteOnDeath">Wether it should be in the delete folder</param>
+        /// <param name="deleteOnDeath">Whether it should be in the delete folder</param>
         public static void Load<T>(T obj, string filename, bool deleteOnDeath)
         {
             if (deleteOnDeath)
@@ -50,7 +50,6 @@ namespace SaveSystem
         /// </summary>
         public static void DeleteOnDeath()
         {
-            // Delete the Data that should be deleted on death
             SaveLoadData.Instance.DeleteFolder(SessionDataFolder);
         }
     }

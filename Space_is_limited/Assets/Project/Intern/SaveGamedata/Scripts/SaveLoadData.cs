@@ -31,7 +31,7 @@ namespace SaveSystem
         /// <typeparam name="T">Classtype</typeparam>
         /// <param name="saveObject">Classobject that should be saved</param>
         /// <param name="filename">Name as which the file should be saved</param>
-        /// <param name="local">If true the file get saved in Unityfolder /Data (set only to true while testing)</param>
+        /// <param name="local">If true the file gets saved in Unityfolder /Data (set only to true while testing)</param>
         public void Save<T>(T saveObject, string filename, bool local)
         {
             var usedPath = local ? path : persistantPath;
@@ -48,7 +48,7 @@ namespace SaveSystem
         /// </summary>
         /// <typeparam name="T">Classtype</typeparam>
         /// <param name="filename">Name as which the file was saved</param>
-        /// <param name="local">Was the file saved in Unity</param>
+        /// <param name="local">Indicates if the file was saved in Unity</param>
         /// <returns>Classobject</returns>
         public void Load<T>(T saveObject, string filename, bool local)
         {

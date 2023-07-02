@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Aktiviert OnActivateAbility und OnDeactivateAbility sobald die Fähigkeit aktiviert/deaktiviert wird
+/// Activates OnActivateAbility and OnDeactivateAbility as soon as the ability is activated/deactivated
 /// </summary>
 [System.Serializable]
 public class PlayerAbility
@@ -35,7 +35,7 @@ public class PlayerAbility
 
     /// <summary>
     /// Is used to toggle the ability on and off
-    /// It uses the input to activating the appropiate function
+    /// It uses the input to activate the appropriate function
     /// </summary>
     /// <param name="active"></param>
     private void ToggleAbility(bool active)

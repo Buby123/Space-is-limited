@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Bewegt ein Objekt mit der Eingabe des Spielers, (!darf nicht zu beginn aktiviert sein!)
+/// Moves an object with the input of the player, (!must not be active at the beginning!)
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class HoverControl : MonoBehaviour
@@ -24,7 +24,7 @@ public class HoverControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Aktiviert die Bewegung sobald die Komponente aktiviert wird
+    /// Activates the movement when the component is activated
     /// </summary>
     public void OnEnable()
     {
@@ -34,7 +34,7 @@ public class HoverControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Deaktiviert die Bewegung sobald die Komponente deaktiviert wird
+    /// Deactivates the movement when the component is deactivated
     /// </summary>
     public void OnDisable()
     {
@@ -44,20 +44,20 @@ public class HoverControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Bewegt das Objekt seitwärts
-    /// Indem es die Geschwindigkeit setzt für das FixedUpdate
+    /// Moves the object sideways
+    /// by setting the speed for the FixedUpdate
     /// </summary>
-    /// <param name="value">Veränderung in Richtung</param>
+    /// <param name="value">Change in a direction</param>
     public void MoveSideward(float value)
     {
         _Velocity.x = value * _MaxSpeed;
     }
 
     /// <summary>
-    /// Bewegt das Objekt herauf oder runter
-    /// Indem es die Geschwindigkeit setzt für das FixedUpdate
+    /// Moves the object up or down
+    /// By setting the speed for the FixedUpdate
     /// </summary>
-    /// <param name="value">Veränderung in Höhe</param>
+    /// <param name="value">Change in height</param>
     public void MoveUpside(float value)
     {
         _Velocity.y = value * _MaxSpeed;
@@ -69,10 +69,10 @@ public class HoverControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Beschleunigt das Objekt auf die gewünschte Geschwindigkeit mit der gewünschten Beschleunigung.
+    /// Accelerates the object to the desired speed with the desired acceleration.
     /// 
-    /// Fällt die Geschwindigkeit unter einen Schwellwert von 0.02, so wird sie genullt.
-    /// Das behebt jegliches Wackeln ohne Input.
+    /// If the speed falls below a threshold of 0.02, it is zeroed.
+    /// This fixes any wobbling without input.
     /// </summary>
     private void FixedUpdate()
     {
