@@ -2,23 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class Fader : Singleton<Fader>
+namespace Project.UI
 {
-    private Animator FadeAnimator;
-
-    private void Start()
+    /// <summary>
+    /// Fader is a class that controls the fading animation
+    /// </summary>
+    [RequireComponent(typeof(Animator))]
+    public class Fader : Singleton<Fader>
     {
-        FadeAnimator = GetComponent<Animator>();
+        private Animator _FadeAnimator;
 
-        // Wait for Animation Trigger
+        /// <summary>
+        /// initializes the Animator
+        /// </summary>
+        private void Start()
+        {
+            _FadeAnimator = GetComponent<Animator>();
+        }
+
+        /// <summary>
+        /// Starts the fading animation
+        /// </summary>
+        public void StartFade()
+        {
+            _FadeAnimator.ResetTrigger("FadeToBlack");
+            _FadeAnimator.SetTrigger("FadeToBlack");
+        }
+
+        
     }
-
-    public void StartFade()
-    {
-        FadeAnimator.ResetTrigger("FadeToBlack");
-        FadeAnimator.SetTrigger("FadeToBlack");
-    }
-
-    
 }

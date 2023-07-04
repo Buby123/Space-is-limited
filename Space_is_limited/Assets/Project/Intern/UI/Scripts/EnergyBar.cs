@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Intern.UI
+namespace Project.UI
 {
     /// <summary>
     /// Controls the EnergyBar
@@ -33,6 +33,11 @@ namespace Intern.UI
             slider.value = Mathf.Clamp(energy, 0, slider.maxValue);
         }
 
+        /// <summary>
+        /// Reduces the energy of the slider
+        /// </summary>
+        /// <param name="energy">Energy to be reduced</param>
+        /// <returns>True, if the energy was reduced, false if the energy was not reduced</returns>
         public bool reduceEnergy(int energy)
         {
             if (slider.value - energy < 0)
