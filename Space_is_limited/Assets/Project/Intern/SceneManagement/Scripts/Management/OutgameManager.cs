@@ -40,7 +40,7 @@ public class OutgameManager : Singleton<OutgameManager>
 
     #region PausingAndDeath
     /// <summary>
-    /// Pauses the game by set its speed to zero
+    /// Pauses the game by setting the timescale to zero
     /// </summary>
     [ContextMenu("Pause")]
     public void PauseGame()
@@ -50,7 +50,7 @@ public class OutgameManager : Singleton<OutgameManager>
     }
 
     /// <summary>
-    /// Resumes the game by set its speed to one
+    /// Resumes the game by setting the timescale to one
     /// </summary>
     [ContextMenu("Resume")]
     public void ResumeGame()
@@ -61,7 +61,7 @@ public class OutgameManager : Singleton<OutgameManager>
     }
 
     /// <summary>
-    /// When the method is called the player dies
+    /// When the method is called the player dies,
     /// the death animation will be played
     /// and the last checkpoint will be loaded
     /// </summary>
@@ -83,7 +83,7 @@ public class OutgameManager : Singleton<OutgameManager>
 
     #region SceneManagement
     /// <summary>
-    /// Load another Scene out of the game, instead of the current scene
+    /// Load another scene out of the game, instead of the current scene
     /// </summary>
     /// <param name="loadScene">new scene, that should be active</param>
     public void LoadOtherScene(MainScenes loadScene)

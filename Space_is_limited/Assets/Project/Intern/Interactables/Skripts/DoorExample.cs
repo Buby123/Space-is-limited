@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.Player;
 
 /// <summary>
 /// Opens a new scene when the player enters the trigger

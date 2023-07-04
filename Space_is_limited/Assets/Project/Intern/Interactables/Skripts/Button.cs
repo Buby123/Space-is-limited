@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// The button handles interactions to doors and other objects
+/// The button handles interactions with doors and other objects
 /// </summary>
 public class Button : MonoBehaviour
 {

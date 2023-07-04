@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.Player;
 
 /// <summary>
-/// Aktiviert die Kontrolle von Objekten und deaktiviert die Kontrolle über den Spieler, (!darf nicht zu beginn aktiviert sein!)
+/// Activates the control of objects and deactivates the control over the player, (!must not be activated at the beginning!)
 /// </summary>
 [System.Serializable]
 public class Hoverer : PlayerAbility
@@ -19,8 +20,8 @@ public class Hoverer : PlayerAbility
     }
 
     /// <summary>
-    /// Aktiviert die Kontrolle von Objekten und deaktiviert die Kontrolle über den Spieler, falls ein Objekt vor dem Spieler ist
-    /// Wird aufgerufen sobald die Fähigkeit aktiviert wird
+    /// Activates the control of objects and deactivates the control over the player, if an object is in front of the player
+    /// Is called when the ability is activated
     /// </summary>
     protected override void OnActivateAbility()
     {
@@ -28,8 +29,8 @@ public class Hoverer : PlayerAbility
     }
 
     /// <summary>
-    /// Deaktiviert die Kontrolle von Objekten und aktiviert die Kontrolle über den Spieler
-    /// Wird aufgerufen sobald die Fähigkeit deaktiviert wird
+    /// Deactivates the control of objects and activates the control over the player
+    /// Is called when the ability is deactivated
     /// </summary>
     protected override void OnDeactivateAbility()
     {
@@ -46,8 +47,8 @@ public class Hoverer : PlayerAbility
     }
 
     /// <summary>
-    /// Wird benutzt um ein Objekt vor dem Spieler zu finden und es zu aktivieren
-    /// Sucht dafür die Kontrolle des Objekts und aktiviert diese
+    /// Is used to find an object in front of the player and activate it
+    /// Searches for the control of the object and activates it
     /// </summary>
     private void ShootLaser()
     {
@@ -70,7 +71,7 @@ public class Hoverer : PlayerAbility
     }
     
     /// <summary>
-    /// Deaktiviert das Ziel und deaktiviert dieses
+    /// Deactivates the target and the laser
     /// </summary>
     private void DeactivateHover()
     {

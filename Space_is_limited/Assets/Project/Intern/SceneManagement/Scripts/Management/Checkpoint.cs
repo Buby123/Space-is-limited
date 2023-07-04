@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 /// <summary>
-/// Handles the Data of one Checkpoint and sets the main checkpoint to itself if player arrives
+/// Handles the data of one checkpoint and sets the main checkpoint to itself if player arrives
 /// </summary>
 public class Checkpoint : MonoBehaviour
 {        
@@ -11,7 +11,7 @@ public class Checkpoint : MonoBehaviour
     public CheckPointData Data { get; private set; }
 
     /// <summary>
-    /// Init Checkpointdata
+    /// Init CheckPointData
     /// </summary>
     private void Start()
     {

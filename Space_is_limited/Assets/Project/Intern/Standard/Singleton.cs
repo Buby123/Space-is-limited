@@ -5,10 +5,10 @@ using UnityEngine;
 /// <summary>
 /// Creates an instance, which is accessible from everywhere
 /// </summary>
-/// <typeparam name="T">Singleton Skript</typeparam>
+/// <typeparam name="T">Singleton Script</typeparam>
 public class Singleton<T> : MonoBehaviour where T : Component
 {
-    #region Objekten
+    #region Objects
     /// <summary>
     /// Accessible instance
     /// </summary>
@@ -35,7 +35,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
     }
     #endregion
 
-    #region unityFunktionen
+    #region unityFunctions
     /// <summary>
     /// Creates an instance at the start of the game and deletes unnecessary ones
     /// </summary>
