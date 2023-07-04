@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.Player;
 
 /// <summary>
 /// Moves an object with the input of the player, (!must not be active at the beginning!)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.Player;
 
 /// <summary>
 /// Activates OnActivateAbility and OnDeactivateAbility as soon as the ability is activated/deactivated

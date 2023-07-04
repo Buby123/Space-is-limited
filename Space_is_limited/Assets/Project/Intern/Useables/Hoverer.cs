@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.Player;
 
 /// <summary>
 /// Activates the control of objects and deactivates the control over the player, (!must not be activated at the beginning!)

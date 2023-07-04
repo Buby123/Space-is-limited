@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using Project.Player;
 
 /// <summary>
 /// Performs the selected setting changes in the Options Menu.

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
 using Intern.UI;
+using Project.Player;
 
 /// <summary>
 /// Is used for the Hoverer to select and connect the player to objects
