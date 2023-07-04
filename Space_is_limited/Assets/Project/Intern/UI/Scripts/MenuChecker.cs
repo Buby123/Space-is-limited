@@ -29,7 +29,7 @@ namespace Project.UI
         /// </summary>
         void Update()
         {
-            if (Input.GetKeyDown("backspace"))
+            if (Input.GetKeyDown(KeyCode.Backspace))
             {
                 OutgameManager.Instance.LoadOtherScene(OutgameManager.MainScenes.Game);
             }
