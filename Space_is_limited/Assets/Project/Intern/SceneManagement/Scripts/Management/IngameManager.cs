@@ -6,163 +6,173 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
-using static Checkpoint;
 
-/// <summary>
-/// Manages the dynamic loading of the scenes ingame
-/// </summary>
-public class IngameManager : Singleton<IngameManager>
+namespace Project.SceneManagement
 {
-    #region Objects
-    [Tooltip("Loaded Scenes")]
-    private Dictionary<string, SceneInfo> ActiveScenes = new Dictionary<string, SceneInfo>();
-    private string MainScene = "";
-
-    public bool gameStarted { get; set; } = false;
-    #endregion
-
-    #region Propertys
-    [field: SerializeField] public CheckPointData CurrentCheckPoint { get; set; } = new CheckPointData("Room1", new Vector3(-10.75f, -4.38f, -0.04553845f));
-    #endregion
-
-    #region Begin
     /// <summary>
-    /// Loads the first scene
+    /// Manages the dynamic loading of the scenes ingame
     /// </summary>
-    public void StartGame()
+    public class IngameManager : Singleton<IngameManager>
     {
-        if (gameStarted)
-            return;
+        #region Objects
+        [Tooltip("Loaded Scenes")]
+        private Dictionary<string, SceneInfo> ActiveScenes = new();
+        private string MainScene = "";
 
-        gameStarted = true;
-        CurrentCheckPoint.LoadCheckpoint();
-        OutgameManager.Instance.ResumeGame();
-    }
-    #endregion
+        public bool gameStarted { get; set; } = false;
+        #endregion
 
-    #region SceneFunctions
-    public void OpenSingleSceneAsync(string SceneName)
-    {
-        StartCoroutine(OpenSingleScene(SceneName));
-    }
+        #region Propertys
+        [field: SerializeField] public Checkpoint.CheckPointData CurrentCheckPoint { get; set; } = new("Room1", new Vector3(-10.75f, -4.38f, -0.04553845f));
+        #endregion
 
-    public void ResetToCheckpoint()
-    {
-        CurrentCheckPoint.LoadCheckpoint();
-    }
-
-    /// <summary>
-    /// Closes every enviroment scene and loads a new one
-    /// Step 1: Deletes all rooms
-    /// Step 2: Waits for deletion
-    /// Step 3: Loads the room
-    /// </summary>
-    /// <param name="SceneName">Name of the scene which should be opened</param>
-    private IEnumerator OpenSingleScene(string SceneName)
-    {
-        OutgameManager.Instance.PauseGame();
-        
-        List<AsyncOperation> Operations = new();
-
-        foreach (var Room in ActiveScenes.Select(r => r.Key))
+        #region Begin
+        /// <summary>
+        /// Loads the first scene
+        /// </summary>
+        public void StartGame()
         {
-            Operations.Add(SceneManager.UnloadSceneAsync(Room));
+            if (gameStarted)
+                return;
+
+            gameStarted = true;
+            CurrentCheckPoint.LoadCheckpoint();
+            OutgameManager.Instance.ResumeGame();
+        }
+        #endregion
+
+        #region SceneFunctions
+        /// <summary>
+        /// Open a single scene asynchonious.
+        /// This is useful when changing the scene like for a door or a checkpoint
+        /// </summary>
+        /// <param name="SceneName"></param>
+        public void OpenSingleSceneAsync(string SceneName)
+        {
+            StartCoroutine(OpenSingleScene(SceneName));
         }
 
-        ActiveScenes.Clear();
-
-        foreach (var Room in Operations)
+        /// <summary>
+        /// Resets the playerposition to the last checkpoint
+        /// </summary>
+        public void ResetToCheckpoint()
         {
-            yield return new WaitUntil(() => Room.isDone);
+            CurrentCheckPoint.LoadCheckpoint();
         }
 
-        MainScene = "";
-
-        Assert.IsFalse(ActiveScenes.ContainsKey(SceneName), "Scene is already loaded");
-        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
-
-        OutgameManager.Instance.ResumeGame();
-
-        StartCoroutine(SetToMainScene(SceneName));
-    }
-
-    /// <summary>
-    /// Makes the scene to a main scene when loaded
-    /// </summary>
-    /// <param name="SceneName">Name of the scene</param>
-    /// <returns></returns>
-    private IEnumerator SetToMainScene(string SceneName)
-    {
-        yield return new WaitUntil(() => ActiveScenes.ContainsKey(SceneName));
-        ActiveScenes[SceneName].SetToMainRoom();
-    }
-    #endregion
-
-    #region DynamicSceneLoading
-    /// <summary>
-    /// Loads a room by removing every active scene not in the list or that is the roomname itself
-    /// and then adding each on missing
-    /// </summary>
-    /// <param name="RoomName">Name of the room itself, that is calling other rooms</param>
-    /// <param name="NearbyScenes">Rooms to load</param>
-    public void LoadRoom(string RoomName, HashSet<string> NearbyScenes)
-    {
-        // Don't load the same room again
-        if (RoomName.Equals(MainScene))
+        /// <summary>
+        /// Closes every enviroment scene and loads a new one
+        /// Step 1: Deletes all rooms
+        /// Step 2: Waits for deletion
+        /// Step 3: Loads the room
+        /// </summary>
+        /// <param name="SceneName">Name of the scene which should be opened</param>
+        private IEnumerator OpenSingleScene(string SceneName)
         {
-            return;
-        }
+            OutgameManager.Instance.PauseGame();
 
-        NearbyScenes.Add(RoomName);
-        MainScene = RoomName;
+            List<AsyncOperation> Operations = new();
 
-        UnloadRooms(NearbyScenes);
-        LoadRooms(NearbyScenes);
-    }
-    
-    /// <summary>
-    /// Adds a scene info to the stack
-    /// Helps to notice the active scenes
-    /// </summary>
-    /// <param name="NewScene">SceneInfo</param>
-    public void AddActiveScene(SceneInfo NewScene)
-    {
-        ActiveScenes.Add(NewScene.GetSceneName(), NewScene);
-    }
-
-    /// <summary>
-    /// Loads a single scene, if the scene is not already loaded
-    /// </summary>
-    /// <param name="NewRoom">Name of Scene</param>
-    private void LoadRooms(HashSet<string> NearbyRooms)
-    {
-        foreach (var NearbyRoom in NearbyRooms)
-        {
-            if (!ActiveScenes.ContainsKey(NearbyRoom))
+            foreach (var Room in ActiveScenes.Select(r => r.Key))
             {
-                SceneManager.LoadSceneAsync(NearbyRoom, LoadSceneMode.Additive);
+                Operations.Add(SceneManager.UnloadSceneAsync(Room));
             }
-        }
-    }
 
-    /// <summary>
-    /// Deletes all scenes not in the list
-    /// </summary>
-    /// <param name="NearbyRooms">Name of Scenes that should not be unloaded</param>
-    private void UnloadRooms(HashSet<string> NearbyRooms)
-    {
-        List<string> RemovedRooms = new();
+            ActiveScenes.Clear();
 
-        foreach (var LoadedRoom in ActiveScenes.Select(s => s.Key))
-        {
-            if (!NearbyRooms.Contains(LoadedRoom))
+            foreach (var Room in Operations)
             {
-                SceneManager.UnloadSceneAsync(LoadedRoom);
-                RemovedRooms.Add(LoadedRoom);
+                yield return new WaitUntil(() => Room.isDone);
+            }
+
+            MainScene = "";
+
+            Assert.IsFalse(ActiveScenes.ContainsKey(SceneName), "Scene is already loaded");
+            SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+
+            OutgameManager.Instance.ResumeGame();
+
+            StartCoroutine(SetToMainScene(SceneName));
+        }
+
+        /// <summary>
+        /// Makes the scene to a main scene when loaded
+        /// </summary>
+        /// <param name="SceneName">Name of the scene</param>
+        /// <returns></returns>
+        private IEnumerator SetToMainScene(string SceneName)
+        {
+            yield return new WaitUntil(() => ActiveScenes.ContainsKey(SceneName));
+            ActiveScenes[SceneName].SetToMainRoom();
+        }
+        #endregion
+
+        #region DynamicSceneLoading
+        /// <summary>
+        /// Loads a room by removing every active scene not in the list or that is the roomname itself
+        /// and then adding each on missing
+        /// </summary>
+        /// <param name="RoomName">Name of the room itself, that is calling other rooms</param>
+        /// <param name="NearbyScenes">Rooms to load</param>
+        public void LoadRoom(string RoomName, HashSet<string> NearbyScenes)
+        {
+            // Don't load the same room again
+            if (RoomName.Equals(MainScene))
+            {
+                return;
+            }
+
+            NearbyScenes.Add(RoomName);
+            MainScene = RoomName;
+
+            UnloadRooms(NearbyScenes);
+            LoadRooms(NearbyScenes);
+        }
+
+        /// <summary>
+        /// Adds a scene info to the stack
+        /// Helps to notice the active scenes
+        /// </summary>
+        /// <param name="NewScene">SceneInfo</param>
+        public void AddActiveScene(SceneInfo NewScene)
+        {
+            ActiveScenes.Add(NewScene.SceneName, NewScene);
+        }
+
+        /// <summary>
+        /// Loads a single scene, if the scene is not already loaded
+        /// </summary>
+        /// <param name="NewRoom">Name of Scene</param>
+        private void LoadRooms(HashSet<string> NearbyRooms)
+        {
+            foreach (var NearbyRoom in NearbyRooms)
+            {
+                if (!ActiveScenes.ContainsKey(NearbyRoom))
+                {
+                    SceneManager.LoadSceneAsync(NearbyRoom, LoadSceneMode.Additive);
+                }
             }
         }
 
-        RemovedRooms.ForEach(r => ActiveScenes.Remove(r));
+        /// <summary>
+        /// Deletes all scenes not in the list
+        /// </summary>
+        /// <param name="NearbyRooms">Name of Scenes that should not be unloaded</param>
+        private void UnloadRooms(HashSet<string> NearbyRooms)
+        {
+            List<string> RemovedRooms = new();
+
+            foreach (var LoadedRoom in ActiveScenes.Select(s => s.Key))
+            {
+                if (!NearbyRooms.Contains(LoadedRoom))
+                {
+                    SceneManager.UnloadSceneAsync(LoadedRoom);
+                    RemovedRooms.Add(LoadedRoom);
+                }
+            }
+
+            RemovedRooms.ForEach(r => ActiveScenes.Remove(r));
+        }
+        #endregion
     }
-    #endregion
 }

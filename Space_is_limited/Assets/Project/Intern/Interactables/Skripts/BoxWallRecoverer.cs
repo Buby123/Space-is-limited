@@ -1,87 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Project.InteractionHelpers;
 
-/// <summary>
-/// Moves the Box if the player stands above it
-/// </summary>
-[RequireComponent(typeof(Rigidbody2D))]
-public class BoxWallRecoverer : MonoBehaviour
+namespace Project.Interactables
 {
-    private Transform _PlayerTF;
-    private Rigidbody2D _RB;
-
-    private bool _playerTouchesBox = false;
-    [Tooltip("Force of footsteps from player above the box")]
-    [SerializeField] private float movement_force = 10f;
-
-    #region UnityMethods
     /// <summary>
-    /// Inits the parameters
+    /// Moves the Box if the player stands above it
     /// </summary>
-    private void Start()
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(IsTouched))]
+    public class BoxWallRecoverer : MonoBehaviour
     {
-        _PlayerTF = GameObject.FindGameObjectWithTag("Player").transform;
-        _RB = GetComponent<Rigidbody2D>();
-    }
+        #region Variables
+        private Transform _PlayerTF;
+        private Rigidbody2D _RB;
+        private IsTouched _IsTouched;
+        
+        [Tooltip("Force of footsteps from player above the box")]
+        [SerializeField] private float movement_force = 10f;
+        #endregion
 
-    /// <summary>
-    /// Moves the box when player stands above
-    /// </summary>
-    private void Update()
-    {
-        if (_playerTouchesBox && PlayerAboveBox())
+        #region UnityMethods
+        /// <summary>
+        /// Inits the parameters
+        /// </summary>
+        private void Start()
         {
-            MoveBoxOnPlayerMovement();
+            _PlayerTF = GameObject.FindGameObjectWithTag("Player").transform;
+            _RB = GetComponent<Rigidbody2D>();
+            _IsTouched = GetComponent<IsTouched>();
         }
-    }
-    #endregion
 
-    #region Player Touches Box
-    /// <summary>
-    /// Check if player touches the box
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player"))
+        /// <summary>
+        /// Moves the box when player stands above
+        /// </summary>
+        private void Update()
         {
-            _playerTouchesBox = true;
+            if (_IsTouched.State && PlayerAboveBox())
+            {
+                MoveBoxOnPlayerMovement();
+            }
         }
-    }
+        #endregion
 
-    /// <summary>
-    /// Check if player touches the box
-    /// </summary>
-    /// <param name="other"></param>
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player"))
+        #region Movebox back on movement
+        /// <summary>
+        /// Test if the player is higher than the box
+        /// </summary>
+        /// <returns></returns>
+        private bool PlayerAboveBox()
         {
-            _playerTouchesBox = false;
+            var BoxPosition = transform.position;
+            return _PlayerTF.position.y > BoxPosition.y;
         }
-    }
-    #endregion
 
-    #region Movebox back on movement
-    /// <summary>
-    /// Test if the player is higher than the box
-    /// </summary>
-    /// <returns></returns>
-    private bool PlayerAboveBox()
-    {
-        var BoxPosition = transform.position;
-
-        return _PlayerTF.position.y > BoxPosition.y;
+        /// <summary>
+        /// Move box in opposite direction of player movement
+        /// </summary>
+        private void MoveBoxOnPlayerMovement()
+        {
+            var VerticalVector = Input.GetAxis("Horizontal");
+            _RB.AddForce(new Vector2(movement_force * -VerticalVector, 0));
+        }
+        #endregion
     }
-
-    /// <summary>
-    /// Move box in opposite direction of player movement
-    /// </summary>
-    private void MoveBoxOnPlayerMovement()
-    {
-        var VerticalVector = Input.GetAxis("Horizontal");
-        _RB.AddForce(new Vector2(movement_force * -VerticalVector, 0));
-    }
-    #endregion
 }
+

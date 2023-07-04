@@ -3,139 +3,145 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Controller for SceneManagement and State of the Game
-/// while outside of the main game
-/// </summary>
-public class OutgameManager : Singleton<OutgameManager>
+namespace Project.SceneManagement
 {
-    #region Variables
-    [SerializeField] private string menuSceneName = "MainMenu";
-    [SerializeField] private string optionsSceneName = "OptionsMenu";
-    [SerializeField] private string gameSceneName = "Game";
-    #endregion
-
-    #region Propertys
-    public bool gameIsRunning { get; private set; } = true;
-    #endregion
-
-    #region UnityFunctions
     /// <summary>
-    /// Starts the game if it is not already loaded
+    /// Controller for SceneManagement and State of the Game
+    /// while outside of the main game
     /// </summary>
-    private void Start()
+    public class OutgameManager : Singleton<OutgameManager>
     {
-        DontDestroyOnLoad(gameObject);
+        #region Variables
+        [SerializeField] private string menuSceneName = "MainMenu";
+        [SerializeField] private string optionsSceneName = "OptionsMenu";
+        [SerializeField] private string gameSceneName = "Game";
+        #endregion
 
-        #if UNITY_EDITOR
-        //Test game for purpose of testing
-        if (SceneManager.GetActiveScene().name.Equals(gameSceneName) && !IngameManager.Instance.gameStarted)
+        #region Propertys
+        public bool GameIsRunning { get; private set; } = true;
+        #endregion
+
+        #region UnityFunctions
+        /// <summary>
+        /// Starts the game if it is not already loaded
+        /// </summary>
+        private void Start()
         {
-            PauseGame();
-            IngameManager.Instance.StartGame();
-        }
-        #endif
-    }
-    #endregion
+            DontDestroyOnLoad(gameObject);
 
-    #region PausingAndDeath
-    /// <summary>
-    /// Pauses the game by setting the timescale to zero
-    /// </summary>
-    [ContextMenu("Pause")]
-    public void PauseGame()
-    {
-        gameIsRunning = false;
-        Time.timeScale = 0f;
-    }
-
-    /// <summary>
-    /// Resumes the game by setting the timescale to one
-    /// </summary>
-    [ContextMenu("Resume")]
-    public void ResumeGame()
-    {
-        gameIsRunning = true;
-        Time.timeScale = 1f;
-
-    }
-
-    /// <summary>
-    /// When the method is called the player dies,
-    /// the death animation will be played
-    /// and the last checkpoint will be loaded
-    /// </summary>
-    public void TriggerDeath()
-    {
-        gameIsRunning = false;
-        DeathHandler.Instance.TriggerDeath(Death);
-    }
-
-    /// <summary>
-    /// When the method is called the player dies
-    /// and the last checkpoint will be loaded
-    /// </summary>
-    private void Death()
-    {
-        IngameManager.Instance.ResetToCheckpoint();
-    }
-    #endregion
-
-    #region SceneManagement
-    /// <summary>
-    /// Load another scene out of the game, instead of the current scene
-    /// </summary>
-    /// <param name="loadScene">new scene, that should be active</param>
-    public void LoadOtherScene(MainScenes loadScene)
-    {
-        //Save the data of the scene
-        if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
-        {
-            Debug.Log("Save Current Scene");
-        }
-
-        //Load the menu
-        switch (loadScene)
-        {
-            case MainScenes.Game:
+#if UNITY_EDITOR
+            //Test game for purpose of testing
+            if (SceneManager.GetActiveScene().name.Equals(gameSceneName) && !IngameManager.Instance.gameStarted)
+            {
                 PauseGame();
-                SceneManager.LoadScene(gameSceneName);
                 IngameManager.Instance.StartGame();
-                break;
-            case MainScenes.MainMenu:
-                SceneManager.LoadScene(menuSceneName);
-                break;
+            }
+#endif
         }
+        #endregion
 
-        ResumeGame();
-    }
-
-    /// <summary>
-    /// Loads our OptionsMenu (another scene) additively. This way there is only one Menu which is accessible from everywhere.
-    /// </summary>
-    public void LoadOptionsMenu()
-    {
-        SceneManager.LoadSceneAsync(optionsSceneName, LoadSceneMode.Additive);
-    }
-
-    /// <summary>
-    /// Stops and Saves the game
-    /// </summary>
-    public void StopGame()
-    {
-        //Save the data of the scene
-        if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
+        #region PausingAndDeath
+        /// <summary>
+        /// Pauses the game by setting the timescale to zero
+        /// </summary>
+        [ContextMenu("Pause")]
+        public void PauseGame()
         {
-            Debug.Log("Save Current Scene");
+            GameIsRunning = false;
+            Time.timeScale = 0f;
         }
 
-        Application.Quit();
-    }
-    #endregion
-    
-    public enum MainScenes
-    {
-        MainMenu,
-        Game
+        /// <summary>
+        /// Resumes the game by setting the timescale to one
+        /// </summary>
+        [ContextMenu("Resume")]
+        public void ResumeGame()
+        {
+            GameIsRunning = true;
+            Time.timeScale = 1f;
+
+        }
+
+        /// <summary>
+        /// When the method is called the player dies,
+        /// the death animation will be played
+        /// and the last checkpoint will be loaded
+        /// </summary>
+        public void TriggerDeath()
+        {
+            GameIsRunning = false;
+            DeathHandler.Instance.TriggerDeath(Death);
+        }
+
+        /// <summary>
+        /// When the method is called the player dies
+        /// and the last checkpoint will be loaded
+        /// </summary>
+        private void Death()
+        {
+            IngameManager.Instance.ResetToCheckpoint();
+        }
+        #endregion
+
+        #region SceneManagement
+        /// <summary>
+        /// Load another scene out of the game, instead of the current scene
+        /// </summary>
+        /// <param name="loadScene">new scene, that should be active</param>
+        public void LoadOtherScene(MainScenes loadScene)
+        {
+            //Save the data of the scene
+            if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
+            {
+                Debug.Log("Save Current Scene");
+            }
+
+            //Load the menu
+            switch (loadScene)
+            {
+                case MainScenes.Game:
+                    PauseGame();
+                    SceneManager.LoadScene(gameSceneName);
+                    IngameManager.Instance.StartGame();
+                    break;
+                case MainScenes.MainMenu:
+                    SceneManager.LoadScene(menuSceneName);
+                    break;
+            }
+
+            ResumeGame();
+        }
+
+        /// <summary>
+        /// Loads our OptionsMenu (another scene) additively. This way there is only one Menu which is accessible from everywhere.
+        /// </summary>
+        public void LoadOptionsMenu()
+        {
+            SceneManager.LoadSceneAsync(optionsSceneName, LoadSceneMode.Additive);
+        }
+
+        /// <summary>
+        /// Stops and Saves the game
+        /// </summary>
+        public void StopGame()
+        {
+            if (SceneManager.GetActiveScene().name.Equals(gameSceneName))
+            {
+                Debug.Log("Save Current Scene");
+            }
+
+            Application.Quit();
+        }
+        #endregion
+
+        /// <summary>
+        /// Defines the main scenes of the application
+        /// each scene in the list is callable by the outgamemanager
+        /// </summary>
+        public enum MainScenes
+        {
+            MainMenu,
+            Game
+        }
     }
 }

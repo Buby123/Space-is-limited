@@ -1,98 +1,66 @@
+using Project.InteractionHelpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-/// <summary>
-/// The Lever handles a interaction and send signals to other objects
-/// </summary>
-public class Lever : MonoBehaviour
+namespace Project.Interaction
 {
-    #region Objects
-    [Tooltip("Visual Output of the Lever (Renderer)")]
-    [SerializeField] private SpriteRenderer VisualLever;
-    [Tooltip("Pushed Graphic")]
-    [SerializeField] private Sprite PushedLeverGraphic;
-    [Tooltip("Released Graphic")]
-    [SerializeField] private Sprite ReleasedLeverGraphic;
-    [Tooltip("Help Graphic for the button")]
-    [SerializeField] private GameObject HelpGraphic;
-    #endregion
-
-    #region Variables
-    private bool active = false;
-    private bool canBeChanged = false;
-    [Tooltip("ID of the signal")]
-    [SerializeField] private int id;
-    #endregion
-
-    #region Triggers
     /// <summary>
-    /// Set the startstate
+    /// The Lever handles a interaction and send signals to other objects
     /// </summary>
-    private void Awake()
+    public class Lever : InteractionArea
     {
-        SetState(active);
-        // PlayerInput.Instance.OnInteraction.AddListener(OnInteractionKey);                   <------------------------- Fix this failure if you want to use the Lever!!
-    }
+        #region Objects
+        [Tooltip("Visual Output of the Lever (Renderer)")]
+        [SerializeField] private SpriteRenderer VisualLever;
+        [Tooltip("Pushed Graphic")]
+        [SerializeField] private Sprite PushedLeverGraphic;
+        [Tooltip("Released Graphic")]
+        [SerializeField] private Sprite ReleasedLeverGraphic;
+        [Tooltip("Help Graphic for the button")]
+        [SerializeField] private GameObject HelpGraphic;
+        #endregion
 
-    /// <summary>
-    /// Activates the possibility to change the lever state
-    /// </summary>
-    /// <param name="collision">Collider of player</param>
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag.Equals("Player"))
-        {
-            HelpGraphic.SetActive(true);
-            canBeChanged = true;
-        }
-    }
+        #region Variables
+        private bool active = false;
+        
+        [Tooltip("ID of the signal")]
+        [SerializeField] private int id;
+        #endregion
 
-    /// <summary>
-    /// Deactives the possibility to change the lever state
-    /// </summary>
-    /// <param name="collision">Collider of player</param>
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag.Equals("Player"))
+        #region Triggers
+        /// <summary>
+        /// Set the startstate
+        /// </summary>
+        private void Awake()
         {
-            HelpGraphic.SetActive(false);
-            canBeChanged = false;
-        }
-    }
-
-    /// <summary>
-    /// Test if the lever is pulled by the player and changes the state after an interaction.
-    /// Is invoked by an event listener.
-    /// </summary>
-    private void OnInteractionKey()
-    {
-        if (canBeChanged)
-        {
-            SetState(!active);
-        }
-    }
-    
-    #endregion
-
-    #region VisualOutput
-    /// <summary>
-    /// Sets the visual state of the lever to a different one
-    /// </summary>
-    /// <param name="state">new state of the lever</param>
-    private void SetState(bool state)
-    {
-        active = state;
-
-        if (state)
-        {
-            VisualLever.sprite = PushedLeverGraphic;
-        } else
-        {
-            VisualLever.sprite = ReleasedLeverGraphic;
+            InitAction(ToggleState, new List<UnityAction<bool>>() { HelpGraphic.SetActive });
+            EventManager.Instance.PullLever(id, false);
         }
 
-        EventManager.Instance.PullLever(id, active);
+        #endregion
+
+        #region VisualOutput
+        /// <summary>
+        /// Toggles the visual state of the lever to a different one
+        /// </summary>
+        private void ToggleState()
+        {
+            active = !active;
+
+            if (active)
+            {
+                VisualLever.sprite = PushedLeverGraphic;
+            }
+            else
+            {
+                VisualLever.sprite = ReleasedLeverGraphic;
+            }
+
+            EventManager.Instance.PullLever(id, active);
+        }
+        #endregion
     }
-    #endregion
 }

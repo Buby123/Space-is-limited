@@ -6,6 +6,10 @@ using UnityEngine.Events;
 
 namespace SaveSystem
 {
+    /// <summary>
+    /// Gives options to save objects under a specific filename in the ressources
+    /// It defines the folder structure to save the data, by using the SaveLoadData Class
+    /// </summary>
     public static class SaveGameManager
     {
         [Tooltip("Folder where the data will be saved and loaded from, only for Data thats not saved when the player dies")]

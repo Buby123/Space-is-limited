@@ -7,6 +7,7 @@ namespace SaveSystem
 {
     /// <summary>
     /// Loads and Saves classes
+    /// It defines the method to save the data and the path to save it
     /// </summary>
     public class SaveLoadData : Singleton<SaveLoadData>
     {

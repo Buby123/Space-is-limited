@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Project.SceneManagement;
 
 /// <summary>
 /// Handles the Keys used for the player, with UnityEvents
@@ -48,7 +49,7 @@ public class PlayerInput : Singleton<PlayerInput>
     private void Update()
     {
         // Return while the game is not running
-        if (!OutgameManager.Instance.gameIsRunning)
+        if (!OutgameManager.Instance.GameIsRunning)
         {
             return;
         }

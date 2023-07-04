@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class contains help functions for velocity and acceleration
+/// </summary>
 public static class HelpFunctions
 {
     /// <summary>

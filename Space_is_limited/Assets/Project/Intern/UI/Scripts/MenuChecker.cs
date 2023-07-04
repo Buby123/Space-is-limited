@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Project.SceneManagement;
 
 /// <summary>
 /// This class is responsible for showing or hiding the ingame menu.

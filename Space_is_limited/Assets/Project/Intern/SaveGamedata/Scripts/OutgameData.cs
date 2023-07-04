@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace SaveSystem
 {
+    /// <summary>
+    /// This class is used to save and load data from the scene
+    /// This data is consistent for each game
+    /// </summary>
+    /// <typeparam name="T">Dataobject</typeparam>
     public class OutgameData<T> : IDataPersistence
     {
         [System.NonSerialized] private T Data = default;

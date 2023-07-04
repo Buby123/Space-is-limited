@@ -7,6 +7,7 @@ namespace SaveSystem
 {
     /// <summary>
     /// Base class for all saveable data
+    /// This class defines data for gamedata
     /// </summary>
     [System.Serializable]
     public abstract class SceneData<T> : IDataPersistence
