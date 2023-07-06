@@ -143,6 +143,7 @@ namespace Project.Player
             Animator.SetFloat("XVelocity", Mathf.Abs(Controller.velocity.x));
             Animator.SetFloat("YVelocity", Controller.velocity.y);
             Animator.SetBool("OnGround", GroundChecker.Instance.onGround);
+            Animator.SetBool("UsingAbility", !Active);
         }
         #endregion
 
