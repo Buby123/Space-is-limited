@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestingArea/OptionsMenu.unity
     guid: bf24989e34aad4f478d8ab4889be302d
+  - enabled: 1
+    path: Assets/Scenes/Demoraum/Raum Test Remy.unity
+    guid: 64e377c88361e544395a84614e8453fd
   m_configObjects: {}

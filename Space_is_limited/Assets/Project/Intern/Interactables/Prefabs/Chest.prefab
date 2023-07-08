@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5050123612925421792}
   - component: {fileID: 5050123612925421793}
   - component: {fileID: 1606321149995881774}
+  - component: {fileID: 3232798887582057045}
+  - component: {fileID: 8982983453056855737}
   m_Layer: 9
   m_Name: Chest
   m_TagString: Untagged
@@ -99,10 +101,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 15
-  m_LinearDrag: 15
+  m_Mass: 10
+  m_LinearDrag: 0
   m_AngularDrag: 1
-  m_GravityScale: 5
+  m_GravityScale: 2.8
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -117,7 +119,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5050123612925421795}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: fd0d4c46d62f074408b74e8d12c711a0, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -141,9 +143,35 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5050123612925421795}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be4ef5562c686c49a73d7a0aa5d80e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement_force: 7
+  movement_force: 25
+--- !u!114 &3232798887582057045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050123612925421795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f62db93c4187b94282f97bfa987ca56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8982983453056855737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050123612925421795}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88491853d03aa44bb8d083de3e873f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MaxSpeed: 5
+  _MaxAcceleration: 5
