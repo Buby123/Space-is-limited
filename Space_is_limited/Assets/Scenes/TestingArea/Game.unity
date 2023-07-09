@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CurrentCheckPoint>k__BackingField:
-    <SceneName>k__BackingField: Room1
+    <SceneName>k__BackingField: Raum Test Remy
     <Position>k__BackingField: {x: -10.75, y: -4.38, z: -0.04553845}
 --- !u!4 &532412777
 Transform:
