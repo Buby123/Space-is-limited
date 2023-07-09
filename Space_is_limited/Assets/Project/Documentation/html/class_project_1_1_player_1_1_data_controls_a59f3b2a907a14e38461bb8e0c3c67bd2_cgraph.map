@@ -1,0 +1,7 @@
+<map id="Project.Player.DataControls.SetKeyCodeOfAction" name="Project.Player.DataControls.SetKeyCodeOfAction">
+<area shape="rect" id="Node000001" title="This function can be called to assign a new KeyCode to a specific action." alt="" coords="5,39,192,81"/>
+<area shape="rect" id="Node000002" href="$class_project_1_1_player_1_1_data_controls.html#a72daa2ac77e864582e22ad18cc06d7a7" title="This function can be used to see if a specific KeyCode is already in use. Before assigning a new KeyC..." alt="" coords="240,5,426,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,44,225,39,225,45,192,49"/>
+<area shape="rect" id="Node000003" href="$class_save_system_1_1_outgame_data.html#ac124a24a153c787ec10f7db3912e63cf" title="Saves the data of the object." alt="" coords="241,72,425,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="192,71,227,76,226,81,192,76"/>
+</map>

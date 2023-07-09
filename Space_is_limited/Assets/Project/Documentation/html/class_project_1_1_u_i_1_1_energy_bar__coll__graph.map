@@ -1,0 +1,5 @@
+<map id="Project.UI.EnergyBar" name="Project.UI.EnergyBar">
+<area shape="rect" id="Node000001" title="Controls the EnergyBar." alt="" coords="14,80,157,107"/>
+<area shape="rect" id="Node000002" href="$class_singleton.html" title=" " alt="" coords="5,5,166,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,47,88,80,83,80,83,47"/>
+</map>

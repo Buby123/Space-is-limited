@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_singleton.html" title=" " alt="" coords="5,5,170,32"/>
+<area shape="rect" id="Node000001" href="$class_project_1_1_player_1_1_player_input.html" title="Handles the Keys used for the player, with UnityEvents When a key is pressed, the event is invoked." alt="" coords="218,5,390,32"/>
+<area shape="poly" id="edge32_Node000000_Node000001" title=" " alt="" coords="185,16,217,16,217,21,185,21"/>
+</map>

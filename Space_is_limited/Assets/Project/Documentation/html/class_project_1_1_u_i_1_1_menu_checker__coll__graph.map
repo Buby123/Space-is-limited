@@ -1,0 +1,5 @@
+<map id="Project.UI.MenuChecker" name="Project.UI.MenuChecker">
+<area shape="rect" id="Node000001" title="This class is responsible for showing or hiding the ingame menu. It also has to stop or resume the ga..." alt="" coords="5,80,168,107"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="32,5,141,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,47,89,80,84,80,84,47"/>
+</map>

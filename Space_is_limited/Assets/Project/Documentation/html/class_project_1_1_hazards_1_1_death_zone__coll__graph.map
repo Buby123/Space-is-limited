@@ -1,0 +1,5 @@
+<map id="Project.Hazards.DeathZone" name="Project.Hazards.DeathZone">
+<area shape="rect" id="Node000001" title="Zone, which kills the player." alt="" coords="5,80,186,107"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="41,5,150,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,47,98,80,93,80,93,47"/>
+</map>

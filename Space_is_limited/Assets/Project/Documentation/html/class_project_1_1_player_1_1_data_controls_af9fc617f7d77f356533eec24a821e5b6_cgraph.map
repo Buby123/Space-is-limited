@@ -1,0 +1,5 @@
+<map id="Project.Player.DataControls.DataControls" name="Project.Player.DataControls.DataControls">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,192,48"/>
+<area shape="rect" id="Node000002" href="$class_save_system_1_1_outgame_data.html#a198c408622eb839e58db8fd5c35de1a8" title="Set the default value of the save object and register the save and load function." alt="" coords="240,5,418,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="192,24,225,24,225,29,192,29"/>
+</map>

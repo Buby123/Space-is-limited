@@ -1,0 +1,5 @@
+<map id="Project.Player.DataControls.IsKeyCodeAvailable" name="Project.Player.DataControls.IsKeyCodeAvailable">
+<area shape="rect" id="Node000001" title="This function can be used to see if a specific KeyCode is already in use. Before assigning a new KeyC..." alt="" coords="240,5,426,48"/>
+<area shape="rect" id="Node000002" href="$class_project_1_1_player_1_1_data_controls.html#a59f3b2a907a14e38461bb8e0c3c67bd2" title="This function can be called to assign a new KeyCode to a specific action." alt="" coords="5,5,192,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,29,192,29,192,24,225,24"/>
+</map>

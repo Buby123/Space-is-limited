@@ -1,0 +1,5 @@
+<map id="Project.Interactables.BoxWallRecoverer" name="Project.Interactables.BoxWallRecoverer">
+<area shape="rect" id="Node000001" title="Moves the Box if the player stands above it." alt="" coords="5,80,173,123"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="34,5,144,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,47,92,80,86,80,86,47"/>
+</map>

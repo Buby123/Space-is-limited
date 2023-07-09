@@ -1,0 +1,7 @@
+<map id="Project.Interaction.SceneDoor" name="Project.Interaction.SceneDoor">
+<area shape="rect" id="Node000001" title="Opens a new scene when the player enters the trigger." alt="" coords="5,155,200,181"/>
+<area shape="rect" id="Node000002" href="$class_project_1_1_interaction_helpers_1_1_interaction_area.html" title="Adds a event to the interaction key." alt="" coords="48,80,157,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,122,105,154,100,154,100,122"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="48,5,157,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,47,105,80,100,80,100,47"/>
+</map>

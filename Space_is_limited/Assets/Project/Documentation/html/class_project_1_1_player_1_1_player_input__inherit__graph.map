@@ -1,0 +1,5 @@
+<map id="Project.Player.PlayerInput" name="Project.Player.PlayerInput">
+<area shape="rect" id="Node000001" title="Handles the Keys used for the player, with UnityEvents When a key is pressed, the event is invoked." alt="" coords="5,80,178,107"/>
+<area shape="rect" id="Node000002" href="$class_singleton.html" title=" " alt="" coords="9,5,174,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,47,94,80,89,80,89,47"/>
+</map>
