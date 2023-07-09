@@ -1,0 +1,5 @@
+<map id="Project.SceneManagement.OutgameManager.PauseGame" name="Project.SceneManagement.OutgameManager.PauseGame">
+<area shape="rect" id="Node000001" title="Pauses the game by setting the timescale to zero." alt="" coords="279,5,479,48"/>
+<area shape="rect" id="Node000002" href="$class_project_1_1_scene_management_1_1_outgame_manager.html#a386bb7dd9ce311aa18c7994e9c0d79a0" title="Load another scene out of the game, instead of the current scene." alt="" coords="5,5,231,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="264,29,231,29,231,24,264,24"/>
+</map>

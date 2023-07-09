@@ -1,0 +1,5 @@
+<map id="Project.UI.OptionsMenu" name="Project.UI.OptionsMenu">
+<area shape="rect" id="Node000001" title="Performs the settings changes the user selects in the Options Menu. Also does some utility for provid..." alt="" coords="5,80,165,107"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="30,5,140,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,47,88,80,82,80,82,47"/>
+</map>

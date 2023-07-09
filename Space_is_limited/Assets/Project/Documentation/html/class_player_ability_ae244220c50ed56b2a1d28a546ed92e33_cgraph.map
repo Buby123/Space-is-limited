@@ -1,0 +1,5 @@
+<map id="PlayerAbility.Update" name="PlayerAbility.Update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,145,32"/>
+<area shape="rect" id="Node000002" href="$class_player_ability.html#a2ec5af4a3b5a079d73fb3419a352b717" title=" " alt="" coords="193,5,385,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,16,177,16,177,21,145,21"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Project.InteractionHelpers.IsTouched" name="Project.InteractionHelpers.IsTouched">
+<area shape="rect" id="Node000001" title="Gives the information if the player touches the box." alt="" coords="5,80,180,123"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="38,5,147,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,47,95,80,90,80,90,47"/>
+</map>

@@ -1,0 +1,35 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,367,115,393"/>
+<area shape="rect" id="Node000001" href="$class_hover_control.html" title="Moves an object with the input of the player, (!must not be active at the beginning!..." alt="" coords="207,5,301,32"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="59,351,63,288,77,205,90,161,108,118,131,78,161,42,182,28,206,20,207,25,184,33,164,46,136,81,113,120,95,163,82,206,68,289,64,352"/>
+<area shape="rect" id="Node000002" href="$class_interactables_1_1_scene_door.html" title="Handles the behavior of a door." alt="" coords="172,56,336,83"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="60,352,67,297,84,228,97,191,114,155,135,122,161,93,178,81,181,86,164,97,139,125,118,158,102,193,89,229,73,298,66,352"/>
+<area shape="rect" id="Node000003" href="$class_moving_platform.html" title="Moves the platform to the next point and when it reaches the next point it will move to the next poin..." alt="" coords="199,107,309,133"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="63,352,73,307,91,250,120,193,139,167,161,143,178,132,198,124,200,129,181,137,164,147,143,170,124,196,96,252,78,308,68,353"/>
+<area shape="rect" id="Node000004" href="$class_project_1_1_hazards_1_1_death_zone.html" title="Zone, which kills the player." alt="" coords="164,157,344,184"/>
+<area shape="poly" id="edge4_Node000000_Node000004" title=" " alt="" coords="67,351,79,316,99,273,126,230,161,194,181,182,183,187,164,198,130,234,104,276,84,318,72,353"/>
+<area shape="rect" id="Node000005" href="$class_project_1_1_interactables_1_1_box_wall_recoverer.html" title="Moves the Box if the player stands above it." alt="" coords="170,208,338,251"/>
+<area shape="poly" id="edge5_Node000000_Node000005" title=" " alt="" coords="76,352,112,306,135,282,161,260,181,249,184,254,164,265,139,286,116,310,80,356"/>
+<area shape="rect" id="Node000006" href="$class_project_1_1_interactables_1_1_button.html" title="The button handles interactions with doors and other objects." alt="" coords="163,275,345,301"/>
+<area shape="poly" id="edge6_Node000000_Node000006" title=" " alt="" coords="89,355,123,332,162,311,192,299,194,304,164,316,126,337,92,360"/>
+<area shape="rect" id="Node000007" href="$class_project_1_1_interaction_helpers_1_1_interaction_area.html" title="Adds a event to the interaction key." alt="" coords="167,325,341,368"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="129,366,166,359,167,364,130,371"/>
+<area shape="rect" id="Node000010" href="$class_project_1_1_interaction_helpers_1_1_is_touched.html" title="Gives the information if the player touches the box." alt="" coords="167,392,341,435"/>
+<area shape="poly" id="edge10_Node000000_Node000010" title=" " alt="" coords="130,389,167,396,166,401,129,394"/>
+<area shape="rect" id="Node000011" href="$class_project_1_1_scene_management_1_1_checkpoint.html" title="Handles the data of one checkpoint and sets the main checkpoint to itself if player arrives." alt="" coords="163,459,345,501"/>
+<area shape="poly" id="edge11_Node000000_Node000011" title=" " alt="" coords="93,400,164,444,189,456,187,460,161,449,90,405"/>
+<area shape="rect" id="Node000012" href="$class_project_1_1_scene_management_1_1_scene_info.html" title="Gives the Ingame Manager infos about the position of the player Helps to create a dynamic loading of ..." alt="" coords="163,525,345,568"/>
+<area shape="poly" id="edge12_Node000000_Node000012" title=" " alt="" coords="78,405,113,459,137,487,164,511,183,522,180,527,161,515,133,490,109,462,73,408"/>
+<area shape="rect" id="Node000013" href="$class_project_1_1_u_i_1_1_main_menu.html" title="MainMenu is a class that controls the MainMenu." alt="" coords="183,592,325,619"/>
+<area shape="poly" id="edge13_Node000000_Node000013" title=" " alt="" coords="70,407,82,445,101,492,128,538,164,578,184,590,181,594,161,582,124,541,96,494,77,447,65,408"/>
+<area shape="rect" id="Node000014" href="$class_project_1_1_u_i_1_1_menu_checker.html" title="This class is responsible for showing or hiding the ingame menu. It also has to stop or resume the ga..." alt="" coords="173,643,335,669"/>
+<area shape="poly" id="edge14_Node000000_Node000014" title=" " alt="" coords="67,408,76,456,94,515,122,577,142,604,164,629,181,640,178,644,161,633,137,608,118,579,89,517,71,457,62,409"/>
+<area shape="rect" id="Node000015" href="$class_project_1_1_u_i_1_1_options_menu.html" title="Performs the settings changes the user selects in the Options Menu. Also does some utility for provid..." alt="" coords="174,693,334,720"/>
+<area shape="poly" id="edge15_Node000000_Node000015" title=" " alt="" coords="65,408,71,465,87,538,100,577,117,614,138,649,164,679,181,691,177,695,161,683,134,652,112,617,95,579,82,540,66,466,60,409"/>
+<area shape="rect" id="Node000016" href="$class_singleton.html" title="Creates an instance, which is accessible from everywhere." alt="" coords="201,744,307,771"/>
+<area shape="poly" id="edge16_Node000000_Node000016" title=" " alt="" coords="63,408,67,474,80,561,93,606,111,651,134,693,164,730,181,742,201,749,199,754,179,747,161,734,130,696,106,654,88,608,75,562,61,475,58,409"/>
+<area shape="rect" id="Node000008" href="$class_project_1_1_interaction_1_1_lever.html" title="The Lever handles a interaction and send signals to other objects." alt="" coords="410,308,570,335"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="355,333,409,327,410,333,356,338"/>
+<area shape="rect" id="Node000009" href="$class_project_1_1_interaction_1_1_scene_door.html" title="Opens a new scene when the player enters the trigger." alt="" coords="393,359,587,385"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="356,355,393,359,392,364,355,360"/>
+</map>

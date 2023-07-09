@@ -1,0 +1,9 @@
+<map id="Project.InteractionHelpers.InteractionArea" name="Project.InteractionHelpers.InteractionArea">
+<area shape="rect" id="Node000001" title="Adds a event to the interaction key." alt="" coords="98,80,273,123"/>
+<area shape="rect" id="Node000003" href="$class_project_1_1_interaction_1_1_lever.html" title="The Lever handles a interaction and send signals to other objects." alt="" coords="5,171,166,197"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="150,134,103,172,100,168,147,130"/>
+<area shape="rect" id="Node000004" href="$class_project_1_1_interaction_1_1_scene_door.html" title="Opens a new scene when the player enters the trigger." alt="" coords="190,171,384,197"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,130,273,168,269,172,221,134"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="131,5,240,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,47,188,80,183,80,183,47"/>
+</map>

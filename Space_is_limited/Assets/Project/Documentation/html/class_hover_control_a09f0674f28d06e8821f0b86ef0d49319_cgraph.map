@@ -1,0 +1,7 @@
+<map id="HoverControl.OnEnable" name="HoverControl.OnEnable">
+<area shape="rect" id="Node000001" title="Activates the movement when the component is activated." alt="" coords="5,31,161,57"/>
+<area shape="rect" id="Node000002" href="$class_hover_control.html#aa6b21ff6af65ce5111e9c33c50152508" title="Moves the object sideways by setting the speed for the FixedUpdate." alt="" coords="209,5,390,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,32,193,28,194,34,161,38"/>
+<area shape="rect" id="Node000003" href="$class_hover_control.html#a7d9dc55af862303a1aa5f351a23dcd29" title="Moves the object up or down By setting the speed for the FixedUpdate." alt="" coords="215,56,384,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,50,201,55,200,60,161,56"/>
+</map>

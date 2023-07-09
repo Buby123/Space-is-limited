@@ -1,0 +1,5 @@
+<map id="Project.SceneManagement.SceneInfo" name="Project.SceneManagement.SceneInfo">
+<area shape="rect" id="Node000001" title="Gives the Ingame Manager infos about the position of the player Helps to create a dynamic loading of ..." alt="" coords="5,80,188,123"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="42,5,151,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,47,99,80,94,80,94,47"/>
+</map>

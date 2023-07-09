@@ -1,0 +1,5 @@
+<map id="Project.Player.PlayerController" name="Project.Player.PlayerController">
+<area shape="rect" id="Node000001" title="Controls the Movement of the player." alt="" coords="5,80,205,107"/>
+<area shape="rect" id="Node000002" href="$class_singleton.html" title=" " alt="" coords="9,5,201,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,47,108,80,102,80,102,47"/>
+</map>

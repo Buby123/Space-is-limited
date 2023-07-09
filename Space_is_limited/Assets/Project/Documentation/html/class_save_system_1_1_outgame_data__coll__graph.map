@@ -1,0 +1,5 @@
+<map id="SaveSystem.OutgameData&lt; T &gt;" name="SaveSystem.OutgameData&lt; T &gt;">
+<area shape="rect" id="Node000001" title="This class is used to save and load data from the scene This data is consistent for each game." alt="" coords="5,80,215,107"/>
+<area shape="rect" id="Node000002" href="$interface_save_system_1_1_i_data_persistence.html" title="This interface is used to save and load data." alt="" coords="50,5,170,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,47,113,80,107,80,107,47"/>
+</map>

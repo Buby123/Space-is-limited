@@ -1,0 +1,7 @@
+<map id="HoverControl.MoveUpside" name="HoverControl.MoveUpside">
+<area shape="rect" id="Node000001" title="Moves the object up or down By setting the speed for the FixedUpdate." alt="" coords="212,31,380,57"/>
+<area shape="rect" id="Node000002" href="$class_hover_control.html#a05a792a52ff3d8843be0ca67407bc361" title="Deactivates the movement when the component is deactivated." alt="" coords="5,5,164,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,35,164,31,165,26,197,30"/>
+<area shape="rect" id="Node000003" href="$class_hover_control.html#a09f0674f28d06e8821f0b86ef0d49319" title="Activates the movement when the component is activated." alt="" coords="7,56,162,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,58,163,63,162,57,197,53"/>
+</map>
